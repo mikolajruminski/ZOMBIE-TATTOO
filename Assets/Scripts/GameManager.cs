@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public event EventHandler gameIsActive;
+    public event EventHandler onKill;
     [SerializeField] private GameObject gamePlayer, preGamePlayer;
     private bool isGameActive = false;
     [SerializeField] private GameObject[] spawners;
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] int maxEnemies = 5;
 
     private GunSystem activeGun;
+    private int quantityOfKillsToWin = 5;
 
     private void Awake()
     {
@@ -57,6 +59,7 @@ public class GameManager : MonoBehaviour
         if (isGameActive)
         {
             InvokeRepeating("SpawnEnemies", 2, enemyRespawnRate);
+
         }
     }
 
@@ -79,6 +82,36 @@ public class GameManager : MonoBehaviour
     public GunSystem GetActiveGun()
     {
         return activeGun;
+    }
+
+
+    public void AddEnemyKills()
+    {
+
+        quantityOfKillsToWin--;
+        onKill?.Invoke(this, EventArgs.Empty);
+
+        if (quantityOfKillsToWin < 1)
+        {
+            YouWin();
+        }
+    }
+
+    private void YouWin()
+    {
+        CancelInvoke("SpawnEnemies");
+
+        EnemyAI[] enemies = GameObject.FindObjectsOfType<EnemyAI>();
+
+        foreach (EnemyAI enemy in enemies)
+        {
+            Destroy(enemy.gameObject);
+        }
+    }
+
+    public int ReturnNumberOfKillsLeft()
+    {
+        return quantityOfKillsToWin;
     }
 
 }

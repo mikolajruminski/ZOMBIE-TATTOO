@@ -12,6 +12,7 @@ public class EnemyScript : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
+            GameManager.Instance.AddEnemyKills();
             Destroy(gameObject);
         }
     }
