@@ -11,6 +11,7 @@ public class FotelHealthScript : MonoBehaviour
 
     private void Awake()
     {
+        
         onHealthChanged?.Invoke(this, EventArgs.Empty);
         Instance = this;
     }

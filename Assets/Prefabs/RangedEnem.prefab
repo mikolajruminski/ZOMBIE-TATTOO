@@ -98,9 +98,9 @@ GameObject:
   - component: {fileID: 4835759635898816666}
   - component: {fileID: 454735248}
   - component: {fileID: 454735249}
-  - component: {fileID: 4358899590705530886}
+  - component: {fileID: 2537804301656192669}
   m_Layer: 6
-  m_Name: Enemy
+  m_Name: RangedEnem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -199,7 +199,7 @@ Animator:
   m_GameObject: {fileID: 4835759635898816642}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e12b26d3db3a74e4080206d7a348b039, type: 2}
+  m_Controller: {fileID: 9100000, guid: b01c63cb7701dc64aa6e0f9127df5031, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeed73d9ca306264d8ce639349c8c565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4358899590705530886
+--- !u!114 &2537804301656192669
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -231,11 +231,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4835759635898816642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e572d312989c164c9b56c9ebba35b38, type: 3}
+  m_Script: {fileID: 11500000, guid: 8198358fd057c674aaf3d8fd77538bde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   afterAttackCooldown: 4
   damage: 1
+  bulletPrefab: {fileID: 381769108756118211, guid: defee8b8fa216aa4a857167589d14ef8,
+    type: 3}
 --- !u!1 &5410591273976766135
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
+using Unity.Mathematics;
 
 public class PlayerController : MonoBehaviour
 {
+    public event EventHandler onInteract;
     public static PlayerController Instance { get; private set; }
     private Rigidbody rb;
     #region  Camera
@@ -14,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public bool cameraCanMove = true;
     public float mouseSensitivity = 2f;
     public float maxLookAngle = 50f;
+    public float maxYawAngle = 50;
+    public float gameMaxLookAngle = 30f;
 
     // Crosshair
     public bool lockCursor = true;
@@ -55,15 +60,9 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
 
-        else
-        {
-            Instance = this;
-        }
+        Instance = this;
+
 
         rb = GetComponent<Rigidbody>();
 
@@ -99,8 +98,16 @@ public class PlayerController : MonoBehaviour
             }
 
             // Clamp pitch between lookAngle
-            pitch = Mathf.Clamp(pitch, -maxLookAngle, maxLookAngle);
+            if (GameManager.Instance.IsGameActive())
+            {
+                pitch = Mathf.Clamp(pitch, -gameMaxLookAngle, gameMaxLookAngle);
+                yaw = Mathf.Clamp(yaw, 200f, 330f);
 
+            }
+            else
+            {
+                pitch = Mathf.Clamp(pitch, -maxLookAngle, maxLookAngle);
+            }
             transform.localEulerAngles = new Vector3(0, yaw, 0);
             playerCamera.transform.localEulerAngles = new Vector3(pitch, 0, 0);
         }
@@ -199,11 +206,14 @@ public class PlayerController : MonoBehaviour
 
             if (rayhit.collider.TryGetComponent(out useable) && Input.GetKeyDown(KeyCode.F))
             {
+                onInteract?.Invoke(this, EventArgs.Empty);
                 useable.Interact();
             }
 
         }
     }
+
+
 
 }
 

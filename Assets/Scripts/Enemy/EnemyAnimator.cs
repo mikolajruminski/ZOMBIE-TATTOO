@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class EnemyAnimator : MonoBehaviour
 {
-    private EnemyAI enemyAiScript;
+    private BaseEnemyAI enemyAiScript;
     private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-        enemyAiScript = GetComponent<EnemyAI>();
+        enemyAiScript = GetComponent<BaseEnemyAI>();
         enemyAiScript.OnAttackPerformed += OnAttackPerformed;
     }
 

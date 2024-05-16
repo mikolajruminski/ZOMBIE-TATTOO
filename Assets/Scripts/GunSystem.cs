@@ -24,6 +24,7 @@ public class GunSystem : MonoBehaviour
     [SerializeField] private GameObject muzzleFlash, bulletHoleGraphics;
     [SerializeField] private TrailRenderer bulletTrail;
     private Vector3 mousePos;
+    public Transform _rightHandPos, _leftHandPos;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +37,6 @@ public class GunSystem : MonoBehaviour
     void Update()
     {
         MyInput();
-        transform.LookAt(GetMousePos());
     }
 
     private void MyInput()
@@ -80,17 +80,18 @@ public class GunSystem : MonoBehaviour
         readyToShot = false;
 
         //spread
-        float x = Random.Range(3 * -spread, 3 * spread);
+        float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);
 
-        // Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, 0);
 
 
-        Debug.DrawRay(fpsCam.transform.position, GetMousePos() + new Vector3(x, y, 0), Color.red, 10f);
+        Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, 0);
+        Debug.DrawRay(fpsCam.transform.position, direction * range, Color.red, 10f);
 
 
-        if (Physics.Raycast(fpsCam.transform.position, GetMousePos() + new Vector3(x, y, 0), out rayHit, range))
+        if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range))
         {
+            Debug.Log(rayHit.collider.gameObject.name);
             TrailRenderer trail = Instantiate(bulletTrail, shotPoint.position, Quaternion.identity);
 
             StartCoroutine(SpawnTrail(trail, rayHit));
@@ -137,14 +138,27 @@ public class GunSystem : MonoBehaviour
         Destroy(Trail.gameObject, Trail.time);
     }
 
-    private Vector3 GetMousePos()
-    {
-        mousePos = Input.mousePosition;
-        mousePos += fpsCam.transform.right * 5000;
-        Vector3 aim = fpsCam.ScreenToWorldPoint(mousePos);
+    /*
+        private Vector3 GetMousePos()
+        {
+            Vector3 aim;
+            if (GameCameraScript.Instance.ReturnIsLookingFront())
+            {
+                mousePos = Input.mousePosition;
+                mousePos += fpsCam.transform.right * 5000;
+                aim = fpsCam.ScreenToWorldPoint(mousePos);
+            }
+            else
+            {
+                mousePos = Input.mousePosition;
+                mousePos += fpsCam.transform.right * -5000;
+                aim = fpsCam.ScreenToWorldPoint(mousePos);
+            }
 
-        return aim;
-    }
+
+            return aim;
+        }
+        */
 
     public float ReturnMagazineSize()
     {
@@ -155,6 +169,7 @@ public class GunSystem : MonoBehaviour
     {
         return bulletsLeft;
     }
+    
 
 
 }
