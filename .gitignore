@@ -70,3 +70,52 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/Animator/Arms/armsFBS.fbx.meta
+Assets/Animator/Arms/armsFBS.fbx
+Assets/Animator/Arms/ArmsIdle.anim
+Assets/Animator/Arms/ArmsIdle.anim.meta
+Assets/Animator/Arms/Ch35_1001_Diffuse.png
+Assets/Animator/Arms/Ch35_1001_Diffuse.png.meta
+Assets/Animator/Arms/Ch35_1001_Glossiness.png
+Assets/Animator/Arms/Ch35_1001_Glossiness.png.meta
+Assets/Animator/Arms/Ch35_1001_Normal.png
+Assets/Animator/Arms/Ch35_1001_Normal.png.meta
+Assets/Animator/Arms/Ch35_1001_Specular.png
+Assets/Animator/Arms/Ch35_1001_Specular.png.meta
+Assets/Animator/Arms/Ch35_1002_Diffuse.png
+Assets/Animator/Arms/Ch35_1002_Diffuse.png.meta
+Assets/Animator/Arms/Ch35_1002_Glossiness.png
+Assets/Animator/Arms/Ch35_1002_Glossiness.png.meta
+Assets/Animator/Arms/Ch35_1002_Normal.png
+Assets/Animator/Arms/Ch35_1002_Normal.png.meta
+Assets/Animator/Arms/Ch35_1002_Specular.png
+Assets/Animator/Arms/Ch35_1002_Specular.png.meta
+Assets/Animator/Arms/Ch35_1003_Diffuse.png
+Assets/Animator/Arms/Ch35_1003_Diffuse.png.meta
+Assets/Animator/Arms/Ch35_1003_Glossiness.png
+Assets/Animator/Arms/Ch35_1003_Glossiness.png.meta
+Assets/Animator/Arms/Ch35_1003_Normal.png
+Assets/Animator/Arms/Ch35_1003_Normal.png.meta
+Assets/Animator/Arms/Ch35_1003_Specular.png
+Assets/Animator/Arms/Ch35_1003_Specular.png.meta
+Assets/Animator/Arms/Ch35_body.mat
+Assets/Animator/Arms/Ch35_body.mat.meta
+Assets/Animator/Arms/Ch35_body1.mat
+Assets/Animator/Arms/Ch35_body1.mat.meta
+Assets/Animator/Arms/Ch35_body2.mat
+Assets/Animator/Arms/Ch35_body2.mat.meta
+Assets/Animator/Arms/Ch35_nonPBR.fbx
+Assets/Animator/Arms/Ch35_nonPBR.fbx.meta
+Assets/BlenderImports/PISTOL_1_UV.fbx
+Assets/BlenderImports/shotgun.fbx
+Assets/Animator/FPS_PICKUP_R.anim.meta
+Assets/Animator/FPS_PICKUP_R.anim
+Assets/Animator/FPS_PICKUP_L.anim.meta
+Assets/Animator/FPS_PICKUP_L.anim
+Assets/Animator/FPS HANDS TEX.controller.meta
+Assets/Materials/tex/FPS_ARMS_128.png
+Assets/Materials/tex/FPS_ARMS_128.png.meta
+Assets/Materials/tex/REVOLVER TEXTURE.png
+Assets/Materials/tex/REVOLVER TEXTURE.png.meta
+Assets/Prefabs/FPS HANDS TEX.fbx
+Assets/Prefabs/FPS HANDS TEX.fbx.meta

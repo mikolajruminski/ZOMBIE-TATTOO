@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using UnityEngine.AI;
-public class MeeleEnemyScript : BaseEnemyAI
+
+public class BossEnemyScript : BaseEnemyAI
 {
-    // Start is called before the first frame update
+
+    [SerializeField] private GameObject WeakPoint;
+
     private void Awake()
     {
         nav = GetComponent<NavMeshAgent>();
         enemyScript = GetComponent<EnemyScript>();
     }
+
     void Start()
     {
         nav.speed = enemyScript.GetSpeed();
@@ -19,10 +22,8 @@ public class MeeleEnemyScript : BaseEnemyAI
         SetInitialCoordinates();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        transform.LookAt(nav.destination);
         /*
                 if (GameManager.Instance.IsGameActive())
                 {
@@ -88,4 +89,13 @@ public class MeeleEnemyScript : BaseEnemyAI
             }
         }
     }
+
+    public void NewWeakPoint()
+    {
+        Transform[] colliders = GetComponentsInChildren<Transform>();
+        int x = Random.Range(0, colliders.Length);
+
+        WeakPoint.transform.position = new Vector3(WeakPoint.transform.position.x, colliders[x].transform.position.y, colliders[x].transform.position.z);
+    }
+
 }

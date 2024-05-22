@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int baseQuantityOfKillsToWin = 15;
 
     private int maxEnemies;
+    private int maxMeleeEnemies;
     private int quantityOfKillsToWin;
 
     private float enemyRespawnRate;
@@ -88,13 +89,33 @@ public class GameManager : MonoBehaviour
 
     private void SpawnEnemies()
     {
-        BaseEnemyAI[] enemies = GameObject.FindObjectsOfType<BaseEnemyAI>();
-        enemiesLeft = enemies.Length;
+        BossEnemyScript[] meeleEnemies = GameObject.FindObjectsOfType<BossEnemyScript>();
+        enemiesLeft = meeleEnemies.Length;
 
-        if (enemies.Length < maxEnemies && enemies.Length < quantityOfKillsToWin)
+        maxMeleeEnemies = maxEnemies - rangedSpawners.Length;
+
+        if (meeleEnemies.Length < maxMeleeEnemies && meeleEnemies.Length < quantityOfKillsToWin && meeleEnemyPrefab != null)
+        {
+            int x = UnityEngine.Random.Range(0, meeleSpawners.Length);
+            Instantiate(meeleEnemyPrefab, meeleSpawners[x].transform.position, Quaternion.identity);
+        }
+
+        RangedEnemy[] rangedEnemies = GameObject.FindObjectsOfType<RangedEnemy>();
+
+        if (rangedEnemies.Length < rangedSpawners.Length && rangedEnemies.Length < quantityOfKillsToWin && rangedEnemyPrefab != null)
         {
             int x = UnityEngine.Random.Range(0, rangedSpawners.Length);
-            Instantiate(rangedEnemyPrefab, rangedSpawners[x].transform.position, Quaternion.identity);
+
+            if (rangedSpawners[x].gameObject.GetComponent<SpawnerScript>().spawnedEnemy != null)
+            {
+                return;
+            }
+            else
+            {
+                GameObject spawnedEnemy = Instantiate(rangedEnemyPrefab, rangedSpawners[x].transform.position, Quaternion.identity);
+                rangedSpawners[x].gameObject.GetComponent<SpawnerScript>().spawnedEnemy = spawnedEnemy.GetComponent<RangedEnemy>();
+            }
+
         }
     }
 

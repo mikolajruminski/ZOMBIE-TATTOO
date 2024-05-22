@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     public float maxLookAngle = 50f;
     public float maxYawAngle = 50;
     public float gameMaxLookAngle = 30f;
+    private bool isCameraFacingFront;
+    private float maxYaw = 320f, minYaw = 200f;
 
     // Crosshair
     public bool lockCursor = true;
@@ -76,6 +78,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         interactText.gameObject.SetActive(false);
+        isCameraFacingFront = true;
 
     }
 
@@ -101,7 +104,7 @@ public class PlayerController : MonoBehaviour
             if (GameManager.Instance.IsGameActive())
             {
                 pitch = Mathf.Clamp(pitch, -gameMaxLookAngle, gameMaxLookAngle);
-                yaw = Mathf.Clamp(yaw, 200f, 330f);
+                yaw = Mathf.Clamp(yaw, minYaw, maxYaw);
 
             }
             else
@@ -210,6 +213,22 @@ public class PlayerController : MonoBehaviour
                 useable.Interact();
             }
 
+        }
+    }
+
+    public void ChangeCameraClamp()
+    {
+        if (isCameraFacingFront)
+        {
+            minYaw = 30f;
+            maxYaw = 150f;
+            isCameraFacingFront = !isCameraFacingFront;
+        }
+        else
+        {
+            maxYaw = 320f;
+            minYaw = 200f;
+            isCameraFacingFront = !isCameraFacingFront;
         }
     }
 

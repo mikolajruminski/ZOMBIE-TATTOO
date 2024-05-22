@@ -43,14 +43,12 @@ public class RangedEnemy : BaseEnemyAI
 
     protected override void Attack()
     {
-        Debug.Log("ranged attack");
         CallAttackEvent();
     }
 
     public void RangedAttack()
     {
         Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-        Debug.Log("instantiated ranged attack");
     }
 
     private void TargetInRange()

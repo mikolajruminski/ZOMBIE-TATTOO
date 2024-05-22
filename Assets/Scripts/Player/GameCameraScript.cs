@@ -21,7 +21,7 @@ public class GameCameraScript : MonoBehaviour
         {
             Instance = this;
         }
-        
+
         gameObject.GetComponent<PlayerController>().enabled = true;
     }
 
@@ -39,15 +39,15 @@ public class GameCameraScript : MonoBehaviour
 
             if (isLookingFront)
             {
-                Debug.Log("turnign back");
                 onLookBack?.Invoke(this, EventArgs.Empty);
                 isLookingFront = !isLookingFront;
+                PlayerController.Instance.ChangeCameraClamp();
             }
             else
             {
-                Debug.Log("turnign front");
                 onLookFront?.Invoke(this, EventArgs.Empty);
                 isLookingFront = !isLookingFront;
+                PlayerController.Instance.ChangeCameraClamp();
             }
         }
     }
