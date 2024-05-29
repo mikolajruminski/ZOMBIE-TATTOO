@@ -1,36 +1,27 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WeaponManagerScript : MonoBehaviour
 {
     public static WeaponManagerScript Instance { get; private set; }
     [SerializeField] private GunSystem[] guns;
+    public event EventHandler onGunChanged;
+    private List<KeyCode> keys = new List<KeyCode>();
 
-    private bool isStartingWeaponChosen = false;
     private void Awake()
     {
         Instance = this;
     }
 
-    public void SetStartingWeapon(AllGuns allGuns)
+    private void Start()
     {
-        isStartingWeaponChosen = true;
-        for (int i = 0; i < guns.Length; i++)
+        foreach (GunSystem gun in guns)
         {
-            if (guns[i].gunType == allGuns)
-            {
-                guns[i].gameObject.SetActive(true);
-                GameManager.Instance.SetActiveGun(guns[i]);
-            }
-            else
-            {
-                guns[i].gameObject.SetActive(false);
-            }
+            keys.Add(gun.weaponKey);
         }
-
-
     }
 
     public enum AllGuns
@@ -38,9 +29,46 @@ public class WeaponManagerScript : MonoBehaviour
         Pistol, Shotgun
     }
 
-    public bool IsStartingWeaponChosen()
+    public void Update()
     {
-        return isStartingWeaponChosen;
+        ChangeWeapon();
     }
+
+    public void ChangeWeapon()
+    {
+        foreach (KeyCode key in keys)
+        {
+            if (Input.GetKeyDown(key))
+            {
+                foreach (GunSystem gun in guns)
+                {
+                    if (gun.weaponKey == key)
+                    {
+                        gun.gameObject.SetActive(true);
+                        GameManager.Instance.SetActiveGun(gun);
+                        onGunChanged?.Invoke(this, EventArgs.Empty);
+                    }
+                    else
+                    {
+                        gun.gameObject.SetActive(false);
+                    }
+                }
+            }
+        }
+
+    }
+
+
+    public void SetStartingWeapon()
+    {
+        foreach (GunSystem gun in guns)
+        {
+            if (gun.gameObject.activeInHierarchy)
+            {
+                GameManager.Instance.SetActiveGun(gun);
+            }
+        }
+    }
+
 
 }

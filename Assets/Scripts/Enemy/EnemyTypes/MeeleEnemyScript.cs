@@ -84,7 +84,7 @@ public class MeeleEnemyScript : BaseEnemyAI
                 nav.isStopped = true;
                 isAttacking = true;
                 InvokeRepeating("Attack", 1, afterAttackCooldown);
-                GetComponent<Rigidbody>().isKinematic = true;
+                
             }
         }
     }

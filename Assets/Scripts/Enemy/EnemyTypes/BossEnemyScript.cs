@@ -57,7 +57,6 @@ public class BossEnemyScript : BaseEnemyAI
 
     protected override void Attack()
     {
-        Debug.Log("meele attack");
         CallAttackEvent();
     }
 

@@ -8,6 +8,7 @@ using Unity.Mathematics;
 public class PlayerController : MonoBehaviour
 {
     public event EventHandler onInteract;
+    public event EventHandler onSpecialAttack;
     public static PlayerController Instance { get; private set; }
     private Rigidbody rb;
     #region  Camera
@@ -56,6 +57,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 originalScale;
     [SerializeField] private float interactDistance = 30f;
     [SerializeField] private TextMeshProUGUI interactText;
+    #endregion  
+
+    #region SpecialMove
+
+    [SerializeField] private KeyCode specialActivationKey = KeyCode.CapsLock;
 
     #endregion
 
@@ -135,6 +141,7 @@ public class PlayerController : MonoBehaviour
         }
 
         Interact();
+        SpecialMove();
     }
 
     private void FixedUpdate()
@@ -216,6 +223,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void SpecialMove()
+    {
+        if (Input.GetKeyDown(specialActivationKey) && SpecialMeter.Instance.ReturnCanActivateSpecial())
+        {
+            Debug.Log("SPECIAL MODE ACTIVATED. I GUESS");
+            SpecialMeter.Instance.ResetSpecialMeter();
+            onSpecialAttack?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
     public void ChangeCameraClamp()
     {
         if (isCameraFacingFront)
@@ -231,6 +248,8 @@ public class PlayerController : MonoBehaviour
             isCameraFacingFront = !isCameraFacingFront;
         }
     }
+
+
 
 
 

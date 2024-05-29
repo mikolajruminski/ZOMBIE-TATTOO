@@ -14,6 +14,7 @@ public class BaseEnemyAI : MonoBehaviour
     protected bool isAttacking = false;
     [SerializeField] protected float afterAttackCooldown = 4f;
     [SerializeField] protected int damage = 1;
+    [SerializeField] protected float pointValue;
     protected bool destinationSet = false;
     protected float spread;
     // Start is called before the first frame update
@@ -56,5 +57,10 @@ public class BaseEnemyAI : MonoBehaviour
     protected void CallAttackEvent()
     {
         OnAttackPerformed?.Invoke(this, EventArgs.Empty);
+    }
+
+    public float GetPointValue() 
+    {
+        return pointValue;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,12 @@ public class HandsOnGunScript : MonoBehaviour
         twoBoneIKConstraint = GetComponent<TwoBoneIKConstraint>();
     }
     void Start()
+    {
+        WeaponManagerScript.Instance.onGunChanged += OnGunChanged;
+        SetHandsOnGun();
+    }
+
+    private void OnGunChanged(object sender, EventArgs e)
     {
         SetHandsOnGun();
     }

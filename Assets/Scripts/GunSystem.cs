@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 public class GunSystem : MonoBehaviour
 {
     [SerializeField] public WeaponManagerScript.AllGuns gunType;
+    [SerializeField] public KeyCode weaponKey;
     [SerializeField] private int damage;
     [SerializeField] private float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
     [SerializeField] private int magazineSize, bulletsPerTap;
@@ -37,6 +38,7 @@ public class GunSystem : MonoBehaviour
     void Update()
     {
         MyInput();
+
     }
 
     private void MyInput()
@@ -91,7 +93,6 @@ public class GunSystem : MonoBehaviour
 
         if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range))
         {
-            Debug.Log(rayHit.collider.gameObject.name);
             TrailRenderer trail = Instantiate(bulletTrail, shotPoint.position, Quaternion.identity);
 
             StartCoroutine(SpawnTrail(trail, rayHit));
@@ -169,7 +170,5 @@ public class GunSystem : MonoBehaviour
     {
         return bulletsLeft;
     }
-    
-
 
 }

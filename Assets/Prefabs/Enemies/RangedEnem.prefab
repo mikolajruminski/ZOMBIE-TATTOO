@@ -236,6 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   afterAttackCooldown: 4
   damage: 1
+  pointValue: 5
   bulletPrefab: {fileID: 381769108756118211, guid: defee8b8fa216aa4a857167589d14ef8,
     type: 3}
 --- !u!1 &5410591273976766135

@@ -40,21 +40,16 @@ public class GameManager : MonoBehaviour
     }
     public void SwitchGameMode()
     {
-        if (WeaponManagerScript.Instance.IsStartingWeaponChosen())
-        {
-            StartGame();
-        }
-        else
-        {
-            Debug.Log("pick starting weapon!");
-        }
-
+        StartGame();
     }
 
     private void StartGame()
     {
         preGamePlayer.SetActive(false);
         gamePlayer.SetActive(true);
+
+        WeaponManagerScript.Instance.SetStartingWeapon();
+        
         isGameActive = true;
 
         maxEnemies = baseMaxEnemies;
@@ -89,7 +84,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawnEnemies()
     {
-        BossEnemyScript[] meeleEnemies = GameObject.FindObjectsOfType<BossEnemyScript>();
+        MeeleEnemyScript[] meeleEnemies = GameObject.FindObjectsOfType<MeeleEnemyScript>();
         enemiesLeft = meeleEnemies.Length;
 
         maxMeleeEnemies = maxEnemies - rangedSpawners.Length;

@@ -412,6 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13715a2fe5921014d9c9b33432fff777, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _baseWeakPointHealth: 3
 --- !u!65 &1678140698200674650
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -475,7 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c5a9e36328a2041abe074146dce7ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 40
+  health: 60
   speed: 2
 --- !u!195 &4835759635898816668
 NavMeshAgent:
@@ -562,6 +563,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   afterAttackCooldown: 4
   damage: 1
+  pointValue: 15
   WeakPoint: {fileID: 4815387315472248860}
 --- !u!1 &5410591273976766135
 GameObject:
@@ -719,7 +721,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
