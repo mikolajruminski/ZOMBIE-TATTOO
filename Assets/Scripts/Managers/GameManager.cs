@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public event EventHandler gameIsActive;
     public event EventHandler onKill;
     public event EventHandler onRoundChage;
+    public event EventHandler onShopOpened;
     [SerializeField] private GameObject gamePlayer, preGamePlayer;
     private bool isGameActive = false;
     [SerializeField] private GameObject[] meeleSpawners, rangedSpawners;
@@ -49,7 +50,7 @@ public class GameManager : MonoBehaviour
         gamePlayer.SetActive(true);
 
         WeaponManagerScript.Instance.SetStartingWeapon();
-        
+
         isGameActive = true;
 
         maxEnemies = baseMaxEnemies;
@@ -173,6 +174,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator waitBetweenRounds()
     {
+        OpenShop();
+
         Debug.Log("break time");
         float x = 0;
         while (x < timeBetweenRounds)
@@ -202,6 +205,10 @@ public class GameManager : MonoBehaviour
         return roundCount;
     }
 
+    public void OpenShop()
+    {
+        onShopOpened?.Invoke(this, EventArgs.Empty);
 
+    }
 
 }

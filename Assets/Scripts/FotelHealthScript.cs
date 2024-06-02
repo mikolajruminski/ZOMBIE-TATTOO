@@ -8,18 +8,23 @@ public class FotelHealthScript : MonoBehaviour
     public event EventHandler onHealthChanged;
     public static FotelHealthScript Instance { get; private set; }
     [SerializeField] private float health;
+    private float maxHealth;
 
     private void Awake()
     {
-        
+        maxHealth = health;
         onHealthChanged?.Invoke(this, EventArgs.Empty);
         Instance = this;
+    }
+
+    private void Start()
+    {
+        Mathf.Clamp(health, -1, maxHealth);
     }
 
 
     public void TakeDamage(int damage)
     {
-        Debug.Log(health);
         health -= damage;
         onHealthChanged?.Invoke(this, EventArgs.Empty);
 
@@ -37,5 +42,11 @@ public class FotelHealthScript : MonoBehaviour
     public float ReturnFotelHealth()
     {
         return health;
+    }
+
+    public void HealPlayer(int amount)
+    {
+        health += amount;
+        onHealthChanged?.Invoke(this, EventArgs.Empty);
     }
 }

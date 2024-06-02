@@ -17,6 +17,7 @@ public class BaseEnemyAI : MonoBehaviour
     [SerializeField] protected float pointValue;
     protected bool destinationSet = false;
     protected float spread;
+    [SerializeField] protected int goldValue;
     // Start is called before the first frame update
 
     private void Awake()
@@ -62,5 +63,10 @@ public class BaseEnemyAI : MonoBehaviour
     public float GetPointValue() 
     {
         return pointValue;
+    }
+
+    public int GetGoldValue() 
+    {
+        return goldValue;
     }
 }

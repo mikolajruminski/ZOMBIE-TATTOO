@@ -13,6 +13,7 @@ public class EnemyScript : MonoBehaviour, IDamageable
         if (health <= 0)
         {
             GameManager.Instance.AddEnemyKills();
+            MoneyManager.Instance.AddMoney(GetComponent<BaseEnemyAI>().GetGoldValue());
             SpecialMeter.Instance.FillSpecialMeter(GetComponent<BaseEnemyAI>().GetPointValue());
             Destroy(gameObject);
         }

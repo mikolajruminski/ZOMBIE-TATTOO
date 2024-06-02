@@ -564,6 +564,7 @@ MonoBehaviour:
   afterAttackCooldown: 4
   damage: 1
   pointValue: 15
+  goldValue: 5
   WeakPoint: {fileID: 4815387315472248860}
 --- !u!1 &5410591273976766135
 GameObject:

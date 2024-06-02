@@ -237,6 +237,7 @@ MonoBehaviour:
   afterAttackCooldown: 4
   damage: 1
   pointValue: 2.5
+  goldValue: 1
 --- !u!1 &5410591273976766135
 GameObject:
   m_ObjectHideFlags: 0
