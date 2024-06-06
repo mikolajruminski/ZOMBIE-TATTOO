@@ -39,10 +39,9 @@ public class HandsOnGunScript : MonoBehaviour
 
             rigBuilder.Build();
         }
-        else if (gameObject.tag == "Left")
+        else
         {
-            twoBoneIKConstraint.data.target = GameManager.Instance.GetActiveGun()._leftHandPos;
-            rigBuilder.Build();
+            return;
         }
 
     }

@@ -9,6 +9,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI ammoText;
     [SerializeField] private TextMeshProUGUI currentHP;
     [SerializeField] private TextMeshProUGUI enemyKillCount;
+    [SerializeField] private TextMeshProUGUI timeBetweenRoundsText;
     [SerializeField] private TextMeshProUGUI currentRound;
     [SerializeField] private TextMeshProUGUI playerGold;
     [SerializeField] private GameObject shopUI;
@@ -28,7 +29,7 @@ public class PlayerUI : MonoBehaviour
 
     private void GameManager_Instance_OnShopOpened(object sender, EventArgs e)
     {
-        shopUI.gameObject.SetActive(true);
+        shopUI.gameObject.SetActive(!shopUI.gameObject.activeInHierarchy);
     }
 
     private void MoneyManager_Instance_onMoneyChanged(object sender, EventArgs e)
@@ -62,6 +63,7 @@ public class PlayerUI : MonoBehaviour
     private void Update()
     {
         UpdateAmmoStats();
+        UpdateBreakTimer();
     }
 
     private void UpdateAmmoStats()
@@ -71,7 +73,19 @@ public class PlayerUI : MonoBehaviour
             ammoText.text = GameManager.Instance.GetActiveGun().ReturnMagazineSize() + "/" +
             GameManager.Instance.GetActiveGun().ReturnCurrentAmmo();
         }
+    }
 
+    private void UpdateBreakTimer()
+    {
+        if (GameManager.Instance.ReturnIsBreak())
+        {
+            timeBetweenRoundsText.gameObject.SetActive(true);
+            timeBetweenRoundsText.text = "Break Time: " + (int)GameManager.Instance.ReturnBreakTimer();
+        } else 
+        {
+            timeBetweenRoundsText.gameObject.SetActive(false);
+            shopUI.gameObject.SetActive(false);
+        }
     }
 
 }

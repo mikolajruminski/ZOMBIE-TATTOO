@@ -32,7 +32,9 @@ public class GameManager : MonoBehaviour
 
     private GunSystem activeGun;
 
-    [SerializeField] private int timeBetweenRounds = 5;
+    [SerializeField] private int timeBetweenRounds = 10;
+    private bool isBreak = false;
+    private float timePassedInBreak;
 
     private void Awake()
     {
@@ -62,6 +64,11 @@ public class GameManager : MonoBehaviour
 
         gameIsActive?.Invoke(this, EventArgs.Empty);
         IncreaseRound();
+    }
+
+    private void Update()
+    {
+        OpenShop();
     }
 
     public void GameOver()
@@ -174,14 +181,12 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator waitBetweenRounds()
     {
-        OpenShop();
+        isBreak = true;
 
-        Debug.Log("break time");
-        float x = 0;
-        while (x < timeBetweenRounds)
+        timePassedInBreak = 0;
+        while (timePassedInBreak < timeBetweenRounds)
         {
-            x += Time.deltaTime;
-            Debug.Log(x);
+            timePassedInBreak += Time.deltaTime;
 
             yield return null;
         }
@@ -191,6 +196,8 @@ public class GameManager : MonoBehaviour
 
     private void StartNewRound()
     {
+        isBreak = false;
+
         IncreaseRound();
         quantityOfKillsToWin = roundCount * baseQuantityOfKillsToWin;
         maxEnemies = roundCount * baseMaxEnemies;
@@ -207,8 +214,30 @@ public class GameManager : MonoBehaviour
 
     public void OpenShop()
     {
-        onShopOpened?.Invoke(this, EventArgs.Empty);
+        if (isBreak)
+        {
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                onShopOpened?.Invoke(this, EventArgs.Empty);
+                PlayerController.Instance.SwitchCameraCanMove();
+            }
 
+            else
+            {
+                Debug.Log("cannot open shop during game!");
+            }
+        }
+
+    }
+
+    public float ReturnBreakTimer()
+    {
+        return timePassedInBreak;
+    }
+
+    public bool ReturnIsBreak()
+    {
+        return isBreak;
     }
 
 }

@@ -46,7 +46,15 @@ public class FotelHealthScript : MonoBehaviour
 
     public void HealPlayer(int amount)
     {
-        health += amount;
+        if (health + amount < maxHealth)
+        {
+            health += amount;
+        }
+        else
+        {
+            health = maxHealth;
+        }
+
         onHealthChanged?.Invoke(this, EventArgs.Empty);
     }
 }

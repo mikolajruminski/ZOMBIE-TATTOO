@@ -31,7 +31,6 @@ public class GunSystem : MonoBehaviour
     {
         readyToShot = true;
         bulletsLeft = magazineSize;
-        Cursor.lockState = CursorLockMode.Confined;
     }
 
     // Update is called once per frame
