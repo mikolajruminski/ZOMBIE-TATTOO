@@ -204,6 +204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 27014304}
   - component: {fileID: 27014305}
+  - component: {fileID: 27014306}
   m_Layer: 0
   m_Name: ShotgunPivot
   m_TagString: Untagged
@@ -266,6 +267,18 @@ MonoBehaviour:
     type: 3}
   _rightHandPos: {fileID: 172558068}
   _leftHandPos: {fileID: 1971174631}
+--- !u!114 &27014306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27014303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9d019e8df40ae44e8374f4583cd77d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &49300472
 GameObject:
   m_ObjectHideFlags: 0
@@ -3651,6 +3664,7 @@ GameObject:
   m_Component:
   - component: {fileID: 928256435}
   - component: {fileID: 928256436}
+  - component: {fileID: 928256437}
   m_Layer: 0
   m_Name: PistolPivot
   m_TagString: Untagged
@@ -3710,6 +3724,18 @@ MonoBehaviour:
     type: 3}
   _rightHandPos: {fileID: 1114698739}
   _leftHandPos: {fileID: 0}
+--- !u!114 &928256437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928256434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9d019e8df40ae44e8374f4583cd77d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &930581883
 GameObject:
   m_ObjectHideFlags: 0
@@ -9429,6 +9455,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 597af76f12b0c83458b8daa0ab11ab07, type: 2}
   - {fileID: 11400000, guid: f1221255e555a1f418023fe5146d416f, type: 2}
   - {fileID: 11400000, guid: 597af76f12b0c83458b8daa0ab11ab07, type: 2}
+  - {fileID: 11400000, guid: eacc3a451736de34787ffe6637d07c55, type: 2}
+  - {fileID: 11400000, guid: 140673195e7ce4247a3957d7a7cf9eaf, type: 2}
+  - {fileID: 11400000, guid: d298e9a1115eff14cb3b552e3c3da692, type: 2}
+  - {fileID: 11400000, guid: b1ace0b3ea1a7934da5b4c7cb5f215f7, type: 2}
 --- !u!1 &14325833359334727
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,10 +33,13 @@ public class InventoryManager : MonoBehaviour
                 Debug.Log("used: " + item.name);
                 break;
             case InventoryItem.ItemType.Upgrade:
-                playerInventory.Add(item);
+
+                WeaponManagerScript.Instance.GiveWeaponUpgrade(item);
+
                 Debug.Log("added: " + item.name);
                 break;
-
         }
     }
+
+
 }

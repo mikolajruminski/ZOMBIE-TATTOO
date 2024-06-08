@@ -198,6 +198,8 @@ public class GameManager : MonoBehaviour
     {
         isBreak = false;
 
+        PlayerController.Instance.SwitchCameraCanMove();
+
         IncreaseRound();
         quantityOfKillsToWin = roundCount * baseQuantityOfKillsToWin;
         maxEnemies = roundCount * baseMaxEnemies;

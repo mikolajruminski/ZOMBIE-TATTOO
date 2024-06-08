@@ -11,6 +11,7 @@ public class GunSystem : MonoBehaviour
     [SerializeField] public KeyCode weaponKey;
     [SerializeField] private int damage;
     [SerializeField] private float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
+    private List<float> upgradableStatistics = new List<float>();
     [SerializeField] private int magazineSize, bulletsPerTap;
     [SerializeField] private bool allowToHold;
     private int bulletsLeft, bulletsShot;
@@ -31,6 +32,7 @@ public class GunSystem : MonoBehaviour
     {
         readyToShot = true;
         bulletsLeft = magazineSize;
+        SetUpgradableParameters();
     }
 
     // Update is called once per frame
@@ -168,6 +170,27 @@ public class GunSystem : MonoBehaviour
     public float ReturnCurrentAmmo()
     {
         return bulletsLeft;
+    }
+
+    private void SetUpgradableParameters()
+    {
+        upgradableStatistics.Add(damage);
+        upgradableStatistics.Add(timeBetweenShooting);
+        upgradableStatistics.Add(reloadTime);
+        upgradableStatistics.Add(magazineSize);
+    }
+
+    public void UpgradeUpgradableParameters()
+    {
+        damage = (int)upgradableStatistics[0];
+        timeBetweenShooting = upgradableStatistics[1];
+        reloadTime = upgradableStatistics[2];
+        magazineSize = (int)upgradableStatistics[3];
+    }
+
+    public List<float> ReturnUpgradableParameters()
+    {
+        return upgradableStatistics;
     }
 
 }

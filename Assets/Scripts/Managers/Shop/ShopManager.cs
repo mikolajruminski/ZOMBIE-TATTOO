@@ -25,11 +25,4 @@ public class ShopManager : MonoBehaviour
 
     }
 
-
-
-
-    public enum ShopItems
-    {
-        Health_Pack, Ammo_Pack
-    }
 }

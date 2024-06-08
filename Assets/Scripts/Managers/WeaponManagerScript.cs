@@ -24,11 +24,6 @@ public class WeaponManagerScript : MonoBehaviour
         }
     }
 
-    public enum AllGuns
-    {
-        Pistol, Shotgun
-    }
-
     public void Update()
     {
         ChangeWeapon();
@@ -68,6 +63,28 @@ public class WeaponManagerScript : MonoBehaviour
                 GameManager.Instance.SetActiveGun(gun);
             }
         }
+    }
+
+    public void GiveWeaponUpgrade(InventoryItem item)
+    {
+        foreach (GunSystem gun in guns)
+        {
+            if (gun.gunType == item.weaponUpgradeSO.gunAffected)
+            {
+                gun.gameObject.GetComponent<WeaponUpgradeSystem>().AddWeaponUpgrades(item);
+            }
+        }
+    }
+
+
+    public enum AllGuns
+    {
+        Pistol, Shotgun
+    }
+
+    public enum AllWeaponUpgrades
+    {
+        MagazienSizeIncraese, FireRateIncrease, ReloadSpeedDecrease, DamageIncrease
     }
 
 

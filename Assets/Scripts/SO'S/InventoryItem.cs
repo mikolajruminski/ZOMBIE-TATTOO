@@ -7,7 +7,6 @@ using UnityEngine.UI;
 [CreateAssetMenu]
 public class InventoryItem : ScriptableObject, IConsumable
 {
-    public ShopManager.ShopItems ShopItem;
     public ItemType itemType;
     public ConsumableType consumableType;
     public Sprite sprite;
@@ -16,6 +15,8 @@ public class InventoryItem : ScriptableObject, IConsumable
 
     public int itemAmount;
     public string description;
+
+    public WeaponUpgradeSo weaponUpgradeSO;
 
 
     public void UseConsumable()
@@ -40,10 +41,5 @@ public class InventoryItem : ScriptableObject, IConsumable
     public enum ConsumableType
     {
         Ammo, Health
-    }
-
-    public enum WeaponUpgrade
-    {
-        AmmoExtend, RateOfFireExtend, DamageIncrease, ReloadSpeedDecrease
     }
 }

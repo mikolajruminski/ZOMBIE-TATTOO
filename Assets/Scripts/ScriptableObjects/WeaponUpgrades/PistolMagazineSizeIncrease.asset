@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d61c3053b61e9a4439388154147ff305, type: 3}
+  m_Name: PistolMagazineSizeIncrease
+  m_EditorClassIdentifier: 
+  itemType: 1
+  consumableType: 0
+  sprite: {fileID: 21300000, guid: 0a936ae5d70c6c14ab943882f62e0a7a, type: 3}
+  itemName: Pistol Magazine Increase
+  itemPrice: 0
+  itemAmount: 0
+  description: Bigger mag. More bullets. Is there any problem with that?
+  weaponUpgradeSO: {fileID: 11400000, guid: 60de15b3c65e2d24b94181f9002797da, type: 2}
