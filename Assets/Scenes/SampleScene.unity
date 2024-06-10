@@ -279,6 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9d019e8df40ae44e8374f4583cd77d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireDamageTicks: 4
 --- !u!1 &49300472
 GameObject:
   m_ObjectHideFlags: 0
@@ -3702,7 +3703,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunType: 0
   weaponKey: 257
-  damage: 5
+  damage: 3
   timeBetweenShooting: 0.5
   spread: 0.01
   range: 1021.3
@@ -3736,6 +3737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9d019e8df40ae44e8374f4583cd77d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireDamageTicks: 4
 --- !u!1 &930581883
 GameObject:
   m_ObjectHideFlags: 0
@@ -4315,8 +4317,9 @@ MonoBehaviour:
     type: 3}
   baseEnemyRespawnRate: 2
   baseMaxEnemies: 10
-  baseQuantityOfKillsToWin: 1
+  baseQuantityOfKillsToWin: 2
   timeBetweenRounds: 10
+  canPlayerDie: 0
 --- !u!4 &988499879
 Transform:
   m_ObjectHideFlags: 0
@@ -9459,6 +9462,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 140673195e7ce4247a3957d7a7cf9eaf, type: 2}
   - {fileID: 11400000, guid: d298e9a1115eff14cb3b552e3c3da692, type: 2}
   - {fileID: 11400000, guid: b1ace0b3ea1a7934da5b4c7cb5f215f7, type: 2}
+  - {fileID: 11400000, guid: 75159efcd0448134db04811acdb7228f, type: 2}
 --- !u!1 &14325833359334727
 GameObject:
   m_ObjectHideFlags: 0

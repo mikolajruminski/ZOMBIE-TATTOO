@@ -84,7 +84,7 @@ public class WeaponManagerScript : MonoBehaviour
 
     public enum AllWeaponUpgrades
     {
-        MagazienSizeIncraese, FireRateIncrease, ReloadSpeedDecrease, DamageIncrease
+        MagazienSizeIncraese, FireRateIncrease, ReloadSpeedDecrease, DamageIncrease, fireRounds
     }
 
 

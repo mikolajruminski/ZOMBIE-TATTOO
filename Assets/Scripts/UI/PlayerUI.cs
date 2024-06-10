@@ -40,6 +40,7 @@ public class PlayerUI : MonoBehaviour
     private void GameManager_Instance_OnRoundChage(object sender, EventArgs e)
     {
         currentRound.text = "" + GameManager.Instance.ReturnCurrentRound();
+        enemyKillCount.text = "" + GameManager.Instance.ReturnNumberOfKillsLeft();
     }
 
     private void GameManager_Instance_OnKill(object sender, EventArgs e)
@@ -81,7 +82,8 @@ public class PlayerUI : MonoBehaviour
         {
             timeBetweenRoundsText.gameObject.SetActive(true);
             timeBetweenRoundsText.text = "Break Time: " + (int)GameManager.Instance.ReturnBreakTimer();
-        } else 
+        }
+        else
         {
             timeBetweenRoundsText.gameObject.SetActive(false);
             shopUI.gameObject.SetActive(false);

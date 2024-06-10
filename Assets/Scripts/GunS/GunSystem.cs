@@ -44,26 +44,30 @@ public class GunSystem : MonoBehaviour
 
     private void MyInput()
     {
-        if (allowToHold)
+        if (GetComponentInParent<PlayerController>().cameraCanMove)
         {
-            shooting = Input.GetKey(KeyCode.Mouse0);
-        }
-        else
-        {
-            shooting = Input.GetKeyDown(KeyCode.Mouse0);
+            if (allowToHold)
+            {
+                shooting = Input.GetKey(KeyCode.Mouse0);
+            }
+            else
+            {
+                shooting = Input.GetKeyDown(KeyCode.Mouse0);
+            }
+
+            if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading)
+            {
+                Reload();
+            }
+
+            if (readyToShot && shooting && !reloading && bulletsLeft > 0)
+            {
+                bulletsShot = bulletsPerTap;
+                Shoot();
+
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading)
-        {
-            Reload();
-        }
-
-        if (readyToShot && shooting && !reloading && bulletsLeft > 0)
-        {
-            bulletsShot = bulletsPerTap;
-            Shoot();
-
-        }
     }
 
     private void Reload()
@@ -101,6 +105,11 @@ public class GunSystem : MonoBehaviour
             if (rayHit.collider.TryGetComponent(out IDamageable idamageable))
             {
                 idamageable.TakeDamage(damage);
+
+                if (rayHit.collider.TryGetComponent(out EnemyStatusAligements statusAligements) && gameObject.GetComponent<WeaponUpgradeSystem>().HasAliment())
+                {
+                    statusAligements.GiveAliment(gameObject.GetComponent<WeaponUpgradeSystem>().fireDamageTicks);
+                }
             }
         }
 

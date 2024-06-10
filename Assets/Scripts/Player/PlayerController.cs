@@ -249,17 +249,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void SwitchCameraCanMove()
+    public void SwitchCameraCanMove(bool state)
     {
-        cameraCanMove = !cameraCanMove;
-
-        if (cameraCanMove == false)
+        if (state == false)
         {
+            cameraCanMove = false;
             Cursor.lockState = CursorLockMode.Confined;
         }
 
-        else 
+        else
         {
+            cameraCanMove = true;
             Cursor.lockState = CursorLockMode.Locked;
         }
     }

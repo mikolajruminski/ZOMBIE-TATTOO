@@ -6,6 +6,8 @@ public class WeaponUpgradeSystem : MonoBehaviour
 {
     private List<InventoryItem> weaponUpgrades = new List<InventoryItem>();
     private GunSystem gun;
+    private bool roundsOnFire = false;
+    [SerializeField] public int fireDamageTicks = 4;
     // Start is called before the first frame update
     void Start()
     {
@@ -79,6 +81,15 @@ public class WeaponUpgradeSystem : MonoBehaviour
 
                 gun.UpgradeUpgradableParameters();
                 break;
+            case WeaponManagerScript.AllWeaponUpgrades.fireRounds:
+
+                roundsOnFire = true;
+                break;
         }
+    }
+
+    public bool HasAliment()
+    {
+        return roundsOnFire;
     }
 }

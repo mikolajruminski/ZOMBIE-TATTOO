@@ -32,9 +32,19 @@ public class GameManager : MonoBehaviour
 
     private GunSystem activeGun;
 
+    #region Shop
+
     [SerializeField] private int timeBetweenRounds = 10;
     private bool isBreak = false;
     private float timePassedInBreak;
+    private bool isShopOpened;
+
+    #endregion
+
+    #region DebugCheckboxes
+    [SerializeField] private bool canPlayerDie = false;
+
+    #endregion
 
     private void Awake()
     {
@@ -73,7 +83,11 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        // Destroy(PlayerController.Instance);
+        if (canPlayerDie)
+        {
+            Destroy(PlayerController.Instance);
+        }
+
     }
 
     public bool IsGameActive()
@@ -138,6 +152,7 @@ public class GameManager : MonoBehaviour
         quantityOfKillsToWin--;
         onKill?.Invoke(this, EventArgs.Empty);
 
+        Mathf.Clamp(quantityOfKillsToWin, 0, quantityOfKillsToWin);
         if (quantityOfKillsToWin < 1)
         {
             YouWin();
@@ -175,7 +190,6 @@ public class GameManager : MonoBehaviour
     private void IncreaseRound()
     {
         roundCount++;
-        onRoundChage?.Invoke(this, EventArgs.Empty);
         Debug.Log("Round number:" + roundCount);
     }
 
@@ -198,14 +212,15 @@ public class GameManager : MonoBehaviour
     {
         isBreak = false;
 
-        PlayerController.Instance.SwitchCameraCanMove();
+        PlayerController.Instance.SwitchCameraCanMove(true);
 
         IncreaseRound();
-        quantityOfKillsToWin = roundCount * baseQuantityOfKillsToWin;
+
+        quantityOfKillsToWin += roundCount * baseQuantityOfKillsToWin;
         maxEnemies = roundCount * baseMaxEnemies;
         enemyRespawnRate = baseEnemyRespawnRate / roundCount;
 
-
+        onRoundChage?.Invoke(this, EventArgs.Empty);
         InvokeSpawningEnemies();
     }
 
@@ -220,16 +235,21 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.P))
             {
-                onShopOpened?.Invoke(this, EventArgs.Empty);
-                PlayerController.Instance.SwitchCameraCanMove();
-            }
+                if (isShopOpened == false)
+                {
+                    isShopOpened = true;
+                    onShopOpened?.Invoke(this, EventArgs.Empty);
+                    PlayerController.Instance.SwitchCameraCanMove(false);
+                }
+                else
+                {
+                    isShopOpened = false;
+                    onShopOpened?.Invoke(this, EventArgs.Empty);
+                    PlayerController.Instance.SwitchCameraCanMove(true);
+                }
 
-            else
-            {
-                Debug.Log("cannot open shop during game!");
             }
         }
-
     }
 
     public float ReturnBreakTimer()
