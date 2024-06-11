@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3622a614857a1f94f803c3f03f5b586f, type: 3}
-  m_Name: ShotgunDamageInc
+  m_Name: ShotgunToxicRounds
   m_EditorClassIdentifier: 
   gunAffected: 1
-  weaponUpgrade: 4
-  amount: 10
-  amountOfTicksForRoundsUpgrades: 0
-  tickDamage: 0
+  weaponUpgrade: 6
+  amount: 0
+  amountOfTicksForRoundsUpgrades: 5
+  tickDamage: 1

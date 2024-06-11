@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyAlimentsVisualScript : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem alimentEmitter;
+    [SerializeField] private ParticleSystem[] alimentsEmitter;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,13 +17,21 @@ public class EnemyAlimentsVisualScript : MonoBehaviour
 
     }
 
-    public void emitParticles()
+    public void emitParticles(int particleNumber)
     {
-        alimentEmitter.Play();
+        alimentsEmitter[particleNumber].Play();
     }
 
-    public void StopEmittingParticles() 
+    public void StopEmittingParticles()
     {
-        alimentEmitter.Stop();
+        for (int i = 0; i < alimentsEmitter.Length; i++)
+        {
+            alimentsEmitter[i].Stop();
+        }
+    }
+
+    public ParticleSystem[] ReturnAlimentsEmitter()
+    {
+        return alimentsEmitter;
     }
 }

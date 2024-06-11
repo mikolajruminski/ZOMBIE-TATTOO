@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: PistolMagazineSizeIncrease
   m_EditorClassIdentifier: 
   gunAffected: 0
-  weaponUpgrade: 0
+  weaponUpgrade: 1
   amount: 5
+  amountOfTicksForRoundsUpgrades: 0
+  tickDamage: 0

@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: ShotgunReloadSpeedDecrease
   m_EditorClassIdentifier: 
   gunAffected: 1
-  weaponUpgrade: 2
+  weaponUpgrade: 3
   amount: 40
+  amountOfTicksForRoundsUpgrades: 0
+  tickDamage: 0

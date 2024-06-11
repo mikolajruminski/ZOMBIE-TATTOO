@@ -9,4 +9,7 @@ public class WeaponUpgradeSo : ScriptableObject
     public WeaponManagerScript.AllWeaponUpgrades weaponUpgrade;
 
     public float amount;
+
+    public int amountOfTicksForRoundsUpgrades;
+    public int tickDamage;
 }

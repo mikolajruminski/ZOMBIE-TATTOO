@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: PistolFireRounds
   m_EditorClassIdentifier: 
   gunAffected: 0
-  weaponUpgrade: 4
+  weaponUpgrade: 5
   amount: 0
+  amountOfTicksForRoundsUpgrades: 4
+  tickDamage: 2

@@ -5,9 +5,9 @@ using UnityEngine;
 public class WeaponUpgradeSystem : MonoBehaviour
 {
     private List<InventoryItem> weaponUpgrades = new List<InventoryItem>();
+    public WeaponManagerScript.AllWeaponUpgrades roundsUpgrade = new WeaponManagerScript.AllWeaponUpgrades();
     private GunSystem gun;
-    private bool roundsOnFire = false;
-    [SerializeField] public int fireDamageTicks = 4;
+    private int alimentDamageTicks, alimentDamage;
     // Start is called before the first frame update
     void Start()
     {
@@ -83,13 +83,35 @@ public class WeaponUpgradeSystem : MonoBehaviour
                 break;
             case WeaponManagerScript.AllWeaponUpgrades.fireRounds:
 
-                roundsOnFire = true;
+                roundsUpgrade = WeaponManagerScript.AllWeaponUpgrades.fireRounds;
+
+                alimentDamageTicks = weaponUpgradeSo.amountOfTicksForRoundsUpgrades;
+                alimentDamage = weaponUpgradeSo.tickDamage;
+
+                break;
+            case WeaponManagerScript.AllWeaponUpgrades.toxicRounds:
+
+                roundsUpgrade = WeaponManagerScript.AllWeaponUpgrades.toxicRounds;
+
+                alimentDamageTicks = weaponUpgradeSo.amountOfTicksForRoundsUpgrades;
+                alimentDamage = weaponUpgradeSo.tickDamage;
+
                 break;
         }
     }
 
-    public bool HasAliment()
+    public WeaponManagerScript.AllWeaponUpgrades HasAliment()
     {
-        return roundsOnFire;
+        return roundsUpgrade;
+    }
+
+    public int ReturnTickAmount()
+    {
+        return alimentDamageTicks;
+    }
+
+    public int ReturnTickDamage()
+    {
+        return alimentDamage;
     }
 }

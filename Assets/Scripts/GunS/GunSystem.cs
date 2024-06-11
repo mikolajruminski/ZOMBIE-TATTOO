@@ -84,6 +84,7 @@ public class GunSystem : MonoBehaviour
 
     private void Shoot()
     {
+        WeaponUpgradeSystem weaponUpgrade = GetComponent<WeaponUpgradeSystem>();
         readyToShot = false;
 
         //spread
@@ -106,9 +107,9 @@ public class GunSystem : MonoBehaviour
             {
                 idamageable.TakeDamage(damage);
 
-                if (rayHit.collider.TryGetComponent(out EnemyStatusAligements statusAligements) && gameObject.GetComponent<WeaponUpgradeSystem>().HasAliment())
+                if (rayHit.collider.TryGetComponent(out EnemyStatusAligements statusAligements) && weaponUpgrade.HasAliment() != WeaponManagerScript.AllWeaponUpgrades.normalRounds)
                 {
-                    statusAligements.GiveAliment(gameObject.GetComponent<WeaponUpgradeSystem>().fireDamageTicks);
+                    statusAligements.GiveAliment(weaponUpgrade.ReturnTickAmount(), weaponUpgrade.ReturnTickDamage(), weaponUpgrade.HasAliment());
                 }
             }
         }

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EnemyStatusAligements : MonoBehaviour
 {
-    private bool onFire;
-   // private Aliments currentAliment;
+    private Aliments currentAliment;
     private int damageTicks;
+    private int alimentDamage;
     private EnemyScript enemy;
     private EnemyAlimentsVisualScript alimentVisual;
-    [SerializeField] private float timeBetweenTicks = 2f;
+    private float timeBetweenTicks = 2f;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,32 +25,50 @@ public class EnemyStatusAligements : MonoBehaviour
 
     public enum Aliments
     {
-        onFire, Toxic
+        None, onFire, Toxic
     }
 
-    public void GiveAliment(int fireDamageTicks)
+    public void GiveAliment(int ticks, int damage, WeaponManagerScript.AllWeaponUpgrades alimentUpgrade)
     {
-        onFire = true;
-        damageTicks = fireDamageTicks;
+        damageTicks = ticks;
 
-        StartCoroutine(burnEnemy(damageTicks));
+        alimentDamage = damage;
+
+        StartCoroutine(alimentEnemy(alimentUpgrade));
     }
 
-    private IEnumerator burnEnemy(int ticks)
+    private IEnumerator alimentEnemy(WeaponManagerScript.AllWeaponUpgrades alimentUpgrade)
     {
-        while (ticks >= 0)
+        EmitAlimentParticles(alimentUpgrade);
+
+        while (damageTicks >= 0)
         {
-            ticks--;
-            alimentVisual.emitParticles();
+            damageTicks--;
 
-            enemy.TakeDamage(1);
+            enemy.TakeDamage(alimentDamage);
 
             yield return new WaitForSeconds(timeBetweenTicks);
         }
 
         alimentVisual.StopEmittingParticles();
-        onFire = false;
+        currentAliment = Aliments.None;
+    }
 
+    private void EmitAlimentParticles(WeaponManagerScript.AllWeaponUpgrades alimentUpgrade)
+    {
+        switch (alimentUpgrade)
+        {
+            case WeaponManagerScript.AllWeaponUpgrades.fireRounds:
+                currentAliment = Aliments.onFire;
+                alimentVisual.emitParticles(0);
+
+                break;
+
+            case WeaponManagerScript.AllWeaponUpgrades.toxicRounds:
+                alimentVisual.emitParticles(1);
+                currentAliment = Aliments.Toxic;
+                break;
+        }
     }
 
 }

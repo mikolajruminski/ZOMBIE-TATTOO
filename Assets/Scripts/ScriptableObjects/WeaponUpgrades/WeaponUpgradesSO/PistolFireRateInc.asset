@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: PistolFireRateInc
   m_EditorClassIdentifier: 
   gunAffected: 0
-  weaponUpgrade: 1
+  weaponUpgrade: 2
   amount: 80
+  amountOfTicksForRoundsUpgrades: 0
+  tickDamage: 0
