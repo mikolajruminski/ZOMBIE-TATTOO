@@ -57,4 +57,10 @@ public class FotelHealthScript : MonoBehaviour
 
         onHealthChanged?.Invoke(this, EventArgs.Empty);
     }
+
+    public void IncreaseFotelHealth(float amount)
+    {
+        float value = maxHealth * (amount / 100);
+        maxHealth += value;
+    }
 }

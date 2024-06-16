@@ -17,6 +17,7 @@ public class InventoryItem : ScriptableObject, IConsumable
     public string description;
 
     public WeaponUpgradeSo weaponUpgradeSO;
+    public PlayerUpgradeSo playerUpgradeSO;
 
 
     public void UseConsumable()
@@ -35,7 +36,7 @@ public class InventoryItem : ScriptableObject, IConsumable
 
     public enum ItemType
     {
-        Consumable, Upgrade
+        Consumable, WeaponUpgrade, PlayerUpgrade
     }
 
     public enum ConsumableType

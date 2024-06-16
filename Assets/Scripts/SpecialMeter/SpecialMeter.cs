@@ -59,4 +59,10 @@ public class SpecialMeter : MonoBehaviour
     {
         return canActivateSpecial;
     }
+
+    public void ReduceSpecialMeter(float amount)
+    {
+        float value = maxSliderValue * (amount / 100);
+        maxSliderValue -= value;
+    }
 }

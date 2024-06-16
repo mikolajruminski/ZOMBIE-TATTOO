@@ -10,7 +10,9 @@ public class GunSystem : MonoBehaviour
     [SerializeField] public WeaponManagerScript.AllGuns gunType;
     [SerializeField] public KeyCode weaponKey;
     [SerializeField] private int damage;
+    private int baseDamage;
     [SerializeField] private float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
+    private float baseTimeBetweenShooting, baseReloadTime;
     private List<float> upgradableStatistics = new List<float>();
     [SerializeField] private int magazineSize, bulletsPerTap;
     [SerializeField] private bool allowToHold;
@@ -25,14 +27,16 @@ public class GunSystem : MonoBehaviour
 
     [SerializeField] private GameObject muzzleFlash, bulletHoleGraphics;
     [SerializeField] private TrailRenderer bulletTrail;
-    private Vector3 mousePos;
     public Transform _rightHandPos, _leftHandPos;
+
+    #region No Reload Time Consumable
+    [SerializeField] private bool noReload = false;
+    #endregion
     // Start is called before the first frame update
     void Start()
     {
         readyToShot = true;
         bulletsLeft = magazineSize;
-        SetUpgradableParameters();
     }
 
     // Update is called once per frame
@@ -114,9 +118,13 @@ public class GunSystem : MonoBehaviour
             }
         }
 
+        if (!noReload)
+        {
+            bulletsLeft--;
+        }
 
-        bulletsLeft--;
         bulletsShot--;
+
 
         Invoke("ResetShoot", timeBetweenShooting);
 
@@ -182,7 +190,14 @@ public class GunSystem : MonoBehaviour
         return bulletsLeft;
     }
 
-    private void SetUpgradableParameters()
+    public void SetBaseParameters()
+    {
+        baseDamage = damage;
+        baseReloadTime = reloadTime;
+        baseTimeBetweenShooting = timeBetweenShooting;
+    }
+
+    public void SetUpgradableParameters()
     {
         upgradableStatistics.Add(damage);
         upgradableStatistics.Add(timeBetweenShooting);
@@ -196,6 +211,10 @@ public class GunSystem : MonoBehaviour
         timeBetweenShooting = upgradableStatistics[1];
         reloadTime = upgradableStatistics[2];
         magazineSize = (int)upgradableStatistics[3];
+
+        baseDamage = damage;
+        baseReloadTime = reloadTime;
+        baseTimeBetweenShooting = timeBetweenShooting;
     }
 
     public List<float> ReturnUpgradableParameters()
@@ -203,4 +222,29 @@ public class GunSystem : MonoBehaviour
         return upgradableStatistics;
     }
 
+    public void InstaReload()
+    {
+        bulletsLeft = magazineSize;
+    }
+
+    #region FuryTime
+    public void SetNoReload(bool set)
+    {
+        noReload = set;
+    }
+
+    public void FuryTimeParametersUpgrade()
+    {
+        damage += (int)(damage * 0.5f);
+        reloadTime -= (reloadTime * 0.2f);
+        timeBetweenShooting -= (timeBetweenShooting * 0.2f);
+    }
+
+    public void FuryTimeEndParameters()
+    {
+        damage = baseDamage;
+        reloadTime = baseReloadTime;
+        timeBetweenShooting = baseTimeBetweenShooting;
+    }
+    #endregion
 }

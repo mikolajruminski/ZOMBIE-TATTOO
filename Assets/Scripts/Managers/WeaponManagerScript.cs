@@ -21,6 +21,8 @@ public class WeaponManagerScript : MonoBehaviour
         foreach (GunSystem gun in guns)
         {
             keys.Add(gun.weaponKey);
+            gun.SetUpgradableParameters();
+            gun.SetBaseParameters();
         }
     }
 
@@ -85,6 +87,22 @@ public class WeaponManagerScript : MonoBehaviour
     public enum AllWeaponUpgrades
     {
         None, MagazienSizeIncraese, FireRateIncrease, ReloadSpeedDecrease, DamageIncrease, fireRounds, toxicRounds, normalRounds
+    }
+
+
+    public IEnumerator FuryTimeForAllWeapons(float time)
+    {
+        foreach (GunSystem gun in guns)
+        {
+            gun.FuryTimeParametersUpgrade();
+        }
+
+        yield return new WaitForSeconds(time);
+
+        foreach (GunSystem gun in guns)
+        {
+            gun.FuryTimeEndParameters();
+        }
     }
 
 
