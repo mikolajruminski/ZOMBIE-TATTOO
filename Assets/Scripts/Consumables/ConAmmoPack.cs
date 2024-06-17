@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ConAmmoPack : ConsumableScript
 {
-    public override void OnDestroy()
+    public override void OnDestroyed()
     {
         GameManager.Instance.GetActiveGun().InstaReload();
 

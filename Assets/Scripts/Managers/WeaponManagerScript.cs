@@ -7,6 +7,9 @@ using UnityEngine;
 public class WeaponManagerScript : MonoBehaviour
 {
     public static WeaponManagerScript Instance { get; private set; }
+
+    public event EventHandler onFuryTimeEnabled;
+    public event EventHandler onFuryTimeDisabled;
     [SerializeField] private GunSystem[] guns;
     public event EventHandler onGunChanged;
     private List<KeyCode> keys = new List<KeyCode>();
@@ -89,18 +92,21 @@ public class WeaponManagerScript : MonoBehaviour
         None, MagazienSizeIncraese, FireRateIncrease, ReloadSpeedDecrease, DamageIncrease, fireRounds, toxicRounds, normalRounds
     }
 
-
-    public IEnumerator FuryTimeForAllWeapons(float time)
+    public void ActivateFuryTimeForAllWeapons()
     {
         foreach (GunSystem gun in guns)
         {
+            onFuryTimeEnabled?.Invoke(this, EventArgs.Empty);
             gun.FuryTimeParametersUpgrade();
         }
+    }
 
-        yield return new WaitForSeconds(time);
-
+    public void DisableFuryTimeForAllWeapons()
+    {
         foreach (GunSystem gun in guns)
         {
+            onFuryTimeDisabled?.Invoke(this, EventArgs.Empty);
+
             gun.FuryTimeEndParameters();
         }
     }

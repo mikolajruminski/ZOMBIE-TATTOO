@@ -5,9 +5,9 @@ using UnityEngine;
 public class ConFuryTime : ConsumableScript
 {
     [SerializeField] private float furyTime = 5f;
-    public override void OnDestroy()
+    public override void OnDestroyed()
     {
-        Debug.Log("fury time");
-        WeaponManagerScript.Instance.StartCoroutine(WeaponManagerScript.Instance.FuryTimeForAllWeapons(furyTime));
+        PlayerUpgradeScript.Instance.StartCoroutine(PlayerUpgradeScript.Instance.ActivateFuryTime(furyTime));
+        // Destroy(gameObject);
     }
 }

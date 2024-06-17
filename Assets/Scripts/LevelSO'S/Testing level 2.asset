@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4537f8b1621b634c9a228d8e019ce8b, type: 3}
+  m_Name: Testing level 2
+  m_EditorClassIdentifier: 
+  unitySceneIndex: 2
+  menuSceneName: Different testing area
+  menuSceneDescription: Lorem Ipsum is simply dummy text of the printing and typesetting
+    industry. Lorem Ipsum has been the industry's standard dummy text ever since
+    the 1500s, when an unknown printer took a galley of type and scrambled it to
+    make a type specimen book. It has survived not only five centuries,
+  enemiesInTheLevel: Lorem Ipsum is simply dummy text
+  numberOfRounds: 5
+  levelImage: {fileID: 21300000, guid: 1ce33d42a22a62241b83d5a99f2d1c96, type: 3}

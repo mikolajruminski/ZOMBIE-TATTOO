@@ -5,7 +5,7 @@ using UnityEngine;
 public class ConHealthPack : ConsumableScript
 {
     [SerializeField] private int amountOfHeal = 10;
-    public override void OnDestroy()
+    public override void OnDestroyed()
     {
         FotelHealthScript.Instance.HealPlayer(amountOfHeal);
         

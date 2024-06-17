@@ -13,6 +13,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI currentRound;
     [SerializeField] private TextMeshProUGUI playerGold;
     [SerializeField] private GameObject shopUI;
+    [SerializeField] private GameObject furyTimeOverlay;
 
     [SerializeField] private GameObject playerUI;
     // Start is called before the first frame update
@@ -24,7 +25,20 @@ public class PlayerUI : MonoBehaviour
         GameManager.Instance.onRoundChage += GameManager_Instance_OnRoundChage;
         FotelHealthScript.Instance.onHealthChanged += FotelHealthScript_Instance_OnHealthChanged;
         GameManager.Instance.onShopOpened += GameManager_Instance_OnShopOpened;
+        WeaponManagerScript.Instance.onFuryTimeEnabled += WeaponManager_Instance_OnFuryTime;
+        WeaponManagerScript.Instance.onFuryTimeDisabled += WeaponManager_Instance_OnFuryTimeDisabled;
+
         gameObject.SetActive(false);
+    }
+
+    private void WeaponManager_Instance_OnFuryTimeDisabled(object sender, EventArgs e)
+    {
+        furyTimeOverlay.gameObject.SetActive(false);
+    }
+
+    private void WeaponManager_Instance_OnFuryTime(object sender, EventArgs e)
+    {
+        furyTimeOverlay.gameObject.SetActive(true);
     }
 
     private void GameManager_Instance_OnShopOpened(object sender, EventArgs e)

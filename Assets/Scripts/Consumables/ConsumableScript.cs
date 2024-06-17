@@ -6,10 +6,10 @@ public class ConsumableScript : MonoBehaviour, IDamageable
 {
     public void TakeDamage(int damage)
     {
-        OnDestroy();
+        OnDestroyed();
     }
 
-    public virtual void OnDestroy()
+    public virtual void OnDestroyed()
     {
 
     }

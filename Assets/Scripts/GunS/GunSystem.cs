@@ -236,14 +236,14 @@ public class GunSystem : MonoBehaviour
     public void FuryTimeParametersUpgrade()
     {
         damage += (int)(damage * 0.5f);
-        reloadTime -= (reloadTime * 0.2f);
-        timeBetweenShooting -= (timeBetweenShooting * 0.2f);
+        SetNoReload(true);
+        timeBetweenShooting -= (timeBetweenShooting * 0.4f);
     }
 
     public void FuryTimeEndParameters()
     {
         damage = baseDamage;
-        reloadTime = baseReloadTime;
+        SetNoReload(false);
         timeBetweenShooting = baseTimeBetweenShooting;
     }
     #endregion

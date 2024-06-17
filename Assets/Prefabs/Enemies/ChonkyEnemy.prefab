@@ -435,11 +435,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4835759635898816670}
-  - component: {fileID: 4835759635898816671}
   - component: {fileID: 4835759635898816668}
   - component: {fileID: 4835759635898816666}
   - component: {fileID: 454735248}
   - component: {fileID: 454735249}
+  - component: {fileID: 4835759635898816671}
   - component: {fileID: 4529320728912502867}
   m_Layer: 6
   m_Name: ChonkyEnemy
@@ -464,20 +464,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!114 &4835759635898816671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4835759635898816642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7c5a9e36328a2041abe074146dce7ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 60
-  speed: 2
 --- !u!195 &4835759635898816668
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -549,6 +535,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeed73d9ca306264d8ce639349c8c565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4835759635898816671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4835759635898816642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c5a9e36328a2041abe074146dce7ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 60
+  speed: 2
 --- !u!114 &4529320728912502867
 MonoBehaviour:
   m_ObjectHideFlags: 0

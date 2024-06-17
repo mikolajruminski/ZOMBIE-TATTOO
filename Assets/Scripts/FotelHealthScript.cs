@@ -9,6 +9,7 @@ public class FotelHealthScript : MonoBehaviour
     public static FotelHealthScript Instance { get; private set; }
     [SerializeField] private float health;
     private float maxHealth;
+    [SerializeField] private bool canTakeDamage = true;
 
     private void Awake()
     {
@@ -25,13 +26,17 @@ public class FotelHealthScript : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        onHealthChanged?.Invoke(this, EventArgs.Empty);
-
-        if (health < 0)
+        if (canTakeDamage)
         {
-            GameOver();
+            health -= damage;
+            onHealthChanged?.Invoke(this, EventArgs.Empty);
+
+            if (health < 0)
+            {
+                GameOver();
+            }
         }
+
     }
 
     private void GameOver()
@@ -62,5 +67,19 @@ public class FotelHealthScript : MonoBehaviour
     {
         float value = maxHealth * (amount / 100);
         maxHealth += value;
+    }
+
+    public IEnumerator SwitchCanTakeDamage(float time)
+    {
+        canTakeDamage = false;
+
+        yield return new WaitForSeconds(time);
+
+        canTakeDamage = true;
+    }
+
+    public void FuryTimeCanTakeDamage(bool set)
+    {
+        canTakeDamage = set;
     }
 }

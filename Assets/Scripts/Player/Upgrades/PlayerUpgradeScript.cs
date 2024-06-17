@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerUpgradeScript : MonoBehaviour
 {
     public static PlayerUpgradeScript Instance { get; private set; }
+    private bool isFuryTimeActive;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -13,7 +14,7 @@ public class PlayerUpgradeScript : MonoBehaviour
 
     void Start()
     {
-
+        isFuryTimeActive = false;
     }
 
     // Update is called once per frame
@@ -39,6 +40,34 @@ public class PlayerUpgradeScript : MonoBehaviour
                 SpecialMeter.Instance.ReduceSpecialMeter(item.amountOfUpgrade);
                 break;
         }
+    }
+
+    public IEnumerator ActivateFuryTime(float furyTime)
+    {
+        if (!isFuryTimeActive)
+        {
+            Debug.Log("activating fury time");
+            isFuryTimeActive = true;
+            WeaponManagerScript.Instance.ActivateFuryTimeForAllWeapons();
+            FotelHealthScript.Instance.FuryTimeCanTakeDamage(false);
+        }
+        else
+        {
+            Debug.Log("cannot activate fury time");
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(furyTime);
+
+        if (isFuryTimeActive)
+        {
+            Debug.Log("disabling fury time");
+            isFuryTimeActive = false;
+            WeaponManagerScript.Instance.DisableFuryTimeForAllWeapons();
+            FotelHealthScript.Instance.FuryTimeCanTakeDamage(true);
+        }
+
+
     }
 
 

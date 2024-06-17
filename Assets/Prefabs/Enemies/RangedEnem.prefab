@@ -4905,14 +4905,15 @@ GameObject:
   m_Component:
   - component: {fileID: 4835759635898816670}
   - component: {fileID: 4835759635898816643}
-  - component: {fileID: 4835759635898816671}
   - component: {fileID: 4835759635898816668}
   - component: {fileID: 4835759635898816666}
   - component: {fileID: 454735248}
   - component: {fileID: 454735249}
+  - component: {fileID: 4835759635898816671}
   - component: {fileID: 2537804301656192669}
   - component: {fileID: 2418013935718859005}
   - component: {fileID: -6562363167695558614}
+  - component: {fileID: -5290912106594086301}
   m_Layer: 6
   m_Name: RangedEnem
   m_TagString: Untagged
@@ -4952,20 +4953,6 @@ CapsuleCollider:
   m_Height: 1.71
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4835759635898816671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4835759635898816642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7c5a9e36328a2041abe074146dce7ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 10
-  speed: 3
 --- !u!195 &4835759635898816668
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5037,6 +5024,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeed73d9ca306264d8ce639349c8c565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4835759635898816671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4835759635898816642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c5a9e36328a2041abe074146dce7ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+  speed: 3
 --- !u!114 &2537804301656192669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5082,6 +5083,25 @@ MonoBehaviour:
   alimentsEmitter:
   - {fileID: 3681871608428809675}
   - {fileID: 5697390422188282438}
+--- !u!114 &-5290912106594086301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4835759635898816642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80a1062437de86547a2ca9196383ef22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  consumables:
+  - {fileID: 7739716152367590519, guid: 16769f4f9f859e74fb59834b631b0449, type: 3}
+  - {fileID: 4426909842174388093, guid: 97fbb4d43e9e5aa45a0c36e34726f793, type: 3}
+  specialConsumables:
+  - {fileID: 6476376447389833304, guid: 9f636a95fc3cbf748999a2c7de382953, type: 3}
+  chanceToDropConsumable: 0.25
+  chanceToDropSpecialConsumable: 0.05
 --- !u!1 &5410591273976766135
 GameObject:
   m_ObjectHideFlags: 0
