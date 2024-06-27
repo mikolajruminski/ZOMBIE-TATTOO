@@ -9,6 +9,7 @@ public class GameCameraScript : MonoBehaviour
     public event EventHandler onLookBack, onLookFront;
     private bool isLookingFront = true;
     public KeyCode switchCameraView = KeyCode.Space;
+    [SerializeField] private float lerpDuraiton = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,5 +56,11 @@ public class GameCameraScript : MonoBehaviour
     public bool ReturnIsLookingFront()
     {
         return isLookingFront;
+    }
+
+    private void LerpCameraPosition() 
+    {
+
+        
     }
 }

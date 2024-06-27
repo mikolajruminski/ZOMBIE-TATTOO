@@ -4396,7 +4396,7 @@ MonoBehaviour:
     type: 3}
   baseEnemyRespawnRate: 2
   baseMaxEnemies: 10
-  baseQuantityOfKillsToWin: 10
+  baseQuantityOfKillsToWin: 2
   timeBetweenRounds: 10
   canPlayerDie: 0
 --- !u!4 &988499879
@@ -4442,7 +4442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a13fe8a92f4fd3d4890b9b8c84f0c47a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMoney: 0
+  playerMoney: 50
 --- !u!1 &1032714316
 GameObject:
   m_ObjectHideFlags: 0
