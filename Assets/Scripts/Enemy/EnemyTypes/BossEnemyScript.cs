@@ -7,6 +7,8 @@ public class BossEnemyScript : BaseEnemyAI
 {
 
     [SerializeField] private GameObject WeakPoint;
+    private Transform currentWeakPointPosition;
+    [SerializeField] GameObject bossBody;
 
     private void Awake()
     {
@@ -91,10 +93,34 @@ public class BossEnemyScript : BaseEnemyAI
 
     public void NewWeakPoint()
     {
-        Transform[] colliders = GetComponentsInChildren<Transform>();
+        Transform[] colliders = bossBody.GetComponentsInChildren<Transform>();
         int x = Random.Range(0, colliders.Length);
+        int y = 0;
 
-        WeakPoint.transform.position = new Vector3(WeakPoint.transform.position.x, colliders[x].transform.position.y, colliders[x].transform.position.z);
+        Vector3 newWeakPointPosition;
+        Transform newColliderTransform = colliders[x];
+
+        if (newColliderTransform == currentWeakPointPosition)
+        {
+
+            while (newColliderTransform == currentWeakPointPosition && currentWeakPointPosition.position != null)
+            {
+                y = Random.Range(0, colliders.Length);
+                newColliderTransform = colliders[y];
+            }
+
+            newWeakPointPosition = new Vector3(WeakPoint.transform.position.x, colliders[y].transform.position.y, colliders[y].transform.position.z);
+        }
+        else
+        {
+
+
+            newWeakPointPosition = new Vector3(WeakPoint.transform.position.x, colliders[x].transform.position.y, colliders[x].transform.position.z);
+        }
+
+
+        WeakPoint.transform.position = newWeakPointPosition;
+        currentWeakPointPosition = newColliderTransform;
     }
 
 }

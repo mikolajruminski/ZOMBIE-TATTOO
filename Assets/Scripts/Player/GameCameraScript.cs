@@ -9,7 +9,9 @@ public class GameCameraScript : MonoBehaviour
     public event EventHandler onLookBack, onLookFront;
     private bool isLookingFront = true;
     public KeyCode switchCameraView = KeyCode.Space;
-    [SerializeField] private float lerpDuraiton = 3;
+    private float lerpDuraiton = 0.3f;
+    private Vector3 backLook = new Vector3(0, 90, 0);
+    private Vector3 frontLook = new Vector3(0, -90, 0);
     // Start is called before the first frame update
     void Start()
     {
@@ -40,15 +42,15 @@ public class GameCameraScript : MonoBehaviour
 
             if (isLookingFront)
             {
-                onLookBack?.Invoke(this, EventArgs.Empty);
+                // onLookBack?.Invoke(this, EventArgs.Empty);
                 isLookingFront = !isLookingFront;
-                PlayerController.Instance.ChangeCameraClamp();
+                StartCoroutine(LerpCameraPosition(Quaternion.Euler(backLook)));
             }
             else
             {
-                onLookFront?.Invoke(this, EventArgs.Empty);
+                // onLookFront?.Invoke(this, EventArgs.Empty);
                 isLookingFront = !isLookingFront;
-                PlayerController.Instance.ChangeCameraClamp();
+                StartCoroutine(LerpCameraPosition(Quaternion.Euler(frontLook)));
             }
         }
     }
@@ -58,9 +60,22 @@ public class GameCameraScript : MonoBehaviour
         return isLookingFront;
     }
 
-    private void LerpCameraPosition() 
+    private IEnumerator LerpCameraPosition(Quaternion endValue)
     {
+        float timeElapsed = 0;
 
-        
+        Quaternion startValue = transform.rotation;
+
+        while (timeElapsed < lerpDuraiton)
+        {
+            transform.rotation = Quaternion.Lerp(startValue, endValue, timeElapsed / lerpDuraiton);
+            timeElapsed += Time.deltaTime;
+
+            yield return null;
+        }
+
+        transform.rotation = endValue;
+        PlayerController.Instance.ChangeCameraClamp();
+
     }
 }

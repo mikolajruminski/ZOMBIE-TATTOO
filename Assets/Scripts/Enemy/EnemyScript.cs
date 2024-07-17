@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +25,11 @@ public class EnemyScript : MonoBehaviour, IDamageable
             MoneyManager.Instance.AddMoney(GetComponent<BaseEnemyAI>().GetGoldValue());
             SpecialMeter.Instance.FillSpecialMeter(GetComponent<BaseEnemyAI>().GetPointValue());
 
-            enemyConsumableDropScript.DropConsumable();
+            if (enemyConsumableDropScript != null)
+            {
+                enemyConsumableDropScript.DropConsumable();
+            }
+
 
             Destroy(gameObject);
         }

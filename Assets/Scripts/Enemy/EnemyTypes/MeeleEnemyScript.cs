@@ -56,7 +56,6 @@ public class MeeleEnemyScript : BaseEnemyAI
 
     protected override void Attack()
     {
-        Debug.Log("meele attack");
         CallAttackEvent();
     }
 

@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: REVOLVER TEXTURE
-    second: {fileID: 2800000, guid: 076e880ac2f629245ae0372bcfa18dd0, type: 3}
+    second: {fileID: 2800000, guid: 4197be40f6df9f246b6278a38082b795, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

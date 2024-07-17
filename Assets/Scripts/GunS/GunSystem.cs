@@ -1,12 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 
 public class GunSystem : MonoBehaviour
 {
+    public event EventHandler OnGunShoot;
+    public event EventHandler OnGunReload;
     [SerializeField] public WeaponManagerScript.AllGuns gunType;
     [SerializeField] public KeyCode weaponKey;
     [SerializeField] private int damage;
@@ -77,6 +81,9 @@ public class GunSystem : MonoBehaviour
     private void Reload()
     {
         reloading = true;
+
+        OnGunReload?.Invoke(this, EventArgs.Empty);
+
         Invoke("ReloadFinished", reloadTime);
     }
 
@@ -89,6 +96,12 @@ public class GunSystem : MonoBehaviour
     private void Shoot()
     {
         WeaponUpgradeSystem weaponUpgrade = GetComponent<WeaponUpgradeSystem>();
+
+        if (readyToShot)
+        {
+            OnGunShoot?.Invoke(this, EventArgs.Empty);
+        }
+
         readyToShot = false;
 
         //spread
@@ -100,10 +113,13 @@ public class GunSystem : MonoBehaviour
         Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, 0);
         Debug.DrawRay(fpsCam.transform.position, direction * range, Color.red, 10f);
 
+        ShootConsumableRaycast();
 
         if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range))
         {
             TrailRenderer trail = Instantiate(bulletTrail, shotPoint.position, Quaternion.identity);
+
+
 
             StartCoroutine(SpawnTrail(trail, rayHit));
 
@@ -226,6 +242,26 @@ public class GunSystem : MonoBehaviour
     {
         bulletsLeft = magazineSize;
     }
+
+    #region Consumable Raycast
+    private void ShootConsumableRaycast()
+    {
+        Vector3 direction = fpsCam.transform.forward;
+        Debug.DrawRay(fpsCam.transform.position, direction * range, Color.cyan, 10f);
+
+        if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range))
+        {
+            if (rayHit.collider.TryGetComponent(out ConsumableScript component))
+            {
+                component.TakeDamage(damage);
+            }
+        }
+    }
+
+
+
+
+    #endregion
 
     #region FuryTime
     public void SetNoReload(bool set)

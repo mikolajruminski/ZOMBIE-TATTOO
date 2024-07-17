@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -14,27 +15,22 @@ public class GameManager : MonoBehaviour
     public event EventHandler onShopOpened;
     [SerializeField] private GameObject gamePlayer, preGamePlayer;
     private bool isGameActive = false;
-    [SerializeField] private GameObject[] meeleSpawners, rangedSpawners;
-    [SerializeField] private GameObject meeleEnemyPrefab, rangedEnemyPrefab;
     [SerializeField] private float baseEnemyRespawnRate;
-
     [SerializeField] int baseMaxEnemies = 10;
     [SerializeField] private int baseQuantityOfKillsToWin = 15;
 
     private int maxEnemies;
-    private int maxMeleeEnemies;
     private int quantityOfKillsToWin;
 
     private float enemyRespawnRate;
 
     private int roundCount = 0;
-    private int enemiesLeft;
-
     private GunSystem activeGun;
 
     #region Shop
 
     [SerializeField] private int timeBetweenRounds = 10;
+
     private bool isBreak = false;
     private float timePassedInBreak;
     private bool isShopOpened;
@@ -97,44 +93,9 @@ public class GameManager : MonoBehaviour
 
     private void InvokeSpawningEnemies()
     {
-        if (isGameActive)
-        {
-            InvokeRepeating("SpawnEnemies", 2, enemyRespawnRate);
-
-        }
+        SpawnManager.Instance.InvokeSpawningEnemies(enemyRespawnRate);
     }
 
-    private void SpawnEnemies()
-    {
-        MeeleEnemyScript[] meeleEnemies = GameObject.FindObjectsOfType<MeeleEnemyScript>();
-        enemiesLeft = meeleEnemies.Length;
-
-        maxMeleeEnemies = maxEnemies - rangedSpawners.Length;
-
-        if (meeleEnemies.Length < maxMeleeEnemies && meeleEnemies.Length < quantityOfKillsToWin && meeleEnemyPrefab != null)
-        {
-            int x = UnityEngine.Random.Range(0, meeleSpawners.Length);
-            Instantiate(meeleEnemyPrefab, meeleSpawners[x].transform.position, Quaternion.identity);
-        }
-
-        RangedEnemy[] rangedEnemies = GameObject.FindObjectsOfType<RangedEnemy>();
-
-        if (rangedEnemies.Length < rangedSpawners.Length && rangedEnemies.Length < quantityOfKillsToWin && rangedEnemyPrefab != null)
-        {
-            int x = UnityEngine.Random.Range(0, rangedSpawners.Length);
-
-            if (rangedSpawners[x].gameObject.GetComponent<SpawnerScript>().spawnedEnemy != null)
-            {
-                return;
-            }
-            else
-            {
-                GameObject spawnedEnemy = Instantiate(rangedEnemyPrefab, rangedSpawners[x].transform.position, Quaternion.identity);
-                rangedSpawners[x].gameObject.GetComponent<SpawnerScript>().spawnedEnemy = spawnedEnemy.GetComponent<RangedEnemy>();
-            }
-
-        }
-    }
 
     public void SetActiveGun(GunSystem gun)
     {
@@ -161,7 +122,7 @@ public class GameManager : MonoBehaviour
 
     private void YouWin()
     {
-        CancelInvoke("SpawnEnemies");
+        SpawnManager.Instance.CancelInvokeSpawningEnemies();
 
         BaseEnemyAI[] enemies = GameObject.FindObjectsOfType<BaseEnemyAI>();
 
@@ -260,6 +221,21 @@ public class GameManager : MonoBehaviour
     public bool ReturnIsBreak()
     {
         return isBreak;
+    }
+
+    public bool ReturnIsGameActive()
+    {
+        return isGameActive;
+    }
+
+    public int ReturnQuantityOfKillsToWin()
+    {
+        return quantityOfKillsToWin;
+    }
+
+    public int ReturnMaxEnemies()
+    {
+        return maxEnemies;
     }
 
 }
