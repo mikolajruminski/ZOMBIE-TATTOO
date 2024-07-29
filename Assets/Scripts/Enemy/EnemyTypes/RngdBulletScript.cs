@@ -8,6 +8,9 @@ public class RngdBulletScript : MonoBehaviour, IDamageable
     Vector3 direction;
     Vector3 offset = new Vector3(0, 1, 0);
     [SerializeField] private int _damage = 2;
+    [SerializeField] private int _speed = 10;
+
+    [SerializeField] private PlayerAlimentScript.PlayerAliments bulletAliment;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +29,7 @@ public class RngdBulletScript : MonoBehaviour, IDamageable
 
     private void AddForce()
     {
-        rb.AddForce(direction * 10, ForceMode.Impulse);
+        rb.AddForce(direction * _speed, ForceMode.Impulse);
     }
 
     public void TakeDamage(int damage)
@@ -39,7 +42,7 @@ public class RngdBulletScript : MonoBehaviour, IDamageable
         if (other.gameObject.TryGetComponent(out FotelHealthScript fotelHealthScript))
         {
             fotelHealthScript.TakeDamage(_damage);
-            Debug.Log("dealt " + _damage + "of ranged damage");
+            PlayerAlimentScript.Instance.GivePlayerAliment(bulletAliment);
             Destroy(gameObject);
         }
     }

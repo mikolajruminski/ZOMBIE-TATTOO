@@ -12,6 +12,12 @@ public class GameCameraScript : MonoBehaviour
     private float lerpDuraiton = 0.3f;
     private Vector3 backLook = new Vector3(0, 90, 0);
     private Vector3 frontLook = new Vector3(0, -90, 0);
+
+    #region PlayerAliments variable 
+
+    private bool canTurn = true;
+
+    #endregion
     // Start is called before the first frame update
     void Start()
     {
@@ -37,22 +43,26 @@ public class GameCameraScript : MonoBehaviour
 
     private void SwitchView()
     {
-        if (GameManager.Instance.IsGameActive() && Input.GetKeyDown(KeyCode.Space))
+        if (canTurn)
         {
+            if (GameManager.Instance.IsGameActive() && Input.GetKeyDown(KeyCode.Space))
+            {
 
-            if (isLookingFront)
-            {
-                // onLookBack?.Invoke(this, EventArgs.Empty);
-                isLookingFront = !isLookingFront;
-                StartCoroutine(LerpCameraPosition(Quaternion.Euler(backLook)));
-            }
-            else
-            {
-                // onLookFront?.Invoke(this, EventArgs.Empty);
-                isLookingFront = !isLookingFront;
-                StartCoroutine(LerpCameraPosition(Quaternion.Euler(frontLook)));
+                if (isLookingFront)
+                {
+                    // onLookBack?.Invoke(this, EventArgs.Empty);
+                    isLookingFront = !isLookingFront;
+                    StartCoroutine(LerpCameraPosition(Quaternion.Euler(backLook)));
+                }
+                else
+                {
+                    // onLookFront?.Invoke(this, EventArgs.Empty);
+                    isLookingFront = !isLookingFront;
+                    StartCoroutine(LerpCameraPosition(Quaternion.Euler(frontLook)));
+                }
             }
         }
+
     }
 
     public bool ReturnIsLookingFront()
@@ -76,6 +86,10 @@ public class GameCameraScript : MonoBehaviour
 
         transform.rotation = endValue;
         PlayerController.Instance.ChangeCameraClamp();
+    }
 
+    public void SwitchCanTurn()
+    {
+        canTurn = !canTurn;
     }
 }

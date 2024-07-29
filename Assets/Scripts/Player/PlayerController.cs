@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public bool invertCamera = false;
     public bool cameraCanMove = true;
     public float mouseSensitivity = 2f;
+    public float alimentMouseSensitivity = 0.5f;
     public float maxLookAngle = 50f;
     public float maxYawAngle = 50;
     public float gameMaxLookAngle = 30f;
@@ -263,6 +264,21 @@ public class PlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
         }
     }
+
+    #region Aliments
+
+    public IEnumerator SlowCameraMovement(int resetTime)
+    {
+        float ogMouseSens;
+        ogMouseSens = mouseSensitivity;
+        mouseSensitivity = alimentMouseSensitivity;
+
+        yield return new WaitForSeconds(resetTime);
+
+        mouseSensitivity = ogMouseSens;
+    }
+
+    #endregion 
 
 
 

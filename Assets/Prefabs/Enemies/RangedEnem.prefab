@@ -5054,7 +5054,7 @@ MonoBehaviour:
   damage: 1
   pointValue: 5
   goldValue: 2
-  bulletPrefab: {fileID: 381769108756118211, guid: defee8b8fa216aa4a857167589d14ef8,
+  bulletPrefab: {fileID: 381769108756118211, guid: 126ddd27d8cdee148909cbbcf796e964,
     type: 3}
 --- !u!114 &2418013935718859005
 MonoBehaviour:
