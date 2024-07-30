@@ -7,7 +7,9 @@ public class ConFuryTime : ConsumableScript
     [SerializeField] private float furyTime = 5f;
     public override void OnDestroyed()
     {
-        PlayerUpgradeScript.Instance.StartCoroutine(PlayerUpgradeScript.Instance.ActivateFuryTime(furyTime));
-        // Destroy(gameObject);
+        // PlayerUpgradeScript.Instance.StartCoroutine(PlayerUpgradeScript.Instance.ActivateFuryTime(furyTime));
+
+        PlayerUpgradeScript.Instance.ConsumedFuryTime(furyTime);
+        Destroy(gameObject);
     }
 }

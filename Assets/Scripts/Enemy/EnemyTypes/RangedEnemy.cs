@@ -8,7 +8,16 @@ using Unity.Mathematics;
 public class RangedEnemy : BaseEnemyAI
 {
     // Start is called before the first frame update
-    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GameObject regularBulletPrefab;
+    [SerializeField] private GameObject[] specialBulletsPrefabs;
+
+    private GameObject bulletPrefab;
+
+    #region Random bullets values
+
+    [SerializeField] private float regularBulletChance = 0.7f;
+
+    #endregion
 
     private void Awake()
     {
@@ -17,6 +26,7 @@ public class RangedEnemy : BaseEnemyAI
     }
     void Start()
     {
+        RandomizeBulletPrefab();
         nav.speed = enemyScript.GetSpeed();
         fotelTransform = FotelHealthScript.Instance.transform.position;
     }
@@ -69,4 +79,22 @@ public class RangedEnemy : BaseEnemyAI
             }
         }
     }
+
+    private void RandomizeBulletPrefab()
+    {
+        float randVal = UnityEngine.Random.value;
+        if (randVal < regularBulletChance)
+        {
+            bulletPrefab = regularBulletPrefab;
+        }
+        else
+        {
+            int x = UnityEngine.Random.Range(0, specialBulletsPrefabs.Length);
+
+            bulletPrefab = specialBulletsPrefabs[x];
+        }
+
+    }
+
+
 }

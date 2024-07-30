@@ -30,4 +30,17 @@ public class GunAnimatorScript : MonoBehaviour
     {
         animator.SetTrigger("OnReload");
     }
+
+    #region Animator Ready to shoot
+    public void NotReadyToShoot()
+    {
+        gunSystem.NotReadyToShoot();
+    }
+
+    public void ReadyToShoot()
+    {
+        gunSystem.ReadyToShoot();
+    }
+
+    #endregion
 }

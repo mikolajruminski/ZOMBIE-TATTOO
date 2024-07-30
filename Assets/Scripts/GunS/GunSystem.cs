@@ -292,4 +292,17 @@ public class GunSystem : MonoBehaviour
     }
 
     #endregion
+
+    #region Animator Ready to shoot
+    public void NotReadyToShoot()
+    {
+        readyToShot = false;
+    }
+
+    public void ReadyToShoot()
+    {
+        readyToShot = true;
+    }
+
+    #endregion
 }

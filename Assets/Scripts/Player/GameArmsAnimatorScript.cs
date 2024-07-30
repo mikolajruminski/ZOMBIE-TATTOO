@@ -7,11 +7,21 @@ public class GameArmsAnimatorScript : MonoBehaviour
 {
     Animator animator;
     // Start is called before the first frame update
+
+    private float furyTime;
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         PlayerController.Instance.onSpecialAttack += OnSpecialAttack;
-        animator.enabled = false;
+        PlayerUpgradeScript.Instance.onFuryTimeActivated += OnFuryTimeActivated;
+        //animator.enabled = false;
+    }
+
+    private void OnFuryTimeActivated(object sender, PlayerUpgradeScript.OnFuryTimeActivatedEventArgs e)
+    {
+        animator.enabled = true;
+        furyTime = e.furyTime;
+        animator.Play("FuryTimeActivation");
     }
 
     private void OnSpecialAttack(object sender, EventArgs e)
@@ -30,8 +40,13 @@ public class GameArmsAnimatorScript : MonoBehaviour
     {
         GetComponentInChildren<SpecialMoveScript>().SpecialAttack();
     }
-    
-    private void DisableAnimator() 
+
+    public void ActivateFuryTime()
+    {
+        StartCoroutine(PlayerUpgradeScript.Instance.ActivateFuryTime(furyTime));
+    }
+
+    public void DisableAnimator()
     {
         animator.enabled = false;
     }
