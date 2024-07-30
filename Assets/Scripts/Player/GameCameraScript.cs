@@ -6,7 +6,6 @@ using System;
 public class GameCameraScript : MonoBehaviour
 {
     public static GameCameraScript Instance { get; private set; }
-    public event EventHandler onLookBack, onLookFront;
     private bool isLookingFront = true;
     public KeyCode switchCameraView = KeyCode.Space;
     private float lerpDuraiton = 0.3f;

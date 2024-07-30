@@ -283,4 +283,13 @@ public class GunSystem : MonoBehaviour
         timeBetweenShooting = baseTimeBetweenShooting;
     }
     #endregion
+
+    #region PlayerAliment Insta Unload
+
+    public void AlimentInstaUnload()
+    {
+        bulletsLeft = 0;
+    }
+
+    #endregion
 }

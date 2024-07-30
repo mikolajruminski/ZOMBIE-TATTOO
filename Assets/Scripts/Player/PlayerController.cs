@@ -40,8 +40,6 @@ public class PlayerController : MonoBehaviour
     public bool playerCanMove = true;
     public float walkSpeed = 5f;
     public float maxVelocityChange = 10f;
-
-    private bool isWalking = false;
     private bool isGrounded = false;
 
     #endregion
@@ -155,14 +153,6 @@ public class PlayerController : MonoBehaviour
 
             // Checks if player is walking and isGrounded
             // Will allow head bob
-            if (targetVelocity.x != 0 || targetVelocity.z != 0 && isGrounded)
-            {
-                isWalking = true;
-            }
-            else
-            {
-                isWalking = false;
-            }
 
             targetVelocity = transform.TransformDirection(targetVelocity) * walkSpeed;
 

@@ -5,16 +5,26 @@ using UnityEngine;
 
 public class PlayerAlimentScript : MonoBehaviour
 {
+    public event EventHandler<OnBlindnessTriggeredEventArgs> OnBlindessTriggered;
 
+    public class OnBlindnessTriggeredEventArgs : EventArgs
+    {
+        public int blindnessTime;
+    }
     public static PlayerAlimentScript Instance { get; private set; }
     private PlayerAliments currentAliment;
 
     [SerializeField] private int _cannotTurnAlimentTimeCountdown = 3;
     [SerializeField] private int _slowCameraMovementResetTime = 3;
+    [SerializeField] private int _blindnessTime = 2;
+    [SerializeField] private PlayerUI playerUI;
     // Start is called before the first frame update
     void Start()
     {
+        playerUI.GetComponent<PlayerUI>();
+
         Instance = this;
+        SubsctibeToEvents();
     }
 
     // Update is called once per frame
@@ -30,10 +40,12 @@ public class PlayerAlimentScript : MonoBehaviour
             switch (aliment)
             {
                 case PlayerAliments.Blindness:
+                    OnBlindessTriggered?.Invoke(this, new OnBlindnessTriggeredEventArgs { blindnessTime = _blindnessTime });
                     Debug.Log("blindness");
                     break;
 
                 case PlayerAliments.UnloadWeapon:
+                    InstaUnload();
                     Debug.Log("unload weapon");
                     break;
 
@@ -67,5 +79,17 @@ public class PlayerAlimentScript : MonoBehaviour
 
         gameCameraScript.SwitchCanTurn();
         currentAliment = PlayerAliments.None;
+    }
+
+    private void InstaUnload()
+    {
+        GunSystem gun = GameManager.Instance.GetActiveGun();
+        gun.AlimentInstaUnload();
+    }
+
+    public void SubsctibeToEvents()
+    {
+        playerUI.SubsctibeToEventsAfterTime();
+
     }
 }

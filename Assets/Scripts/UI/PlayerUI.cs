@@ -14,6 +14,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI playerGold;
     [SerializeField] private GameObject shopUI;
     [SerializeField] private GameObject furyTimeOverlay;
+    [SerializeField] private GameObject blindnessAliment;
 
     [SerializeField] private GameObject playerUI;
     // Start is called before the first frame update
@@ -28,7 +29,18 @@ public class PlayerUI : MonoBehaviour
         WeaponManagerScript.Instance.onFuryTimeEnabled += WeaponManager_Instance_OnFuryTime;
         WeaponManagerScript.Instance.onFuryTimeDisabled += WeaponManager_Instance_OnFuryTimeDisabled;
 
+
         gameObject.SetActive(false);
+    }
+
+    public void SubsctibeToEventsAfterTime()
+    {
+        PlayerAlimentScript.Instance.OnBlindessTriggered += PlayerAlimentScript_Instance_OnBlindnessTriggered;
+    }
+
+    private void PlayerAlimentScript_Instance_OnBlindnessTriggered(object sender, PlayerAlimentScript.OnBlindnessTriggeredEventArgs e)
+    {
+        StartCoroutine(TurnOffAfterTime(blindnessAliment, e.blindnessTime));
     }
 
     private void WeaponManager_Instance_OnFuryTimeDisabled(object sender, EventArgs e)
@@ -102,6 +114,15 @@ public class PlayerUI : MonoBehaviour
             timeBetweenRoundsText.gameObject.SetActive(false);
             shopUI.gameObject.SetActive(false);
         }
+    }
+
+    private IEnumerator TurnOffAfterTime(GameObject gameObject, int time)
+    {
+        gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(time);
+
+        gameObject.SetActive(false);
     }
 
 }

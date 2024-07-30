@@ -16,23 +16,7 @@ public class GameCameraAnimationScript : MonoBehaviour
     void Start()
     {
         animator.enabled = false;
-        gameCameraScript.onLookFront += OnLookFront;
-        gameCameraScript.onLookBack += OnLookBack;
-    }
-
-    private void OnLookBack(object sender, EventArgs e)
-    {
-        animator.enabled = true;
-        animator.Play("GamePlayerAnim");
-
-    }
-
-    private void OnLookFront(object sender, EventArgs e)
-    {
-        animator.enabled = true;
-        animator.Play("GamePlayerAnimBack");
-
-
+       
     }
 
     public void TurnOffAnimator()
