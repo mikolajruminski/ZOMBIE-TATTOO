@@ -7,7 +7,7 @@ public class GameArmsAnimatorScript : MonoBehaviour
 {
     public static GameArmsAnimatorScript Instance { get; private set; }
     public event EventHandler OnFuryTimeAnimationEnded;
-    public event EventHandler OnSpecialAttackAnimationEnded;
+    public event EventHandler OnForceAttackAnimationEnded;
     public event EventHandler onInkAttackStart;
     Animator animator;
     // Start is called before the first frame update
@@ -45,21 +45,17 @@ public class GameArmsAnimatorScript : MonoBehaviour
         animator.Play("FuryTimeActivation");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void SPECIAL_ATTACK()
     {
-        Debug.Log("reached game arms script");
-        OnSpecialAttackAnimationEnded?.Invoke(this, EventArgs.Empty);
+        //needs rebuilding, events does not fire so this is an temporary solution
+        // OnForceAttackAnimationEnded?.Invoke(this, EventArgs.Empty);
+        PlayerUpgradeScript.Instance.OnForceWaveAttackAnimationEnded();
     }
 
     public void ActivateFuryTime()
     {
-        OnFuryTimeAnimationEnded?.Invoke(this, EventArgs.Empty);
+        // OnFuryTimeAnimationEnded?.Invoke(this, EventArgs.Empty);
+        PlayerUpgradeScript.Instance.OnFuryTimeAnimationEnded();
     }
 
     public void InkAttackStart()

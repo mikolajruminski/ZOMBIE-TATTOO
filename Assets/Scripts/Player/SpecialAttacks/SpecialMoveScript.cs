@@ -17,19 +17,14 @@ public class SpecialMoveScript : MonoBehaviour
     void Start()
     {
         PlayerUpgradeScript.Instance.onForceWaveAttackAnimationEnded += OnForceWaveAttackAnimationEnded;
-        GameArmsAnimatorScript.Instance.OnSpecialAttackAnimationEnded += OnSpecialAttackAnimationEnded;
+        //GameArmsAnimatorScript.Instance.OnSpecialAttackAnimationEnded += OnSpecialAttackAnimationEnded;
         damageCollider.enabled = false;
     }
 
-    private void OnSpecialAttackAnimationEnded(object sender, EventArgs e)
-    {
-        Debug.Log("reached special move script");
-        StartCoroutine(EnableAttackColldier());
-    }
 
     private void OnForceWaveAttackAnimationEnded(object sender, EventArgs e)
     {
-
+        StartCoroutine(EnableAttackColldier());
     }
 
     // Update is called once per frame

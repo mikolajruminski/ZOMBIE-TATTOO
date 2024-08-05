@@ -35,16 +35,9 @@ public class PlayerUpgradeScript : MonoBehaviour
     void Start()
     {
         isFuryTimeActive = false;
-
-        GameArmsAnimatorScript.Instance.OnFuryTimeAnimationEnded += OnFuryTimeAnimationEnded;
         PlayerController.Instance.onSpecialAttack += OnSpecialAttack;
-        GameArmsAnimatorScript.Instance.OnSpecialAttackAnimationEnded += OnWaveAttackAnimationEnded;
     }
 
-    private void OnWaveAttackAnimationEnded(object sender, EventArgs e)
-    {
-        onForceWaveAttackAnimationEnded?.Invoke(this, EventArgs.Empty);
-    }
 
     private void OnSpecialAttack(object sender, EventArgs e)
     {
@@ -59,10 +52,14 @@ public class PlayerUpgradeScript : MonoBehaviour
                 break;
         }
     }
-
-    private void OnFuryTimeAnimationEnded(object sender, EventArgs e)
+    public void OnFuryTimeAnimationEnded()
     {
         StartCoroutine(ActivateFuryTime());
+    }
+
+    public void OnForceWaveAttackAnimationEnded()
+    {
+        onForceWaveAttackAnimationEnded?.Invoke(this, EventArgs.Empty);
     }
 
     // Update is called once per frame
