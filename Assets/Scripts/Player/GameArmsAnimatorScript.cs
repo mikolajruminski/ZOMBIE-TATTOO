@@ -5,29 +5,44 @@ using UnityEngine;
 
 public class GameArmsAnimatorScript : MonoBehaviour
 {
+    public static GameArmsAnimatorScript Instance { get; private set; }
+    public event EventHandler OnFuryTimeAnimationEnded;
+    public event EventHandler OnSpecialAttackAnimationEnded;
+    public event EventHandler onInkAttackStart;
     Animator animator;
     // Start is called before the first frame update
 
     private float furyTime;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
-        PlayerController.Instance.onSpecialAttack += OnSpecialAttack;
         PlayerUpgradeScript.Instance.onFuryTimeActivated += OnFuryTimeActivated;
+        PlayerUpgradeScript.Instance.onForceWaveAttackActivated += OnForceWaveAttackActivated;
+        PlayerUpgradeScript.Instance.onFTattoInkAttackActivated += OnFTattoInkAttackActivated;
         //animator.enabled = false;
     }
 
-    private void OnFuryTimeActivated(object sender, PlayerUpgradeScript.OnFuryTimeActivatedEventArgs e)
+    private void OnFTattoInkAttackActivated(object sender, EventArgs e)
     {
         animator.enabled = true;
-        furyTime = e.furyTime;
-        animator.Play("FuryTimeActivation");
+        animator.Play("TattoInkAttackAct");
     }
 
-    private void OnSpecialAttack(object sender, EventArgs e)
+    private void OnForceWaveAttackActivated(object sender, EventArgs e)
     {
         animator.enabled = true;
-        animator.Play("SpecialAttack");
+        animator.Play("ForceWaveAttack");
+    }
+
+    private void OnFuryTimeActivated(object sender, EventArgs e)
+    {
+        animator.enabled = true;
+        animator.Play("FuryTimeActivation");
     }
 
     // Update is called once per frame
@@ -38,12 +53,18 @@ public class GameArmsAnimatorScript : MonoBehaviour
 
     public void SPECIAL_ATTACK()
     {
-        GetComponentInChildren<SpecialMoveScript>().SpecialAttack();
+        Debug.Log("reached game arms script");
+        OnSpecialAttackAnimationEnded?.Invoke(this, EventArgs.Empty);
     }
 
     public void ActivateFuryTime()
     {
-        StartCoroutine(PlayerUpgradeScript.Instance.ActivateFuryTime(furyTime));
+        OnFuryTimeAnimationEnded?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void InkAttackStart()
+    {
+        onInkAttackStart?.Invoke(this, EventArgs.Empty);
     }
 
     public void DisableAnimator()

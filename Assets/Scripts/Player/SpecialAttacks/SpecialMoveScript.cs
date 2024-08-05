@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,7 +6,7 @@ using UnityEngine;
 
 public class SpecialMoveScript : MonoBehaviour
 {
-    [SerializeField] private int specialDamageAmount = 10;
+    [SerializeField] private int specialDamageAmount = 1;
     private Collider damageCollider;
     // Start is called before the first frame update
 
@@ -15,20 +16,26 @@ public class SpecialMoveScript : MonoBehaviour
     }
     void Start()
     {
+        PlayerUpgradeScript.Instance.onForceWaveAttackAnimationEnded += OnForceWaveAttackAnimationEnded;
+        GameArmsAnimatorScript.Instance.OnSpecialAttackAnimationEnded += OnSpecialAttackAnimationEnded;
         damageCollider.enabled = false;
+    }
+
+    private void OnSpecialAttackAnimationEnded(object sender, EventArgs e)
+    {
+        Debug.Log("reached special move script");
+        StartCoroutine(EnableAttackColldier());
+    }
+
+    private void OnForceWaveAttackAnimationEnded(object sender, EventArgs e)
+    {
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
-    }
-
-
-
-    public void SpecialAttack()
-    {
-        StartCoroutine(EnableAttackColldier());
     }
 
     private IEnumerator EnableAttackColldier()
@@ -43,7 +50,7 @@ public class SpecialMoveScript : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out EnemyScript enemyScript))
         {
-            enemyScript.TakeDamage(0);
+            enemyScript.TakeDamage(specialDamageAmount);
 
             Vector3 direction = enemyScript.gameObject.transform.position - GetComponentInParent<PlayerController>().gameObject.transform.position;
 

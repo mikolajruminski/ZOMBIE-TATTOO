@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SpecialAttack
+  m_Name: ForceWaveAttack
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -3437,13 +3437,6 @@ AnimationClip:
   m_Events:
   - time: 1
     functionName: SPECIAL_ATTACK
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 1.4833333
-    functionName: DisableAnimator
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

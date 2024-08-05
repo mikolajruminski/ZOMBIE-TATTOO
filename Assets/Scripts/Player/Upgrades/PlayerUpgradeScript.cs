@@ -8,23 +8,61 @@ public class PlayerUpgradeScript : MonoBehaviour
     public static PlayerUpgradeScript Instance { get; private set; }
     private bool isFuryTimeActive;
 
-    public event EventHandler<OnFuryTimeActivatedEventArgs> onFuryTimeActivated;
-
-    public class OnFuryTimeActivatedEventArgs
-    {
-        public float furyTime;
-    }
-
+    public event EventHandler onFuryTimeActivated;
     private float furyTime;
+
+    [SerializeField] private PlayerSpecialMoves chosenSpecialMove;
+
+    #region SpecialMovesStart Events
+
+    public event EventHandler onForceWaveAttackActivated;
+    public event EventHandler onFTattoInkAttackActivated;
+
+    #endregion
+
+    #region  SpecialMovesAnimationEnds Events
+
+    public event EventHandler onForceWaveAttackAnimationEnded;
+
+    #endregion
     // Start is called before the first frame update
     private void Awake()
     {
         Instance = this;
+        chosenSpecialMove = PlayerSpecialMoves.ForceWaveAttack;
     }
 
     void Start()
     {
         isFuryTimeActive = false;
+
+        GameArmsAnimatorScript.Instance.OnFuryTimeAnimationEnded += OnFuryTimeAnimationEnded;
+        PlayerController.Instance.onSpecialAttack += OnSpecialAttack;
+        GameArmsAnimatorScript.Instance.OnSpecialAttackAnimationEnded += OnWaveAttackAnimationEnded;
+    }
+
+    private void OnWaveAttackAnimationEnded(object sender, EventArgs e)
+    {
+        onForceWaveAttackAnimationEnded?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnSpecialAttack(object sender, EventArgs e)
+    {
+        switch (chosenSpecialMove)
+        {
+            case PlayerSpecialMoves.ForceWaveAttack:
+                onForceWaveAttackActivated?.Invoke(this, EventArgs.Empty);
+                break;
+
+            case PlayerSpecialMoves.TattoInAttack:
+                onFTattoInkAttackActivated?.Invoke(this, EventArgs.Empty);
+                break;
+        }
+    }
+
+    private void OnFuryTimeAnimationEnded(object sender, EventArgs e)
+    {
+        StartCoroutine(ActivateFuryTime());
     }
 
     // Update is called once per frame
@@ -36,6 +74,11 @@ public class PlayerUpgradeScript : MonoBehaviour
     public enum PlayerUpgrades
     {
         HealthUpgrade, EarnMoreSpecialPoints, FuryTime
+    }
+
+    public enum PlayerSpecialMoves
+    {
+        TattoInAttack, ForceWaveAttack
     }
 
     public void AddedNewUpgrade(PlayerUpgradeSo item)
@@ -52,7 +95,7 @@ public class PlayerUpgradeScript : MonoBehaviour
         }
     }
 
-    public IEnumerator ActivateFuryTime(float furyTime)
+    public IEnumerator ActivateFuryTime()
     {
         if (!isFuryTimeActive)
         {
@@ -78,7 +121,7 @@ public class PlayerUpgradeScript : MonoBehaviour
     public void ConsumedFuryTime(float furyTime)
     {
         this.furyTime = furyTime;
-        onFuryTimeActivated?.Invoke(this, new OnFuryTimeActivatedEventArgs { furyTime = furyTime });
+        onFuryTimeActivated?.Invoke(this, EventArgs.Empty);
     }
 
 

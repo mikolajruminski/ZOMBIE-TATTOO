@@ -218,7 +218,6 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(specialActivationKey) && SpecialMeter.Instance.ReturnCanActivateSpecial())
         {
-            Debug.Log("SPECIAL MODE ACTIVATED. I GUESS");
             SpecialMeter.Instance.ResetSpecialMeter();
             onSpecialAttack?.Invoke(this, EventArgs.Empty);
         }
