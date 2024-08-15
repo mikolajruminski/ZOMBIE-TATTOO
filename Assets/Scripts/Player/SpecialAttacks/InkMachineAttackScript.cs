@@ -5,35 +5,44 @@ using UnityEngine;
 
 public class InkMachineAttackScript : MonoBehaviour
 {
-    private bool canDealDamage = false;
+    public static InkMachineAttackScript Instance { get; private set; }
     [SerializeField] private int tickDamage = 1;
-    [SerializeField] private float timeBetweenTicks = 0.2f;
+    [SerializeField] private float timeBetweenTicks = 0.3f;
+    [SerializeField] private int attackDuration = 5;
     private List<IDamageable> damageables = new List<IDamageable>();
+
+    public event EventHandler onInkAttackEnded;
+
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
-        GameArmsAnimatorScript.Instance.onInkAttackStart += onInkAttackStart;
-    }
 
-    private void onInkAttackStart(object sender, EventArgs e)
-    {
-        throw new NotImplementedException();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log(damageables.Count);
     }
 
     public void StartDealingDamage()
     {
-        InvokeRepeating("DealDamage", 0, timeBetweenTicks);
+        damageables.Clear();
+        InvokeRepeating("DealDamage", 0.02f, timeBetweenTicks);
+        StartCoroutine(TimeStopDealingDamage());
     }
 
     public void StopDealingDamage()
     {
+        onInkAttackEnded?.Invoke(this, EventArgs.Empty);
+
         CancelInvoke();
+
         damageables.Clear();
     }
 
@@ -43,20 +52,54 @@ public class InkMachineAttackScript : MonoBehaviour
         {
             damageable.TakeDamage(tickDamage);
         }
+
+        damageables.Clear();
+    }
+
+    private IEnumerator TimeStopDealingDamage()
+    {
+        yield return new WaitForSeconds(attackDuration);
+        StopDealingDamage();
     }
 
 
-
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (canDealDamage)
+        if (other.TryGetComponent(out IDamageable idamageable))
+        {
+            if (damageables.Count > 0)
+            {
+                if (damageables.Contains(idamageable))
+                {
+                    Debug.Log("cannot add, already on the list");
+                }
+                else
+                {
+                    Debug.Log("adding new damageable");
+                    damageables.Add(idamageable);
+                }
+            }
+            else
+            {
+                damageables.Add(idamageable);
+                Debug.Log("added damageable cos list of damageables is 0");
+            }
+
+
+        }
+
+    }
+
+    /*
+        private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out IDamageable idamageable))
             {
-                damageables.Add(idamageable);
+               damageables.Add(idamageable);
             }
         }
-    }
+*/
+
     private void OnTriggerExit(Collider other)
     {
         if (other.TryGetComponent(out IDamageable idamageable))

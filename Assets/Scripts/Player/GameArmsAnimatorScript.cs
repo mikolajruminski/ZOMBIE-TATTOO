@@ -17,17 +17,26 @@ public class GameArmsAnimatorScript : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
     }
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
+
         PlayerUpgradeScript.Instance.onFuryTimeActivated += OnFuryTimeActivated;
         PlayerUpgradeScript.Instance.onForceWaveAttackActivated += OnForceWaveAttackActivated;
-        PlayerUpgradeScript.Instance.onFTattoInkAttackActivated += OnFTattoInkAttackActivated;
+        PlayerUpgradeScript.Instance.onTattoInkAttackActivated += OnTattoInkAttackActivated;
+        InkMachineAttackScript.Instance.onInkAttackEnded += OnInkAttackEnded;
         //animator.enabled = false;
     }
 
-    private void OnFTattoInkAttackActivated(object sender, EventArgs e)
+    private void OnInkAttackEnded(object sender, EventArgs e)
+    {
+        animator.enabled = true;
+        animator.Play("TattooInkAttackEnd");
+    }
+
+    private void OnTattoInkAttackActivated(object sender, EventArgs e)
     {
         animator.enabled = true;
         animator.Play("TattoInkAttackAct");
@@ -48,14 +57,14 @@ public class GameArmsAnimatorScript : MonoBehaviour
     public void SPECIAL_ATTACK()
     {
         //needs rebuilding, events does not fire so this is an temporary solution
-        // OnForceAttackAnimationEnded?.Invoke(this, EventArgs.Empty);
-        PlayerUpgradeScript.Instance.OnForceWaveAttackAnimationEnded();
+        OnForceAttackAnimationEnded?.Invoke(this, EventArgs.Empty);
+        // PlayerUpgradeScript.Instance.OnForceWaveAttackAnimationEnded();
     }
 
     public void ActivateFuryTime()
     {
-        // OnFuryTimeAnimationEnded?.Invoke(this, EventArgs.Empty);
-        PlayerUpgradeScript.Instance.OnFuryTimeAnimationEnded();
+        OnFuryTimeAnimationEnded?.Invoke(this, EventArgs.Empty);
+
     }
 
     public void InkAttackStart()

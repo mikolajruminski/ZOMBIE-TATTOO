@@ -16,15 +16,8 @@ public class SpecialMoveScript : MonoBehaviour
     }
     void Start()
     {
-        PlayerUpgradeScript.Instance.onForceWaveAttackAnimationEnded += OnForceWaveAttackAnimationEnded;
         //GameArmsAnimatorScript.Instance.OnSpecialAttackAnimationEnded += OnSpecialAttackAnimationEnded;
         damageCollider.enabled = false;
-    }
-
-
-    private void OnForceWaveAttackAnimationEnded(object sender, EventArgs e)
-    {
-        StartCoroutine(EnableAttackColldier());
     }
 
     // Update is called once per frame
@@ -33,7 +26,7 @@ public class SpecialMoveScript : MonoBehaviour
 
     }
 
-    private IEnumerator EnableAttackColldier()
+    public IEnumerator EnableAttackColldier()
     {
         damageCollider.enabled = true;
         yield return new WaitForSeconds(0.1f);

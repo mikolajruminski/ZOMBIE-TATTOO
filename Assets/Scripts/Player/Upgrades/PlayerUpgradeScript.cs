@@ -16,13 +16,7 @@ public class PlayerUpgradeScript : MonoBehaviour
     #region SpecialMovesStart Events
 
     public event EventHandler onForceWaveAttackActivated;
-    public event EventHandler onFTattoInkAttackActivated;
-
-    #endregion
-
-    #region  SpecialMovesAnimationEnds Events
-
-    public event EventHandler onForceWaveAttackAnimationEnded;
+    public event EventHandler onTattoInkAttackActivated;
 
     #endregion
     // Start is called before the first frame update
@@ -47,19 +41,14 @@ public class PlayerUpgradeScript : MonoBehaviour
                 onForceWaveAttackActivated?.Invoke(this, EventArgs.Empty);
                 break;
 
-            case PlayerSpecialMoves.TattoInAttack:
-                onFTattoInkAttackActivated?.Invoke(this, EventArgs.Empty);
+            case PlayerSpecialMoves.TattoInkAttack:
+                onTattoInkAttackActivated?.Invoke(this, EventArgs.Empty);
                 break;
         }
     }
     public void OnFuryTimeAnimationEnded()
     {
         StartCoroutine(ActivateFuryTime());
-    }
-
-    public void OnForceWaveAttackAnimationEnded()
-    {
-        onForceWaveAttackAnimationEnded?.Invoke(this, EventArgs.Empty);
     }
 
     // Update is called once per frame
@@ -75,7 +64,7 @@ public class PlayerUpgradeScript : MonoBehaviour
 
     public enum PlayerSpecialMoves
     {
-        TattoInAttack, ForceWaveAttack
+        TattoInkAttack, ForceWaveAttack
     }
 
     public void AddedNewUpgrade(PlayerUpgradeSo item)

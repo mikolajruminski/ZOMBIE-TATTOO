@@ -25,6 +25,8 @@ public class EnemyScript : MonoBehaviour, IDamageable
             MoneyManager.Instance.AddMoney(GetComponent<BaseEnemyAI>().GetGoldValue());
             SpecialMeter.Instance.FillSpecialMeter(GetComponent<BaseEnemyAI>().GetPointValue());
 
+            
+
             if (enemyConsumableDropScript != null)
             {
                 enemyConsumableDropScript.DropConsumable();
