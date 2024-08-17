@@ -34,12 +34,23 @@ public class EnemyStatusAligements : MonoBehaviour
 
         alimentDamage = damage;
 
-        StartCoroutine(alimentEnemy(alimentUpgrade));
+        switch (alimentUpgrade)
+        {
+            case WeaponManagerScript.AllWeaponUpgrades.fireRounds:
+                currentAliment = Aliments.onFire;
+                break;
+
+            case WeaponManagerScript.AllWeaponUpgrades.toxicRounds:
+                currentAliment = Aliments.Toxic;
+                break;
+        }
+
+        StartCoroutine(alimentEnemy());
     }
 
-    private IEnumerator alimentEnemy(WeaponManagerScript.AllWeaponUpgrades alimentUpgrade)
+    private IEnumerator alimentEnemy()
     {
-        EmitAlimentParticles(alimentUpgrade);
+        EmitAlimentParticles();
 
         while (damageTicks >= 0)
         {
@@ -54,19 +65,16 @@ public class EnemyStatusAligements : MonoBehaviour
         currentAliment = Aliments.None;
     }
 
-    private void EmitAlimentParticles(WeaponManagerScript.AllWeaponUpgrades alimentUpgrade)
+    private void EmitAlimentParticles()
     {
-        switch (alimentUpgrade)
+        switch (currentAliment)
         {
-            case WeaponManagerScript.AllWeaponUpgrades.fireRounds:
-                currentAliment = Aliments.onFire;
+            case Aliments.onFire:
                 alimentVisual.emitParticles(0);
-
                 break;
 
-            case WeaponManagerScript.AllWeaponUpgrades.toxicRounds:
+            case Aliments.Toxic:
                 alimentVisual.emitParticles(1);
-                currentAliment = Aliments.Toxic;
                 break;
         }
     }
