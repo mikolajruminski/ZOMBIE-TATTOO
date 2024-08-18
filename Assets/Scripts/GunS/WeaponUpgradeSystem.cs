@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaponUpgradeSystem : MonoBehaviour
 {
     private List<InventoryItem> weaponUpgrades = new List<InventoryItem>();
-    public WeaponManagerScript.AllWeaponUpgrades roundsUpgrade = new WeaponManagerScript.AllWeaponUpgrades();
+    public WeaponManagerScript.RoundAlimentUpgrades roundsUpgrade = new WeaponManagerScript.RoundAlimentUpgrades();
     private GunSystem gun;
     private int alimentDamageTicks, alimentDamage;
     // Start is called before the first frame update
@@ -81,17 +81,21 @@ public class WeaponUpgradeSystem : MonoBehaviour
 
                 gun.UpgradeUpgradableParameters();
                 break;
-            case WeaponManagerScript.AllWeaponUpgrades.fireRounds:
+        }
 
-                roundsUpgrade = WeaponManagerScript.AllWeaponUpgrades.fireRounds;
+        switch (weaponUpgradeSo.roundAlimentUpgrade)
+        {
+            case WeaponManagerScript.RoundAlimentUpgrades.fireRounds:
+
+                roundsUpgrade = WeaponManagerScript.RoundAlimentUpgrades.fireRounds;
 
                 alimentDamageTicks = weaponUpgradeSo.amountOfTicksForRoundsUpgrades;
                 alimentDamage = weaponUpgradeSo.tickDamage;
 
                 break;
-            case WeaponManagerScript.AllWeaponUpgrades.toxicRounds:
+            case WeaponManagerScript.RoundAlimentUpgrades.toxicRounds:
 
-                roundsUpgrade = WeaponManagerScript.AllWeaponUpgrades.toxicRounds;
+                roundsUpgrade = WeaponManagerScript.RoundAlimentUpgrades.toxicRounds;
 
                 alimentDamageTicks = weaponUpgradeSo.amountOfTicksForRoundsUpgrades;
                 alimentDamage = weaponUpgradeSo.tickDamage;
@@ -100,7 +104,7 @@ public class WeaponUpgradeSystem : MonoBehaviour
         }
     }
 
-    public WeaponManagerScript.AllWeaponUpgrades HasAliment()
+    public WeaponManagerScript.RoundAlimentUpgrades HasAliment()
     {
         return roundsUpgrade;
     }

@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: -3774698891826990989}
   - component: {fileID: 1608287896558160192}
   - component: {fileID: -8907649308721176197}
+  - component: {fileID: 6377586192492746443}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -321,6 +322,19 @@ MonoBehaviour:
   - {fileID: 6476376447389833304, guid: 9f636a95fc3cbf748999a2c7de382953, type: 3}
   chanceToDropConsumable: 0.18
   chanceToDropSpecialConsumable: 0.05
+--- !u!114 &6377586192492746443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4835759635898816642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0aa49b8237ed94d9ff411cc574115e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  immunityForAliment: 0
 --- !u!1 &5410591273976766135
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,11 +10,15 @@ public class EnemyStatusAligements : MonoBehaviour
     private EnemyScript enemy;
     private EnemyAlimentsVisualScript alimentVisual;
     private float timeBetweenTicks = 2f;
+
+
+    private EnemyImmunitiesScript enemyImmunitiesScript;
     // Start is called before the first frame update
     void Start()
     {
         enemy = GetComponent<EnemyScript>();
         alimentVisual = GetComponent<EnemyAlimentsVisualScript>();
+        enemyImmunitiesScript = GetComponent<EnemyImmunitiesScript>();
     }
 
     // Update is called once per frame
@@ -28,24 +32,33 @@ public class EnemyStatusAligements : MonoBehaviour
         None, onFire, Toxic
     }
 
-    public void GiveAliment(int ticks, int damage, WeaponManagerScript.AllWeaponUpgrades alimentUpgrade)
+    public void GiveAliment(int ticks, int damage, WeaponManagerScript.RoundAlimentUpgrades alimentUpgrade)
     {
         damageTicks = ticks;
 
         alimentDamage = damage;
-
-        switch (alimentUpgrade)
+        if (!enemyImmunitiesScript.IsImmune(alimentUpgrade))
         {
-            case WeaponManagerScript.AllWeaponUpgrades.fireRounds:
-                currentAliment = Aliments.onFire;
-                break;
+            switch (alimentUpgrade)
+            {
+                case WeaponManagerScript.RoundAlimentUpgrades.fireRounds:
+                    currentAliment = Aliments.onFire;
+                    break;
 
-            case WeaponManagerScript.AllWeaponUpgrades.toxicRounds:
-                currentAliment = Aliments.Toxic;
-                break;
+                case WeaponManagerScript.RoundAlimentUpgrades.toxicRounds:
+                    currentAliment = Aliments.Toxic;
+                    break;
+            }
+
+            StartCoroutine(alimentEnemy());
+        }
+        else
+        {
+            Debug.Log("cannot give aliment, enemy is immune to this type of damage!");
         }
 
-        StartCoroutine(alimentEnemy());
+
+
     }
 
     private IEnumerator alimentEnemy()

@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyImmunitiesScript : MonoBehaviour
 {
     private EnemyStatusAligements enemyStatusAligements;
-    [SerializeField] private EnemyStatusAligements.Aliments immunityForAliment;
+    [SerializeField] private WeaponManagerScript.RoundAlimentUpgrades immunityForAliment;
 
     private Immunities[] immunities;
 
@@ -37,11 +37,15 @@ public class EnemyImmunitiesScript : MonoBehaviour
         ImmunitiesDictionary.Add(Immunities.HeavyArmor, heavyArmorDamageReduction);
     }
 
-    public void IsImmune(WeaponManagerScript.AllWeaponUpgrades alimentUpgrade)
+    public bool IsImmune(WeaponManagerScript.RoundAlimentUpgrades roundAliment)
     {
-        for (int i = 0; i < immunities.Length; i++)
+        if (roundAliment == immunityForAliment)
         {
-            
-       }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

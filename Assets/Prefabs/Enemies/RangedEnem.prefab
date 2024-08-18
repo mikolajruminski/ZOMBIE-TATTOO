@@ -4914,6 +4914,7 @@ GameObject:
   - component: {fileID: 2418013935718859005}
   - component: {fileID: -6562363167695558614}
   - component: {fileID: -5290912106594086301}
+  - component: {fileID: 6801030402432459013}
   m_Layer: 6
   m_Name: RangedEnem
   m_TagString: Untagged
@@ -5061,6 +5062,7 @@ MonoBehaviour:
   - {fileID: 381769108756118211, guid: 29c8396fbc4d14f4f8f204187f5c1501, type: 3}
   - {fileID: 381769108756118211, guid: b68de4d334411a94bb177ddc6333300f, type: 3}
   - {fileID: 381769108756118211, guid: 21e1888d9fd3dd74eb55c303524e5fd0, type: 3}
+  regularBulletChance: 0.7
 --- !u!114 &2418013935718859005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5107,6 +5109,19 @@ MonoBehaviour:
   - {fileID: 6476376447389833304, guid: 9f636a95fc3cbf748999a2c7de382953, type: 3}
   chanceToDropConsumable: 0.25
   chanceToDropSpecialConsumable: 0.05
+--- !u!114 &6801030402432459013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4835759635898816642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0aa49b8237ed94d9ff411cc574115e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  immunityForAliment: 0
 --- !u!1 &5410591273976766135
 GameObject:
   m_ObjectHideFlags: 0

@@ -89,8 +89,14 @@ public class WeaponManagerScript : MonoBehaviour
 
     public enum AllWeaponUpgrades
     {
-        None, MagazienSizeIncraese, FireRateIncrease, ReloadSpeedDecrease, DamageIncrease, fireRounds, toxicRounds, normalRounds
+        None, MagazienSizeIncraese, FireRateIncrease, ReloadSpeedDecrease, DamageIncrease
     }
+
+    public enum RoundAlimentUpgrades
+    {
+        normalRounds, fireRounds, toxicRounds
+    }
+
 
     public void ActivateFuryTimeForAllWeapons()
     {

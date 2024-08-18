@@ -7,6 +7,7 @@ public class WeaponUpgradeSo : ScriptableObject
 {
     public WeaponManagerScript.AllGuns gunAffected;
     public WeaponManagerScript.AllWeaponUpgrades weaponUpgrade;
+    public WeaponManagerScript.RoundAlimentUpgrades roundAlimentUpgrade;
 
     public float amount;
 
