@@ -56,9 +56,6 @@ public class EnemyStatusAligements : MonoBehaviour
         {
             Debug.Log("cannot give aliment, enemy is immune to this type of damage!");
         }
-
-
-
     }
 
     private IEnumerator alimentEnemy()

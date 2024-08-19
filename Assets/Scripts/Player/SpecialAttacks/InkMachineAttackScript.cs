@@ -27,7 +27,7 @@ public class InkMachineAttackScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void StartDealingDamage()
@@ -71,18 +71,16 @@ public class InkMachineAttackScript : MonoBehaviour
             {
                 if (damageables.Contains(idamageable))
                 {
-                    Debug.Log("cannot add, already on the list");
+
                 }
                 else
                 {
-                    Debug.Log("adding new damageable");
                     damageables.Add(idamageable);
                 }
             }
             else
             {
                 damageables.Add(idamageable);
-                Debug.Log("added damageable cos list of damageables is 0");
             }
 
 

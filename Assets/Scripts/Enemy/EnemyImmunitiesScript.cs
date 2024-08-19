@@ -7,12 +7,6 @@ public class EnemyImmunitiesScript : MonoBehaviour
     private EnemyStatusAligements enemyStatusAligements;
     [SerializeField] private WeaponManagerScript.RoundAlimentUpgrades immunityForAliment;
 
-    private Immunities[] immunities;
-
-    private Dictionary<Immunities, float> ImmunitiesDictionary = new Dictionary<Immunities, float>();
-
-    private float lightArmorDamageReduction = 50f;
-    private float heavyArmorDamageReduction = 70f;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,19 +20,14 @@ public class EnemyImmunitiesScript : MonoBehaviour
     }
 
 
-    public enum Immunities
+    public enum Armor
     {
-        None, LightArmor, HeavyArmor, Fire, Toxic, Push,
-    }
-
-    private void FillImmunitiesDictionary()
-    {
-        ImmunitiesDictionary.Add(Immunities.LightArmor, lightArmorDamageReduction);
-        ImmunitiesDictionary.Add(Immunities.HeavyArmor, heavyArmorDamageReduction);
+        None, LightArmor, HeavyArmor,
     }
 
     public bool IsImmune(WeaponManagerScript.RoundAlimentUpgrades roundAliment)
     {
+
         if (roundAliment == immunityForAliment)
         {
             return true;
@@ -47,5 +36,6 @@ public class EnemyImmunitiesScript : MonoBehaviour
         {
             return false;
         }
+
     }
 }

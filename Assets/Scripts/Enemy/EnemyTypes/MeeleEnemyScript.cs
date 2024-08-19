@@ -13,10 +13,12 @@ public class MeeleEnemyScript : BaseEnemyAI
     }
     void Start()
     {
+
         nav.speed = enemyScript.GetSpeed();
         fotelTransform = FotelHealthScript.Instance.transform.position;
-
         SetInitialCoordinates();
+
+
     }
 
     // Update is called once per frame
@@ -83,7 +85,7 @@ public class MeeleEnemyScript : BaseEnemyAI
                 nav.isStopped = true;
                 isAttacking = true;
                 InvokeRepeating("Attack", 1, afterAttackCooldown);
-                
+
             }
         }
     }
