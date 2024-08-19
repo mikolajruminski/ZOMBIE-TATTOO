@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyArmorPlateScript : MonoBehaviour, IDamageable
 {
+    [SerializeField] private ArmorType armorType;
     [SerializeField] private int plateDurability;
     public void TakeDamage(int damage)
     {
@@ -27,8 +28,19 @@ public class EnemyArmorPlateScript : MonoBehaviour, IDamageable
 
     }
 
-    public void SetHeavyArmor()
+    public void SetArmor(int durability)
     {
-        plateDurability += plateDurability / 2;
+        this.plateDurability = durability;
+    }
+
+
+    public enum ArmorType
+    {
+        Head, Leg, Arm, Chest
+    }
+
+    public ArmorType GetArmorType()
+    {
+        return armorType;
     }
 }

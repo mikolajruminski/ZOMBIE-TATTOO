@@ -19,12 +19,6 @@ public class EnemyImmunitiesScript : MonoBehaviour
 
     }
 
-
-    public enum Armor
-    {
-        None, LightArmor, HeavyArmor,
-    }
-
     public bool IsImmune(WeaponManagerScript.RoundAlimentUpgrades roundAliment)
     {
 

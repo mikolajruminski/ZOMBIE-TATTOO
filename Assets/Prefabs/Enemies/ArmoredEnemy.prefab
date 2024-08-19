@@ -162,7 +162,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5e60012b98b39546878aa6bb35b6719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isHeavyArmor: 1
+  armorType: 2
+  headHeavyArmorPoints: 15
+  chestHeavyArmorPoints: 30
+  armsHeavyArmorPoints: 10
+  legsHeavyArmorPoints: 10
+  headLightArmorPoints: 8
+  chestLighArmorPoints: 15
+  armsLighArmorPoints: 5
+  legsLighArmorPoints: 5
+  lightArmorSpeed: 2
+  heavyArmorSpeed: 1
 --- !u!1 &1357831850778692361
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,6 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9687622a98f9a647b90212c93b0bb77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  armorType: 0
   plateDurability: 5
 --- !u!1 &1829572727561698053
 GameObject:
@@ -384,6 +395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9687622a98f9a647b90212c93b0bb77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  armorType: 3
   plateDurability: 10
 --- !u!1 &4835759635898816642
 GameObject:
@@ -546,7 +558,6 @@ MonoBehaviour:
   damage: 1
   pointValue: 2.5
   goldValue: 1
-  shouldAct: 1
 --- !u!114 &-3774698891826990989
 MonoBehaviour:
   m_ObjectHideFlags: 0

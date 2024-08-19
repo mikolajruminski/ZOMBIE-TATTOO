@@ -5,7 +5,21 @@ using UnityEngine;
 
 public class EnemyArmorScript : MonoBehaviour
 {
-    [SerializeField] bool isHeavyArmor;
+    [SerializeField] private Armor armorType;
+
+    [SerializeField] private int headHeavyArmorPoints = 15;
+    [SerializeField] private int chestHeavyArmorPoints = 30;
+    [SerializeField] private int armsHeavyArmorPoints = 10;
+    [SerializeField] private int legsHeavyArmorPoints = 10;
+
+    [SerializeField] private int headLightArmorPoints = 8;
+    [SerializeField] private int chestLighArmorPoints = 15;
+    [SerializeField] private int armsLighArmorPoints = 5;
+    [SerializeField] private int legsLighArmorPoints = 5;
+
+    [SerializeField] private int lightArmorSpeed = 2;
+    [SerializeField] private int heavyArmorSpeed = 1;
+
 
     // Start is called before the first frame update
     private void Awake()
@@ -25,17 +39,87 @@ public class EnemyArmorScript : MonoBehaviour
 
     private void SetArmorParameters()
     {
-        if (isHeavyArmor)
+        switch (armorType)
         {
-            EnemyArmorPlateScript[] plates = GetComponentsInChildren<EnemyArmorPlateScript>();
+            case Armor.None:
 
-            foreach (EnemyArmorPlateScript plate in plates)
-            {
-                plate.SetHeavyArmor();
-            }
 
-            EnemyScript enemyScript = GetComponentInParent<EnemyScript>();
-            enemyScript.SetArmorSpeed();
+                break;
+
+            case Armor.LightArmor:
+                SetLightArmor();
+
+                break;
+
+            case Armor.HeavyArmor:
+                SetHeavyArmor();
+
+                break;
+
         }
     }
+
+    public enum Armor
+    {
+        None, LightArmor, HeavyArmor,
+    }
+
+    private void SetLightArmor()
+    {
+        EnemyArmorPlateScript[] plates = GetComponentsInChildren<EnemyArmorPlateScript>();
+
+        foreach (EnemyArmorPlateScript plate in plates)
+        {
+            switch (plate.GetArmorType())
+            {
+                case EnemyArmorPlateScript.ArmorType.Head:
+                    plate.SetArmor(headLightArmorPoints);
+                    break;
+                case EnemyArmorPlateScript.ArmorType.Leg:
+                    plate.SetArmor(legsLighArmorPoints);
+                    break;
+
+                case EnemyArmorPlateScript.ArmorType.Arm:
+                    plate.SetArmor(armsLighArmorPoints);
+                    break;
+
+                case EnemyArmorPlateScript.ArmorType.Chest:
+                    plate.SetArmor(chestLighArmorPoints);
+                    break;
+            }
+        }
+
+        EnemyScript enemyScript = GetComponentInParent<EnemyScript>();
+        enemyScript.SetArmorSpeed(lightArmorSpeed);
+    }
+
+    private void SetHeavyArmor()
+    {
+        EnemyArmorPlateScript[] plates = GetComponentsInChildren<EnemyArmorPlateScript>();
+
+        foreach (EnemyArmorPlateScript plate in plates)
+        {
+            switch (plate.GetArmorType())
+            {
+                case EnemyArmorPlateScript.ArmorType.Head:
+                    plate.SetArmor(headHeavyArmorPoints);
+                    break;
+                case EnemyArmorPlateScript.ArmorType.Leg:
+                    plate.SetArmor(legsHeavyArmorPoints);
+                    break;
+
+                case EnemyArmorPlateScript.ArmorType.Arm:
+                    plate.SetArmor(armsHeavyArmorPoints);
+                    break;
+
+                case EnemyArmorPlateScript.ArmorType.Chest:
+                    plate.SetArmor(chestHeavyArmorPoints);
+                    break;
+            }
+        }
+
+        EnemyScript enemyScript = GetComponentInParent<EnemyScript>();
+        enemyScript.SetArmorSpeed(heavyArmorSpeed);
+    }
+
 }

@@ -40,8 +40,8 @@ public class EnemyScript : MonoBehaviour, IDamageable
     {
         return speed;
     }
-    public void SetArmorSpeed()
+    public void SetArmorSpeed(int speed)
     {
-        speed = 1;
+        this.speed = speed;
     }
 }
