@@ -120,7 +120,6 @@ public class GunSystem : MonoBehaviour
             TrailRenderer trail = Instantiate(bulletTrail, shotPoint.position, Quaternion.identity);
 
 
-
             StartCoroutine(SpawnTrail(trail, rayHit));
 
             if (rayHit.collider.TryGetComponent(out IDamageable idamageable))

@@ -42,6 +42,7 @@ public class MeeleEnemyScript : BaseEnemyAI
                 }
                 */
 
+
         if (isAttacking == false)
         {
             StoppingDistance();
