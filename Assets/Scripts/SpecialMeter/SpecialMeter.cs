@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -15,6 +16,9 @@ public class SpecialMeter : MonoBehaviour
     [SerializeField] private TextMeshProUGUI specialCanBeActivatedText;
     [SerializeField] private float maxSliderValue = 100;
 
+
+    public event EventHandler onSpecialAttack;
+
     private void Awake()
     {
         Instance = this;
@@ -26,6 +30,17 @@ public class SpecialMeter : MonoBehaviour
         Mathf.Clamp(specialMeter, 0, 100);
         specialSlider.maxValue = maxSliderValue;
 
+        GameInput.Instance.OnSpecialMovePerformed += GameInput_OnSpecialMovePerformed;
+
+    }
+
+    private void GameInput_OnSpecialMovePerformed(object sender, EventArgs e)
+    {
+        if (ReturnCanActivateSpecial())
+        {
+            ResetSpecialMeter();
+            onSpecialAttack?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     // Update is called once per frame

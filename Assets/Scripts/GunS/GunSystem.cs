@@ -41,6 +41,16 @@ public class GunSystem : MonoBehaviour
     {
         readyToShot = true;
         bulletsLeft = magazineSize;
+
+        GameInput.Instance.OnReloadPerformed += OnReloadPerformed;
+    }
+
+    private void OnReloadPerformed(object sender, EventArgs e)
+    {
+        if (bulletsLeft < magazineSize && !reloading)
+        {
+            Reload();
+        }
     }
 
     // Update is called once per frame
@@ -56,17 +66,13 @@ public class GunSystem : MonoBehaviour
         {
             if (allowToHold)
             {
-                shooting = Input.GetKey(KeyCode.Mouse0);
+                shooting = GameInput.Instance.GetMouseLeftButtonPressed();
             }
             else
             {
-                shooting = Input.GetKeyDown(KeyCode.Mouse0);
+                shooting = GameInput.Instance.GetMouseLeftButton();
             }
 
-            if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading)
-            {
-                Reload();
-            }
 
             if (readyToShot && shooting && !reloading && bulletsLeft > 0)
             {
@@ -305,4 +311,9 @@ public class GunSystem : MonoBehaviour
     }
 
     #endregion
+
+    public WeaponManagerScript.AllGuns ReturnGunType()
+    {
+        return gunType;
+    }
 }

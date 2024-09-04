@@ -3,21 +3,30 @@
     "maps": [
         {
             "name": "Player",
-            "id": "9cc3e9db-a92c-4f95-970f-2e96df8e3f81",
+            "id": "f25887b5-37dc-4a73-9ec3-0a31f16cc5c6",
             "actions": [
                 {
                     "name": "Move",
                     "type": "Value",
-                    "id": "a4a8119d-4e6e-42e2-9ea7-14291b0e04d3",
+                    "id": "97c72ca6-0a0c-4871-bb13-bb09516268f7",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Shoot",
+                    "name": "Interact",
                     "type": "Button",
-                    "id": "3dd72664-a823-4dae-b19c-8836ea7bf516",
+                    "id": "d08a8121-f719-4ed5-bade-5807ae626a27",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SpecialMove",
+                    "type": "Button",
+                    "id": "cbf049b6-cb16-4a17-91d5-434fa3ab1a2b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -26,16 +35,16 @@
                 {
                     "name": "Reload",
                     "type": "Button",
-                    "id": "6f95e2e4-5728-4797-8379-1ea4c7e050f0",
+                    "id": "b3d7ec44-d947-4552-8534-2f47be370e96",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Crouch",
+                    "name": "OpenShop",
                     "type": "Button",
-                    "id": "1a97709c-24ee-4158-a88a-96b6bc3c87aa",
+                    "id": "e1b4b742-e6ad-4ddd-b73c-731de2a5ccdb",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -44,9 +53,9 @@
             ],
             "bindings": [
                 {
-                    "name": "WASD",
-                    "id": "01b54a9d-ca92-4936-a123-fddebdbba7ba",
-                    "path": "2DVector",
+                    "name": "WSAD",
+                    "id": "f4fc26e5-e369-4f5a-9068-8c8cd75e880c",
+                    "path": "2DVector(mode=2)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -55,31 +64,9 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Up",
-                    "id": "97147f74-8274-435f-a177-6f31ca097b76",
+                    "name": "up",
+                    "id": "7123f6a2-261d-40ef-ad95-a6d40cf02790",
                     "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Player",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Down",
-                    "id": "04dd8971-70eb-4e39-8015-58da78088cda",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Player",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Left",
-                    "id": "45833547-4ae9-4f0d-8575-464b85fc4ca8",
-                    "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -88,9 +75,31 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Right",
-                    "id": "42da8219-478c-4139-af86-a15f8e34debd",
-                    "path": "",
+                    "name": "down",
+                    "id": "62dc5bdb-e75c-4689-8321-ba3c19d9b2c2",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "026ec9a4-3969-4d9a-93d3-aa34acddba15",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "6750c32a-2469-41d1-b890-4a16ee245c0d",
+                    "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -100,45 +109,50 @@
                 },
                 {
                     "name": "",
-                    "id": "8160c547-7c79-4eac-af21-3feb5b676a60",
-                    "path": "<Mouse>/leftButton",
+                    "id": "3b3e8159-57dd-4b7b-9ed9-a6400576fc6f",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player",
-                    "action": "Shoot",
+                    "groups": "",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "695a8f96-2cf2-4b07-bed2-f700e6f0c0c0",
+                    "id": "f6451eb0-754c-4b87-95c9-539cbbe22863",
+                    "path": "<Keyboard>/capsLock",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpecialMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8630d91f-7505-461a-8254-954372926674",
                     "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player",
+                    "groups": "",
                     "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "aaaf0039-f80f-4707-be77-3bd87431621b",
-                    "path": "<Keyboard>/ctrl",
+                    "id": "c67a81ba-328f-424e-be7b-fd334d672b69",
+                    "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player",
-                    "action": "Crouch",
+                    "groups": "",
+                    "action": "OpenShop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
             ]
         }
     ],
-    "controlSchemes": [
-        {
-            "name": "Player",
-            "bindingGroup": "Player",
-            "devices": []
-        }
-    ]
+    "controlSchemes": []
 }

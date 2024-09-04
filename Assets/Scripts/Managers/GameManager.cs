@@ -47,6 +47,31 @@ public class GameManager : MonoBehaviour
         gamePlayer.SetActive(false);
         Instance = this;
     }
+    private void Start()
+    {
+
+        GameInput.Instance.OnShopOpened += OnShopOpened;
+    }
+
+    private void OnShopOpened(object sender, EventArgs e)
+    {
+        if (isBreak)
+        {
+            if (isShopOpened == false)
+            {
+                isShopOpened = true;
+                onShopOpened?.Invoke(this, EventArgs.Empty);
+                PlayerController.Instance.SwitchCameraCanMove(false);
+            }
+            else
+            {
+                isShopOpened = false;
+                onShopOpened?.Invoke(this, EventArgs.Empty);
+                PlayerController.Instance.SwitchCameraCanMove(true);
+            }
+        }
+    }
+
     public void SwitchGameMode()
     {
         StartGame();
@@ -74,7 +99,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        OpenShop();
+
     }
 
     public void GameOver()
@@ -188,29 +213,6 @@ public class GameManager : MonoBehaviour
     public int ReturnCurrentRound()
     {
         return roundCount;
-    }
-
-    public void OpenShop()
-    {
-        if (isBreak)
-        {
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                if (isShopOpened == false)
-                {
-                    isShopOpened = true;
-                    onShopOpened?.Invoke(this, EventArgs.Empty);
-                    PlayerController.Instance.SwitchCameraCanMove(false);
-                }
-                else
-                {
-                    isShopOpened = false;
-                    onShopOpened?.Invoke(this, EventArgs.Empty);
-                    PlayerController.Instance.SwitchCameraCanMove(true);
-                }
-
-            }
-        }
     }
 
     public float ReturnBreakTimer()

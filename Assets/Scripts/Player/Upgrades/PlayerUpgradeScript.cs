@@ -29,12 +29,14 @@ public class PlayerUpgradeScript : MonoBehaviour
     void Start()
     {
         isFuryTimeActive = false;
-        PlayerController.Instance.onSpecialAttack += OnSpecialAttack;
+        SpecialMeter.Instance.onSpecialAttack += OnSpecialAttack;
     }
 
 
     private void OnSpecialAttack(object sender, EventArgs e)
     {
+        Debug.Log("activated special");
+
         switch (chosenSpecialMove)
         {
             case PlayerSpecialMoves.ForceWaveAttack:

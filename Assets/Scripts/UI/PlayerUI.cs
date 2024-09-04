@@ -99,6 +99,11 @@ public class PlayerUI : MonoBehaviour
         {
             ammoText.text = GameManager.Instance.GetActiveGun().ReturnMagazineSize() + "/" +
             GameManager.Instance.GetActiveGun().ReturnCurrentAmmo();
+
+            if (GameManager.Instance.GetActiveGun().ReturnGunType() == WeaponManagerScript.AllGuns.Shotgun)
+            {
+                ammoText.text = GameManager.Instance.GetActiveGun().ReturnMagazineSize() / 7 + "/" + GameManager.Instance.GetActiveGun().ReturnCurrentAmmo() / 7;
+            }
         }
     }
 

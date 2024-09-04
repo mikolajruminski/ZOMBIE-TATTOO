@@ -8,7 +8,6 @@ using Unity.Mathematics;
 public class PlayerController : MonoBehaviour
 {
     public event EventHandler onInteract;
-    public event EventHandler onSpecialAttack;
     public static PlayerController Instance { get; private set; }
     private Rigidbody rb;
     #region  Camera
@@ -44,23 +43,13 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    #region Crouch
-    public bool enableCrouch = true;
-    public bool holdToCrouch = true;
-    public KeyCode crouchKey = KeyCode.LeftControl;
-    public float crouchHeight = .75f;
-    public float speedReduction = .5f;
-
     // Internal Variables
-    private bool isCrouched = false;
-    private Vector3 originalScale;
     [SerializeField] private float interactDistance = 30f;
     [SerializeField] private TextMeshProUGUI interactText;
-    #endregion  
 
     #region SpecialMove
 
-    [SerializeField] private KeyCode specialActivationKey = KeyCode.CapsLock;
+    // [SerializeField] private KeyCode specialActivationKey = KeyCode.CapsLock;
 
     #endregion
 
@@ -76,7 +65,6 @@ public class PlayerController : MonoBehaviour
 
         // Set internal variables
         playerCamera.fieldOfView = fov;
-        originalScale = transform.localScale;
 
     }
 
@@ -85,6 +73,22 @@ public class PlayerController : MonoBehaviour
         interactText.gameObject.SetActive(false);
         isCameraFacingFront = true;
 
+        GameInput.Instance.OnInteractButtonPressed += GameInput_OnInteractActionPressed;
+
+    }
+
+
+    private void GameInput_OnInteractActionPressed(object sender, EventArgs e)
+    {
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit rayhit, interactDistance))
+        {
+            if (rayhit.collider.TryGetComponent(out IUseable useable))
+            {
+                onInteract?.Invoke(this, EventArgs.Empty);
+                useable.Interact();
+
+            }
+        }
     }
 
     // Update is called once per frame
@@ -93,16 +97,16 @@ public class PlayerController : MonoBehaviour
         // Control camera movement
         if (cameraCanMove)
         {
-            yaw = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * mouseSensitivity;
+            yaw = transform.localEulerAngles.y + GameInput.Instance.GetMouseXFloat() * mouseSensitivity;
 
             if (!invertCamera)
             {
-                pitch -= mouseSensitivity * Input.GetAxis("Mouse Y");
+                pitch -= mouseSensitivity * GameInput.Instance.GetMouseYFloat();
             }
             else
             {
                 // Inverted Y
-                pitch += mouseSensitivity * Input.GetAxis("Mouse Y");
+                pitch += mouseSensitivity * GameInput.Instance.GetMouseYFloat();
             }
 
             // Clamp pitch between lookAngle
@@ -120,27 +124,7 @@ public class PlayerController : MonoBehaviour
             playerCamera.transform.localEulerAngles = new Vector3(pitch, 0, 0);
         }
 
-        if (enableCrouch)
-        {
-            if (Input.GetKeyDown(crouchKey) && !holdToCrouch)
-            {
-                Crouch();
-            }
-
-            if (Input.GetKeyDown(crouchKey) && holdToCrouch)
-            {
-                isCrouched = false;
-                Crouch();
-            }
-            else if (Input.GetKeyUp(crouchKey) && holdToCrouch)
-            {
-                isCrouched = true;
-                Crouch();
-            }
-        }
-
-        Interact();
-        SpecialMove();
+        InteractText();
     }
 
     private void FixedUpdate()
@@ -149,7 +133,7 @@ public class PlayerController : MonoBehaviour
         {
             // Calculate how fast we should be moving
 
-            Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            Vector3 targetVelocity = new Vector3(GameInput.Instance.GetMovementVectorNormalized().x, 0, GameInput.Instance.GetMovementVectorNormalized().y);
 
             // Checks if player is walking and isGrounded
             // Will allow head bob
@@ -168,29 +152,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void Crouch()
-    {
-        // Stands player up to full height
-        // Brings walkSpeed back up to original speed
-        if (isCrouched)
-        {
-            transform.localScale = new Vector3(originalScale.x, originalScale.y, originalScale.z);
-            walkSpeed /= speedReduction;
-
-            isCrouched = false;
-        }
-        // Crouches player down to set height
-        // Reduces walkSpeed
-        else
-        {
-            transform.localScale = new Vector3(originalScale.x, crouchHeight, originalScale.z);
-            walkSpeed *= speedReduction;
-
-            isCrouched = true;
-        }
-    }
-
-    private void Interact()
+    private void InteractText()
     {
 
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit rayhit, interactDistance))
@@ -199,27 +161,12 @@ public class PlayerController : MonoBehaviour
             {
                 interactText.gameObject.SetActive(true);
                 interactText.text = useable.Description;
+
             }
             else
             {
                 interactText.gameObject.SetActive(false);
             }
-
-            if (rayhit.collider.TryGetComponent(out useable) && Input.GetKeyDown(KeyCode.F))
-            {
-                onInteract?.Invoke(this, EventArgs.Empty);
-                useable.Interact();
-            }
-
-        }
-    }
-
-    private void SpecialMove()
-    {
-        if (Input.GetKeyDown(specialActivationKey) && SpecialMeter.Instance.ReturnCanActivateSpecial())
-        {
-            SpecialMeter.Instance.ResetSpecialMeter();
-            onSpecialAttack?.Invoke(this, EventArgs.Empty);
         }
     }
 
