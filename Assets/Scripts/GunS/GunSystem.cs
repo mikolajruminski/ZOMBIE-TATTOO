@@ -133,8 +133,9 @@ public class GunSystem : MonoBehaviour
                 idamageable.TakeDamage(damage);
                 Debug.Log(idamageable);
 
-                if (rayHit.collider.TryGetComponent(out EnemyStatusAligements statusAligements) && weaponUpgrade.HasAliment() != WeaponManagerScript.RoundAlimentUpgrades.normalRounds)
+                if (rayHit.collider.GetComponentInParent<EnemyStatusAligements>() != null && weaponUpgrade.HasAliment() != WeaponManagerScript.RoundAlimentUpgrades.normalRounds)
                 {
+                    EnemyStatusAligements statusAligements = rayHit.collider.GetComponentInParent<EnemyStatusAligements>();
                     statusAligements.GiveAliment(weaponUpgrade.ReturnTickAmount(), weaponUpgrade.ReturnTickDamage(), weaponUpgrade.HasAliment());
                 }
             }

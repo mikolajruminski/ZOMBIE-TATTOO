@@ -6939,7 +6939,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 574922545}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.6, y: -2.1600003, z: 3.6188}
+  m_LocalPosition: {x: -10.21, y: -2.1600003, z: 3.1}
   m_LocalScale: {x: 3.1744, y: 4.9568257, z: 2.5138462}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9341,7 +9341,7 @@ MonoBehaviour:
   - {fileID: 200690307}
   - {fileID: 630221814}
   - {fileID: 974343082}
-  meeleEnemyPrefab: {fileID: 4835759635898816642, guid: 0d8bd0686280bcb479903c00519b652c,
+  meeleEnemyPrefab: {fileID: 4835759635898816642, guid: b50a990e88f1a8948b93aab199d6faf1,
     type: 3}
   rangedEnemyPrefab: {fileID: 4835759635898816642, guid: d486439d59f37f447ace0a85768caa69,
     type: 3}
@@ -9385,7 +9385,7 @@ MonoBehaviour:
   gamePlayer: {fileID: 1033153866}
   preGamePlayer: {fileID: 181717405}
   baseEnemyRespawnRate: 2
-  baseMaxEnemies: 7
+  baseMaxEnemies: 6
   baseQuantityOfKillsToWin: 8
   timeBetweenRounds: 10
   canPlayerDie: 0

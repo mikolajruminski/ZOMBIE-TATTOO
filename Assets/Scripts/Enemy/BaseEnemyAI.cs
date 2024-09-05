@@ -57,7 +57,7 @@ public class BaseEnemyAI : MonoBehaviour
 
     protected void CallAttackEvent()
     {
-        OnAttackPerformed?.Invoke(this, EventArgs.Empty);
+        OnAttackPerformed?.Invoke(this, EventArgs.Empty); 
     }
 
     public float GetPointValue() 

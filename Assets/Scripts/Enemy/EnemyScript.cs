@@ -10,6 +10,9 @@ public class EnemyScript : MonoBehaviour, IDamageable
 
     private EnemyConsumableDropScript enemyConsumableDropScript;
 
+    public event EventHandler OnNoHeadDeath;
+    public event EventHandler OnDeath;
+
     private void Start()
     {
         enemyConsumableDropScript = GetComponent<EnemyConsumableDropScript>();
@@ -24,15 +27,13 @@ public class EnemyScript : MonoBehaviour, IDamageable
             GameManager.Instance.AddEnemyKills();
             MoneyManager.Instance.AddMoney(GetComponent<BaseEnemyAI>().GetGoldValue());
             SpecialMeter.Instance.FillSpecialMeter(GetComponent<BaseEnemyAI>().GetPointValue());
-
+            RegularDeath();
 
             if (enemyConsumableDropScript != null)
             {
                 enemyConsumableDropScript.DropConsumable();
             }
 
-
-            Destroy(gameObject);
         }
     }
 
@@ -44,4 +45,20 @@ public class EnemyScript : MonoBehaviour, IDamageable
     {
         this.speed = speed;
     }
+
+    public void RegularDeath()
+    {
+        OnDeath?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void NoHeadDeath()
+    {
+        OnNoHeadDeath?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void DestroyOnDeath()
+    {
+        Destroy(gameObject);
+    }
+
 }

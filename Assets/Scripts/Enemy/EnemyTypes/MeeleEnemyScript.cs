@@ -5,6 +5,8 @@ using System;
 using UnityEngine.AI;
 public class MeeleEnemyScript : BaseEnemyAI
 {
+    private Rigidbody rb;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -13,6 +15,7 @@ public class MeeleEnemyScript : BaseEnemyAI
     }
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
 
         nav.speed = enemyScript.GetSpeed();
         fotelTransform = FotelHealthScript.Instance.transform.position;
@@ -62,6 +65,11 @@ public class MeeleEnemyScript : BaseEnemyAI
         CallAttackEvent();
     }
 
+    public void MeeleAttack()
+    {
+        DealDamage();
+    }
+
     /*   private void OnTriggerEnter(Collider other)
        {
            if (other.gameObject.TryGetComponent(out FotelScript fotelScript))
@@ -81,13 +89,19 @@ public class MeeleEnemyScript : BaseEnemyAI
     {
         if (nav.remainingDistance <= nav.stoppingDistance)
         {
-            if (!nav.hasPath || nav.velocity.sqrMagnitude == 0f)
+            nav.isStopped = true;
+            isAttacking = true;
+            GetComponent<Rigidbody>().isKinematic = true;
+            nav.SetDestination(transform.position);
+
+            if (isAttacking)
             {
-                nav.isStopped = true;
-                isAttacking = true;
+                Debug.Log("attacking");
                 InvokeRepeating("Attack", 1, afterAttackCooldown);
 
             }
         }
     }
+
+
 }
