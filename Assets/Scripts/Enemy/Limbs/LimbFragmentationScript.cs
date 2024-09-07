@@ -11,49 +11,70 @@ public class LimbFragmentationScript : MonoBehaviour, IDamageable
     [SerializeField] private bool isHead;
     [SerializeField] private GameObject armPrefab;
 
+    [SerializeField] private bool isAlive;
+
+    private int limbKnockbackVelocity = 5;
+
     private EnemyScript enemyScript;
     private Rigidbody rb;
 
+
     public void TakeDamage(int damage)
     {
-        if (isDeattachable == false && isHead == false)
+        if (isAlive)
         {
-            Debug.Log("dealing " + damage + " damage to thorax");
-            enemyScript.TakeDamage(damage);
-        }
-        else
-        {
-            limbHealth -= damage;
-
-            if (limbHealth > 1)
+            if (isDeattachable == false && isHead == false)
             {
-                enemyScript.TakeDamage(damage - 1);
-
-                Debug.Log("limb health is more than 1, giving " + damage + " points of damage to the limb, leaving it with " + limbHealth + " and giving " + (damage - 1) + " damage to main body");
+                Debug.Log("dealing " + damage + " damage to thorax");
+                enemyScript.TakeDamage(damage);
             }
             else
             {
-                if (isDeattachable)
-                {
-                    Debug.Log("limb health is less than 1, and is detachable. Detaching limb and giving full " + damage + " points of damage to the body");
-                    enemyScript.TakeDamage(damage);
+                limbHealth -= damage;
 
-                    SetLimbLoose();
-                    gameObject.GetComponent<LimbFragmentationScript>().enabled = false;
-                }
-                else if (isHead)
+                if (limbHealth > 1)
                 {
-                    enemyScript.NoHeadDeath();
-                    Debug.Log("head destroyed, insta death");
+                    enemyScript.TakeDamage(damage - 1);
+
+                    Debug.Log("limb health is more than 1, giving " + damage + " points of damage to the limb, leaving it with " + limbHealth + " and giving " + (damage - 1) + " damage to main body");
+                }
+                else
+                {
+                    if (isDeattachable)
+                    {
+                        Debug.Log("limb health is less than 1, and is detachable. Detaching limb and giving full " + damage + " points of damage to the body");
+                        enemyScript.TakeDamage(damage);
+
+                        SetLimbLoose();
+                        gameObject.GetComponent<LimbFragmentationScript>().enabled = false;
+                    }
+                    else if (isHead)
+                    {
+                        enemyScript.NoHeadDeath();
+                        Debug.Log("head destroyed, insta death");
+                    }
                 }
             }
         }
+        else
+        {
+            if (isDeattachable)
+            {
+                SetLimbLoose();
+            }
+            else if (isHead)
+            {
+                Destroy(gameObject);
+            }
+        }
+
 
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        isAlive = true;
         enemyScript = GetComponentInParent<EnemyScript>();
         rb = GetComponent<Rigidbody>();
     }
@@ -68,6 +89,16 @@ public class LimbFragmentationScript : MonoBehaviour, IDamageable
     {
         Destroy(gameObject);
         GameObject newArm = Instantiate(armPrefab, transform.position, transform.rotation);
-        newArm.transform.localScale = transform.localScale;
+        AddVelocityToTheLimb(newArm);
+    }
+
+    private void AddVelocityToTheLimb(GameObject limb)
+    {
+        limb.GetComponent<Rigidbody>().AddForce(-transform.forward * 3, ForceMode.Impulse);
+    }
+
+    public void SwitchOnDeath()
+    {
+        isAlive = false;
     }
 }

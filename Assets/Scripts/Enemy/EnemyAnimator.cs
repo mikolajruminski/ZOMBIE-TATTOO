@@ -10,13 +10,24 @@ public class EnemyAnimator : MonoBehaviour
     private EnemyScript enemyScript;
 
     private MeeleEnemyScript meeleEnemyScript;
+    private RangedEnemy rangedEnemyScript;
 
     // Start is called before the first frame update
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        meeleEnemyScript = GetComponentInParent<MeeleEnemyScript>();
+
+        if (GetComponentInParent<MeeleEnemyScript>() != null)
+        {
+            meeleEnemyScript = GetComponentInParent<MeeleEnemyScript>();
+        }
+
+        if (GetComponentInParent<RangedEnemy>() != null)
+        {
+            rangedEnemyScript = GetComponentInParent<RangedEnemy>();
+        }
+
         enemyAiScript = GetComponentInParent<BaseEnemyAI>();
         enemyScript = GetComponentInParent<EnemyScript>();
     }
@@ -52,6 +63,13 @@ public class EnemyAnimator : MonoBehaviour
     {
         meeleEnemyScript.MeeleAttack();
     }
+
+    public void RangedAttack()
+    {
+        rangedEnemyScript.RangedAttack();
+    }
+
+
 
     public void Death()
     {

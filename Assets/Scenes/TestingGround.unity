@@ -9576,7 +9576,7 @@ MonoBehaviour:
   fov: 60
   invertCamera: 0
   cameraCanMove: 1
-  mouseSensitivity: 0.3
+  mouseSensitivity: 0.15
   alimentMouseSensitivity: 0.5
   maxLookAngle: 50
   maxYawAngle: 50

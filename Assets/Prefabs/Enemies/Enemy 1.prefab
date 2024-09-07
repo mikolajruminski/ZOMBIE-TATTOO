@@ -143,6 +143,7 @@ MonoBehaviour:
   isDeattachable: 0
   isHead: 0
   armPrefab: {fileID: 0}
+  isAlive: 0
 --- !u!114 &3994586976338876649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,7 +320,9 @@ MonoBehaviour:
   limbHealth: 5
   isDeattachable: 1
   isHead: 0
-  armPrefab: {fileID: 0}
+  armPrefab: {fileID: 2668038101961954634, guid: 075d46d3002237d4b819ac85e268bd79,
+    type: 3}
+  isAlive: 0
 --- !u!1 &2048193070901295847
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,8 +454,9 @@ MonoBehaviour:
   limbHealth: 5
   isDeattachable: 1
   isHead: 0
-  armPrefab: {fileID: 6107383607858225536, guid: 32c03b5a2f61f51409de50d1bdfd2a7c,
+  armPrefab: {fileID: 2668038101961954634, guid: 075d46d3002237d4b819ac85e268bd79,
     type: 3}
+  isAlive: 0
 --- !u!1 &2196262520833791170
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,6 +588,7 @@ MonoBehaviour:
   isDeattachable: 0
   isHead: 1
   armPrefab: {fileID: 0}
+  isAlive: 0
 --- !u!1 &4835759635898816642
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,6 +682,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   speed: 2
+  torsoObject: {fileID: 687815480}
 --- !u!114 &4358899590705530886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -883,8 +889,9 @@ MonoBehaviour:
   limbHealth: 5
   isDeattachable: 1
   isHead: 0
-  armPrefab: {fileID: 6107383607858225536, guid: 32c03b5a2f61f51409de50d1bdfd2a7c,
+  armPrefab: {fileID: 2668038101961954634, guid: 075d46d3002237d4b819ac85e268bd79,
     type: 3}
+  isAlive: 0
 --- !u!1 &6163453715710654638
 GameObject:
   m_ObjectHideFlags: 0
@@ -1016,7 +1023,9 @@ MonoBehaviour:
   limbHealth: 5
   isDeattachable: 1
   isHead: 0
-  armPrefab: {fileID: 0}
+  armPrefab: {fileID: 2668038101961954634, guid: 075d46d3002237d4b819ac85e268bd79,
+    type: 3}
+  isAlive: 0
 --- !u!1 &6768863419554373488
 GameObject:
   m_ObjectHideFlags: 0

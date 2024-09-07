@@ -13,9 +13,13 @@ public class RangedEnemy : BaseEnemyAI
 
     private GameObject bulletPrefab;
 
+    private Vector3 yOffset = new Vector3(0, 1.5f, 0);
+
     #region Random bullets values
 
     [SerializeField] private float regularBulletChance = 0.7f;
+
+    private Transform og_destination;
 
     #endregion
 
@@ -34,6 +38,7 @@ public class RangedEnemy : BaseEnemyAI
     // Update is called once per frame
     void Update()
     {
+
         if (GameManager.Instance.IsGameActive())
         {
             if (isAttacking == false)
@@ -58,7 +63,7 @@ public class RangedEnemy : BaseEnemyAI
 
     public void RangedAttack()
     {
-        Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        Instantiate(bulletPrefab, transform.position + yOffset, Quaternion.identity);
     }
 
     private void TargetInRange()
@@ -66,12 +71,13 @@ public class RangedEnemy : BaseEnemyAI
         Vector3 direction = nav.destination - transform.position;
 
         Debug.DrawRay(transform.position, direction * 1000f, Color.yellow);
-        if (Physics.SphereCast(transform.position, GetComponent<CapsuleCollider>().radius, direction, out RaycastHit hitinfo))
+        if (Physics.SphereCast(transform.position, GetComponentInChildren<CapsuleCollider>().radius, direction, out RaycastHit hitinfo))
         {
             if (hitinfo.collider.TryGetComponent(out FotelHealthScript fotelHealthScript))
             {
                 if (isAttacking == false)
                 {
+                    nav.SetDestination(transform.position);
                     nav.isStopped = true;
                     isAttacking = true;
                     InvokeRepeating("Attack", 1, afterAttackCooldown);

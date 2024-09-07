@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyScript : MonoBehaviour, IDamageable
 {
@@ -12,6 +13,8 @@ public class EnemyScript : MonoBehaviour, IDamageable
 
     public event EventHandler OnNoHeadDeath;
     public event EventHandler OnDeath;
+
+    [SerializeField] private GameObject torsoObject;
 
     private void Start()
     {
@@ -58,7 +61,37 @@ public class EnemyScript : MonoBehaviour, IDamageable
 
     public void DestroyOnDeath()
     {
-        Destroy(gameObject);
+        this.enabled = false;
+        if (GetComponent<MeeleEnemyScript>() != null)
+        {
+            GetComponent<MeeleEnemyScript>().enabled = false;
+        }
+
+        if (GetComponent<RangedEnemy>() != null)
+        {
+            GetComponent<RangedEnemy>().enabled = false;
+        }
+
+        GetComponent<EnemyStatusAligements>().enabled = false;
+        GetComponent<EnemyAlimentsVisualScript>().enabled = false;
+        GetComponent<EnemyConsumableDropScript>().enabled = false;
+        GetComponent<EnemyImmunitiesScript>().enabled = false;
+        Destroy(GetComponent<Rigidbody>());
+        GetComponent<NavMeshAgent>().enabled = false;
+        GetComponentInChildren<CapsuleCollider>().enabled = false;
+        GetComponentInChildren<Animator>().enabled = false;
+        GetComponentInChildren<LimbFragmentationScript>().enabled = false;
+        GetComponentInChildren<EnemyAnimator>().enabled = false;
+
+        foreach (Transform child in torsoObject.transform)
+        {
+            child.GetComponent<LimbFragmentationScript>().SwitchOnDeath();
+            /*
+            child.GetComponent<Collider>().enabled = false;
+            Destroy(child.GetComponent<Rigidbody>());
+            */
+        }
+
     }
 
 }

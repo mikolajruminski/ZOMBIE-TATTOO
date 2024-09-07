@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class MeeleEnemyScript : BaseEnemyAI
 {
     private Rigidbody rb;
+    private Vector3 og_destination;
 
     // Start is called before the first frame update
     private void Awake()
@@ -20,14 +21,22 @@ public class MeeleEnemyScript : BaseEnemyAI
         nav.speed = enemyScript.GetSpeed();
         fotelTransform = FotelHealthScript.Instance.transform.position;
         SetInitialCoordinates();
-
+        og_destination = fotelTransform;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(nav.destination);
+        if (!isAttacking)
+        {
+            transform.LookAt(nav.destination);
+        }
+        else
+        {
+            transform.LookAt(og_destination);
+        }
+
         /*
                 if (GameManager.Instance.IsGameActive())
                 {
