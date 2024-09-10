@@ -7,6 +7,8 @@ public class EnemyArmorScript : MonoBehaviour
 {
     [SerializeField] private Armor armorType;
 
+    [SerializeField] private GameObject thoraxObject;
+
     [SerializeField] private int headHeavyArmorPoints = 15;
     [SerializeField] private int chestHeavyArmorPoints = 30;
     [SerializeField] private int armsHeavyArmorPoints = 10;
@@ -66,7 +68,7 @@ public class EnemyArmorScript : MonoBehaviour
 
     private void SetLightArmor()
     {
-        EnemyArmorPlateScript[] plates = GetComponentsInChildren<EnemyArmorPlateScript>();
+        EnemyArmorPlateScript[] plates = thoraxObject.GetComponentsInChildren<EnemyArmorPlateScript>();
 
         foreach (EnemyArmorPlateScript plate in plates)
         {
@@ -95,7 +97,7 @@ public class EnemyArmorScript : MonoBehaviour
 
     private void SetHeavyArmor()
     {
-        EnemyArmorPlateScript[] plates = GetComponentsInChildren<EnemyArmorPlateScript>();
+        EnemyArmorPlateScript[] plates = thoraxObject.GetComponentsInChildren<EnemyArmorPlateScript>();
 
         foreach (EnemyArmorPlateScript plate in plates)
         {

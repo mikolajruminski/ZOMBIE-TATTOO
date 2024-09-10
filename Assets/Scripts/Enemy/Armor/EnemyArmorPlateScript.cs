@@ -6,14 +6,18 @@ public class EnemyArmorPlateScript : MonoBehaviour, IDamageable
 {
     [SerializeField] private ArmorType armorType;
     [SerializeField] private int plateDurability;
+    [SerializeField] private GameObject platePrefab;
     public void TakeDamage(int damage)
     {
+
         plateDurability -= damage;
 
         if (plateDurability <= 0)
         {
-            Destroy(gameObject);
+            ReleaseArmorPlate();
         }
+
+
     }
 
     // Start is called before the first frame update
@@ -43,4 +47,11 @@ public class EnemyArmorPlateScript : MonoBehaviour, IDamageable
     {
         return armorType;
     }
+
+    private void ReleaseArmorPlate()
+    {
+        Destroy(gameObject);
+        GameObject newArmorPlate = Instantiate(platePrefab, transform.position, transform.rotation);
+    }
+
 }

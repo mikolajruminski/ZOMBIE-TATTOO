@@ -85,7 +85,11 @@ public class EnemyScript : MonoBehaviour, IDamageable
 
         foreach (Transform child in torsoObject.transform)
         {
-            child.GetComponent<LimbFragmentationScript>().SwitchOnDeath();
+            if (child.GetComponent<LimbFragmentationScript>() != null)
+            {
+                child.GetComponent<LimbFragmentationScript>().SwitchOnDeath();
+            }
+
             /*
             child.GetComponent<Collider>().enabled = false;
             Destroy(child.GetComponent<Rigidbody>());

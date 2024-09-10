@@ -9341,7 +9341,7 @@ MonoBehaviour:
   - {fileID: 200690307}
   - {fileID: 630221814}
   - {fileID: 974343082}
-  meeleEnemyPrefab: {fileID: 4835759635898816642, guid: b50a990e88f1a8948b93aab199d6faf1,
+  meeleEnemyPrefab: {fileID: 4835759635898816642, guid: c699fe3ac4b036f43b44d29c0f950c2e,
     type: 3}
   rangedEnemyPrefab: {fileID: 4835759635898816642, guid: d486439d59f37f447ace0a85768caa69,
     type: 3}
