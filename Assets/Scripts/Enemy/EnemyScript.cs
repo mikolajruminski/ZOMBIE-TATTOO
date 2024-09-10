@@ -27,14 +27,7 @@ public class EnemyScript : MonoBehaviour, IDamageable
         if (health <= 0)
         {
             //add it to gamemanager, by an event maybe?
-
             Death(DeathType.RegularDeath);
-
-            if (enemyConsumableDropScript != null)
-            {
-                enemyConsumableDropScript.DropConsumable();
-            }
-
         }
     }
 
@@ -49,6 +42,11 @@ public class EnemyScript : MonoBehaviour, IDamageable
 
     public void Death(DeathType deathType)
     {
+        if (enemyConsumableDropScript != null)
+        {
+            enemyConsumableDropScript.DropConsumable();
+        }
+        
         GameManager.Instance.AddEnemyKills();
         MoneyManager.Instance.AddMoney(GetComponent<BaseEnemyAI>().GetGoldValue());
         SpecialMeter.Instance.FillSpecialMeter(GetComponent<BaseEnemyAI>().GetPointValue());

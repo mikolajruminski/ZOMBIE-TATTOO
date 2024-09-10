@@ -9,6 +9,7 @@ public class GameArmsAnimatorScript : MonoBehaviour
     public event EventHandler OnFuryTimeAnimationEnded;
     public event EventHandler OnForceAttackAnimationEnded;
     public event EventHandler onInkAttackStart;
+    public event EventHandler OnConsumableAnimationEnded;
     Animator animator;
     // Start is called before the first frame update
 
@@ -27,7 +28,14 @@ public class GameArmsAnimatorScript : MonoBehaviour
         PlayerUpgradeScript.Instance.onForceWaveAttackActivated += OnForceWaveAttackActivated;
         PlayerUpgradeScript.Instance.onTattoInkAttackActivated += OnTattoInkAttackActivated;
         InkMachineAttackScript.Instance.onInkAttackEnded += OnInkAttackEnded;
+        ConsumableHolderScript.Instance.OnConsumableShot += OnConsumableShot;
         //animator.enabled = false;
+    }
+
+    private void OnConsumableShot(object sender, EventArgs e)
+    {
+        animator.enabled = true;
+        animator.Play("CatchConsumable");
     }
 
     private void OnInkAttackEnded(object sender, EventArgs e)
@@ -75,5 +83,10 @@ public class GameArmsAnimatorScript : MonoBehaviour
     public void DisableAnimator()
     {
         animator.enabled = false;
+    }
+
+    public void UseConsumable()
+    {
+        OnConsumableAnimationEnded?.Invoke(this, EventArgs.Empty);
     }
 }

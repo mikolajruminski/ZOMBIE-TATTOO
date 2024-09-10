@@ -14,4 +14,9 @@ public class ConsumableScript : MonoBehaviour, IDamageable
 
     }
 
+    public virtual void OnUse()
+    {
+
+    }
+
 }

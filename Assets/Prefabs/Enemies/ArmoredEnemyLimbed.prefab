@@ -1086,8 +1086,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   consumables:
-  - {fileID: 7739716152367590519, guid: 16769f4f9f859e74fb59834b631b0449, type: 3}
-  - {fileID: 4426909842174388093, guid: 97fbb4d43e9e5aa45a0c36e34726f793, type: 3}
+  - {fileID: -7689002044007982690, guid: 8e8222843959e6d4da01c6dc9860194b, type: 3}
+  - {fileID: 6063481020989601959, guid: 9f1dd795a97ecc647851c271ff7f2fec, type: 3}
   specialConsumables:
   - {fileID: 6476376447389833304, guid: 9f636a95fc3cbf748999a2c7de382953, type: 3}
   chanceToDropConsumable: 0.18
