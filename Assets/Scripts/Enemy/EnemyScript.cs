@@ -27,10 +27,8 @@ public class EnemyScript : MonoBehaviour, IDamageable
         if (health <= 0)
         {
             //add it to gamemanager, by an event maybe?
-            GameManager.Instance.AddEnemyKills();
-            MoneyManager.Instance.AddMoney(GetComponent<BaseEnemyAI>().GetGoldValue());
-            SpecialMeter.Instance.FillSpecialMeter(GetComponent<BaseEnemyAI>().GetPointValue());
-            RegularDeath();
+
+            Death(DeathType.RegularDeath);
 
             if (enemyConsumableDropScript != null)
             {
@@ -49,14 +47,22 @@ public class EnemyScript : MonoBehaviour, IDamageable
         this.speed = speed;
     }
 
-    public void RegularDeath()
+    public void Death(DeathType deathType)
     {
-        OnDeath?.Invoke(this, EventArgs.Empty);
-    }
+        GameManager.Instance.AddEnemyKills();
+        MoneyManager.Instance.AddMoney(GetComponent<BaseEnemyAI>().GetGoldValue());
+        SpecialMeter.Instance.FillSpecialMeter(GetComponent<BaseEnemyAI>().GetPointValue());
 
-    public void NoHeadDeath()
-    {
-        OnNoHeadDeath?.Invoke(this, EventArgs.Empty);
+        switch (deathType)
+        {
+            case DeathType.RegularDeath:
+                OnDeath?.Invoke(this, EventArgs.Empty);
+                break;
+
+            case DeathType.NoHeadDeath:
+                OnNoHeadDeath?.Invoke(this, EventArgs.Empty);
+                break;
+        }
     }
 
     public void DestroyOnDeath()
@@ -96,6 +102,11 @@ public class EnemyScript : MonoBehaviour, IDamageable
             */
         }
 
+    }
+
+    public enum DeathType
+    {
+        RegularDeath, NoHeadDeath
     }
 
 }

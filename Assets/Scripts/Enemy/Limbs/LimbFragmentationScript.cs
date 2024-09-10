@@ -50,7 +50,7 @@ public class LimbFragmentationScript : MonoBehaviour, IDamageable
                     }
                     else if (isHead)
                     {
-                        enemyScript.NoHeadDeath();
+                        enemyScript.Death(EnemyScript.DeathType.NoHeadDeath);
                         Debug.Log("head destroyed, insta death");
                     }
                 }
