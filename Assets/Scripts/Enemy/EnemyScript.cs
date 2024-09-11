@@ -8,11 +8,13 @@ public class EnemyScript : MonoBehaviour, IDamageable
 {
     [SerializeField] private int health;
     [SerializeField] private int speed;
+    [SerializeField] private int noLegSpeed;
 
     private EnemyConsumableDropScript enemyConsumableDropScript;
 
     public event EventHandler OnNoHeadDeath;
     public event EventHandler OnDeath;
+    public event EventHandler noLegDeath;
 
     [SerializeField] private GameObject torsoObject;
 
@@ -46,7 +48,7 @@ public class EnemyScript : MonoBehaviour, IDamageable
         {
             enemyConsumableDropScript.DropConsumable();
         }
-        
+
         GameManager.Instance.AddEnemyKills();
         MoneyManager.Instance.AddMoney(GetComponent<BaseEnemyAI>().GetGoldValue());
         SpecialMeter.Instance.FillSpecialMeter(GetComponent<BaseEnemyAI>().GetPointValue());
@@ -54,12 +56,30 @@ public class EnemyScript : MonoBehaviour, IDamageable
         switch (deathType)
         {
             case DeathType.RegularDeath:
-                OnDeath?.Invoke(this, EventArgs.Empty);
-                break;
+                if (GetComponentInChildren<LimbsMissingScript>().isLegMissing())
+                {
+                    noLegDeath?.Invoke(this, EventArgs.Empty);
+                    break;
+                }
+                else
+                {
+                    OnDeath?.Invoke(this, EventArgs.Empty);
+                    break;
+                }
 
             case DeathType.NoHeadDeath:
-                OnNoHeadDeath?.Invoke(this, EventArgs.Empty);
-                break;
+
+                if (GetComponentInChildren<LimbsMissingScript>().isLegMissing())
+                {
+                    noLegDeath?.Invoke(this, EventArgs.Empty);
+                    break;
+                }
+                else
+                {
+                    OnNoHeadDeath?.Invoke(this, EventArgs.Empty);
+                    break;
+                }
+
         }
     }
 
@@ -104,7 +124,7 @@ public class EnemyScript : MonoBehaviour, IDamageable
 
     public enum DeathType
     {
-        RegularDeath, NoHeadDeath
+        RegularDeath, NoHeadDeath, NoLegDeath
     }
 
 }

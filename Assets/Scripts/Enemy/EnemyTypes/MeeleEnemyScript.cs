@@ -8,6 +8,8 @@ public class MeeleEnemyScript : BaseEnemyAI
     private Rigidbody rb;
     private Vector3 og_destination;
 
+    public event EventHandler onLostLeg;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -110,6 +112,20 @@ public class MeeleEnemyScript : BaseEnemyAI
 
             }
         }
+    }
+
+    public void SetLimbedDamage()
+    {
+        this.damage = 1;
+        Debug.Log("set damage to 1, confirmation: damage = " + this.damage);
+    }
+
+    public void SetLostLegSpeed()
+    {
+        Debug.Log("lowered enemy speed, confirmation: previus speed " + nav.speed);
+        nav.speed = 1;
+        Debug.Log("current speed = " + nav.speed);
+        onLostLeg?.Invoke(this, EventArgs.Empty);
     }
 
 

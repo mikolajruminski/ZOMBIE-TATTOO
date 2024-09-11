@@ -1,22 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class LimbFragmentationScript : MonoBehaviour, IDamageable
 {
+    [SerializeField] private LimbsMissingScript.Limb limb;
     [SerializeField] private int limbHealth = 4;
     private int damageToEnemyHealthDivision = 10;
     [SerializeField] private bool isDeattachable;
     [SerializeField] private bool isHead;
     [SerializeField] private GameObject armPrefab;
 
-    [SerializeField] private bool isAlive;
-
+    private bool isAlive;
     private int limbKnockbackVelocity = 5;
 
     private EnemyScript enemyScript;
     private Rigidbody rb;
+    private LimbsMissingScript limbsMissingScript;
 
 
     public void TakeDamage(int damage)
@@ -47,6 +49,7 @@ public class LimbFragmentationScript : MonoBehaviour, IDamageable
 
                         SetLimbLoose();
                         gameObject.GetComponent<LimbFragmentationScript>().enabled = false;
+                        LoseLimbStatistics();
                     }
                     else if (isHead)
                     {
@@ -77,6 +80,7 @@ public class LimbFragmentationScript : MonoBehaviour, IDamageable
         isAlive = true;
         enemyScript = GetComponentInParent<EnemyScript>();
         rb = GetComponent<Rigidbody>();
+        limbsMissingScript = GetComponentInParent<LimbsMissingScript>();
     }
 
     // Update is called once per frame
@@ -100,5 +104,10 @@ public class LimbFragmentationScript : MonoBehaviour, IDamageable
     public void SwitchOnDeath()
     {
         isAlive = false;
+    }
+
+    private void LoseLimbStatistics()
+    {
+        limbsMissingScript.LoseLimbStatistics(limb);
     }
 }

@@ -36,6 +36,22 @@ public class EnemyAnimator : MonoBehaviour
         enemyAiScript.OnAttackPerformed += OnAttackPerformed;
         enemyScript.OnNoHeadDeath += OnNoHeadDeath;
         enemyScript.OnDeath += OnDeath;
+        if (meeleEnemyScript != null)
+        {
+            meeleEnemyScript.onLostLeg += OnLostLeg;
+        }
+
+        enemyScript.noLegDeath += OnNoLegDeath;
+    }
+
+    private void OnNoLegDeath(object sender, EventArgs e)
+    {
+        animator.Play("NoLegDeath");
+    }
+
+    private void OnLostLeg(object sender, EventArgs e)
+    {
+        animator.Play("LostLegFall");
     }
 
     private void OnDeath(object sender, EventArgs e)
@@ -68,8 +84,6 @@ public class EnemyAnimator : MonoBehaviour
     {
         rangedEnemyScript.RangedAttack();
     }
-
-
 
     public void Death()
     {
