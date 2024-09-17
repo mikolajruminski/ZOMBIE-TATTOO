@@ -5,11 +5,18 @@ using UnityEngine;
 public class ConFuryTime : ConsumableScript
 {
     [SerializeField] private float furyTime = 5f;
-    public override void OnDestroyed()
+    public override void OnRemoved()
     {
-        // PlayerUpgradeScript.Instance.StartCoroutine(PlayerUpgradeScript.Instance.ActivateFuryTime(furyTime));
+        ConsumableHolderScript.Instance.ConsumableShot(gameObject);
+        Debug.Log("consuambel shot spawning");
 
+        Destroy(gameObject);
+    }
+
+    public override void OnUse()
+    {
         PlayerUpgradeScript.Instance.ConsumedFuryTime(furyTime);
+        Debug.Log("used fury pack");
         Destroy(gameObject);
     }
 }

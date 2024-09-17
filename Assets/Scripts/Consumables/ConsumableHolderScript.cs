@@ -9,6 +9,7 @@ public class ConsumableHolderScript : MonoBehaviour
     public static ConsumableHolderScript Instance { get; private set; }
     [SerializeField] private GameObject ammoConPrefab;
     [SerializeField] private GameObject healthConPrefab;
+    [SerializeField] private GameObject furyConPrefab;
 
     public event EventHandler OnConsumableShot;
 
@@ -40,7 +41,14 @@ public class ConsumableHolderScript : MonoBehaviour
         }
         else if (consumable.GetComponent<ConHealthPack>() != null)
         {
+            Debug.Log("spawning consuamble");
             SpawnConsuamble(healthConPrefab);
+            OnConsumableShot?.Invoke(this, EventArgs.Empty);
+        }
+
+        else if (consumable.GetComponent<ConFuryTime>() != null)
+        {
+            SpawnConsuamble(furyConPrefab);
             OnConsumableShot?.Invoke(this, EventArgs.Empty);
         }
     }
@@ -58,5 +66,6 @@ public class ConsumableHolderScript : MonoBehaviour
     public void UseCurrentlySpawnedConsumable()
     {
         currentlySpawnedConsumable.gameObject.GetComponent<ConsumableScript>().OnUse();
+        DeleteConsumable();
     }
 }

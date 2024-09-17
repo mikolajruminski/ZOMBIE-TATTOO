@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ConAmmoPack : ConsumableScript
 {
-    public override void OnDestroyed()
+    public override void OnRemoved()
     {
         ConsumableHolderScript.Instance.ConsumableShot(gameObject);
         Debug.Log("used ammo pack");

@@ -8243,6 +8243,8 @@ MonoBehaviour:
     type: 3}
   healthConPrefab: {fileID: 8196029546336760369, guid: 9f1dd795a97ecc647851c271ff7f2fec,
     type: 3}
+  furyConPrefab: {fileID: 7269894848741665242, guid: e1851766273802b4ba388e71a7283619,
+    type: 3}
 --- !u!1 &811743200
 GameObject:
   m_ObjectHideFlags: 0
@@ -23061,8 +23063,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0014838b538b9643a37a813fc683e18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intensity: 2
-  smooth: 10
+  intensity: 20167
+  smooth: 19.63
 --- !u!95 &8306066692901027476
 Animator:
   serializedVersion: 5

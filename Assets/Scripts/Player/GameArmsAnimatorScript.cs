@@ -25,7 +25,6 @@ public class GameArmsAnimatorScript : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
 
         PlayerUpgradeScript.Instance.onFuryTimeActivated += OnFuryTimeActivated;
-        PlayerUpgradeScript.Instance.onForceWaveAttackActivated += OnForceWaveAttackActivated;
         PlayerUpgradeScript.Instance.onTattoInkAttackActivated += OnTattoInkAttackActivated;
         InkMachineAttackScript.Instance.onInkAttackEnded += OnInkAttackEnded;
         ConsumableHolderScript.Instance.OnConsumableShot += OnConsumableShot;
@@ -48,12 +47,6 @@ public class GameArmsAnimatorScript : MonoBehaviour
     {
         animator.enabled = true;
         animator.Play("TattoInkAttackAct");
-    }
-
-    private void OnForceWaveAttackActivated(object sender, EventArgs e)
-    {
-        animator.enabled = true;
-        animator.Play("ForceWaveAttack");
     }
 
     private void OnFuryTimeActivated(object sender, EventArgs e)

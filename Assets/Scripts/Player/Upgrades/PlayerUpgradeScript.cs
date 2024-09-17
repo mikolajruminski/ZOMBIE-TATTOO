@@ -15,7 +15,6 @@ public class PlayerUpgradeScript : MonoBehaviour
 
     #region SpecialMovesStart Events
 
-    public event EventHandler onForceWaveAttackActivated;
     public event EventHandler onTattoInkAttackActivated;
 
     #endregion
@@ -23,7 +22,7 @@ public class PlayerUpgradeScript : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        chosenSpecialMove = PlayerSpecialMoves.ForceWaveAttack;
+        chosenSpecialMove = PlayerSpecialMoves.TattoInkAttack;
     }
 
     void Start()
@@ -39,10 +38,6 @@ public class PlayerUpgradeScript : MonoBehaviour
 
         switch (chosenSpecialMove)
         {
-            case PlayerSpecialMoves.ForceWaveAttack:
-                onForceWaveAttackActivated?.Invoke(this, EventArgs.Empty);
-                break;
-
             case PlayerSpecialMoves.TattoInkAttack:
                 onTattoInkAttackActivated?.Invoke(this, EventArgs.Empty);
                 break;
@@ -66,7 +61,7 @@ public class PlayerUpgradeScript : MonoBehaviour
 
     public enum PlayerSpecialMoves
     {
-        TattoInkAttack, ForceWaveAttack
+        TattoInkAttack
     }
 
     public void AddedNewUpgrade(PlayerUpgradeSo item)

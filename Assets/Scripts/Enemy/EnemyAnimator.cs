@@ -46,12 +46,12 @@ public class EnemyAnimator : MonoBehaviour
 
     private void OnNoLegDeath(object sender, EventArgs e)
     {
-        animator.Play("NoLegDeath");
+        animator.Play("LimbedEnemyCrawlDeath");
     }
 
     private void OnLostLeg(object sender, EventArgs e)
     {
-        animator.Play("LostLegFall");
+        animator.Play("FallLimbedEnemy");
     }
 
     private void OnDeath(object sender, EventArgs e)

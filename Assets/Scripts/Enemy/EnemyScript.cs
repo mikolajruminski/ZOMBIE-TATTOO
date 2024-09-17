@@ -18,6 +18,8 @@ public class EnemyScript : MonoBehaviour, IDamageable
 
     [SerializeField] private GameObject torsoObject;
 
+    [SerializeField] private ParticleSystem headBloodExplode;
+
     private void Start()
     {
         enemyConsumableDropScript = GetComponent<EnemyConsumableDropScript>();
@@ -56,7 +58,7 @@ public class EnemyScript : MonoBehaviour, IDamageable
         switch (deathType)
         {
             case DeathType.RegularDeath:
-                if (GetComponentInChildren<LimbsMissingScript>().isLegMissing())
+                if (torsoObject.GetComponentInChildren<LimbsMissingScript>().isLegMissing())
                 {
                     noLegDeath?.Invoke(this, EventArgs.Empty);
                     break;
@@ -69,7 +71,7 @@ public class EnemyScript : MonoBehaviour, IDamageable
 
             case DeathType.NoHeadDeath:
 
-                if (GetComponentInChildren<LimbsMissingScript>().isLegMissing())
+                if (torsoObject.GetComponentInChildren<LimbsMissingScript>().isLegMissing())
                 {
                     noLegDeath?.Invoke(this, EventArgs.Empty);
                     break;
@@ -77,6 +79,7 @@ public class EnemyScript : MonoBehaviour, IDamageable
                 else
                 {
                     OnNoHeadDeath?.Invoke(this, EventArgs.Empty);
+                    headBloodExplode.Play();
                     break;
                 }
 

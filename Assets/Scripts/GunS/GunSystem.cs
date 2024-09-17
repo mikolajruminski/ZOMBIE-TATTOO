@@ -128,10 +128,9 @@ public class GunSystem : MonoBehaviour
 
             StartCoroutine(SpawnTrail(trail, rayHit));
 
-            if (rayHit.collider.TryGetComponent(out IDamageable idamageable))
+            if (rayHit.collider.TryGetComponent(out IDamageable idamageable) && rayHit.collider.GetComponent<ConsumableScript>() == null)
             {
                 idamageable.TakeDamage(damage);
-                Debug.Log(idamageable);
 
                 if (rayHit.collider.GetComponentInParent<EnemyStatusAligements>() != null && weaponUpgrade.HasAliment() != WeaponManagerScript.RoundAlimentUpgrades.normalRounds)
                 {
