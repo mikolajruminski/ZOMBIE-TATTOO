@@ -8,7 +8,7 @@ public class WeakPointScript : MonoBehaviour, IDamageable
 {
     [SerializeField] private int _baseWeakPointHealth = 3;
     private int _weakPointHealth;
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, RaycastHit hit)
     {
         EnemyScript enemyScript = GetComponentInParent<EnemyScript>();
         enemyScript.TakeDamage(damage);

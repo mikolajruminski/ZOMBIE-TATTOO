@@ -130,7 +130,9 @@ public class GunSystem : MonoBehaviour
 
             if (rayHit.collider.TryGetComponent(out IDamageable idamageable) && rayHit.collider.GetComponent<ConsumableScript>() == null)
             {
-                idamageable.TakeDamage(damage);
+
+                idamageable.TakeDamage(damage, rayHit);
+
 
                 if (rayHit.collider.GetComponentInParent<EnemyStatusAligements>() != null && weaponUpgrade.HasAliment() != WeaponManagerScript.RoundAlimentUpgrades.normalRounds)
                 {
@@ -259,7 +261,7 @@ public class GunSystem : MonoBehaviour
         {
             if (rayHit.collider.TryGetComponent(out ConsumableScript component))
             {
-                component.TakeDamage(damage);
+                component.TakeDamage(damage, rayHit);
             }
         }
     }

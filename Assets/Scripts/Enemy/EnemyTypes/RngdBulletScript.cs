@@ -32,7 +32,7 @@ public class RngdBulletScript : MonoBehaviour, IDamageable
         rb.AddForce(direction * _speed, ForceMode.Impulse);
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, RaycastHit hit)
     {
         Destroy(gameObject);
     }

@@ -7,7 +7,7 @@ public class EnemyArmorPlateScript : MonoBehaviour, IDamageable
     [SerializeField] private ArmorType armorType;
     [SerializeField] private int plateDurability;
     [SerializeField] private GameObject platePrefab;
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, RaycastHit hit)
     {
 
         plateDurability -= damage;

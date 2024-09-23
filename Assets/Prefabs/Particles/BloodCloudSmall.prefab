@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7528879788762170378}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.998, y: -6.651, z: 21.02}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -45,14 +45,14 @@ ParticleSystem:
   serializedVersion: 8
   lengthInSec: 0.15
   simulationSpeed: 1
-  stopAction: 0
+  stopAction: 2
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -4864,7 +4864,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -9709,7 +9709,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7528879789145080858}
-  m_LocalRotation: {x: 0.7197277, y: -0.04317804, z: 0.005870291, w: 0.69288766}
+  m_LocalRotation: {x: 0.5010617, y: 0.46315417, z: 0.51670074, w: 0.5171517}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0.33535123}
   m_ConstrainProportionsScale: 0
@@ -9717,7 +9717,7 @@ Transform:
   - {fileID: 7528879789005838451}
   m_Father: {fileID: 7528879788762170379}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 93.725006, y: 52.279, z: 56.255997}
+  m_LocalEulerAnglesHint: {x: 177.729, y: -93.95099, z: -87.92999}
 --- !u!198 &7528879789145080853
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -9728,14 +9728,14 @@ ParticleSystem:
   serializedVersion: 8
   lengthInSec: 0.5
   simulationSpeed: 1
-  stopAction: 0
+  stopAction: 2
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -9854,8 +9854,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 4.16
-      minScalar: 3.02
+      scalar: 10.38
+      minScalar: 8.15
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -10347,7 +10347,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 10.88
+    angle: 11.72
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 0.45
@@ -12280,8 +12280,8 @@ ParticleSystem:
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 1
-          value: 0.6079712
+          time: 0.9945679
+          value: 0.87239075
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -12319,7 +12319,7 @@ ParticleSystem:
     inWorldSpace: 0
     multiplyDragByParticleSize: 1
     multiplyDragByParticleVelocity: 1
-    dampen: 0.17
+    dampen: 0.02
     drag:
       serializedVersion: 2
       minMaxState: 0
@@ -14549,14 +14549,14 @@ ParticleSystem:
   serializedVersion: 8
   lengthInSec: 0.15
   simulationSpeed: 1
-  stopAction: 0
+  stopAction: 2
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:

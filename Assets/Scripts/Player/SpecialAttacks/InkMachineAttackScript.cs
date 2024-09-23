@@ -50,7 +50,7 @@ public class InkMachineAttackScript : MonoBehaviour
     {
         foreach (IDamageable damageable in damageables)
         {
-            damageable.TakeDamage(tickDamage);
+            //damageable.TakeDamage(tickDamage);
         }
 
         damageables.Clear();

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ConsumableScript : MonoBehaviour, IDamageable
 {
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, RaycastHit hit)
     {
         OnRemoved();
     }

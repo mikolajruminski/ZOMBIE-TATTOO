@@ -10,11 +10,10 @@ public class SpecialAttackEventScript : MonoBehaviour
 
     #region  Special Attacks scripts
     private InkMachineAttackScript inkMachineAttackScript;
-    private SpecialMoveScript specialMoveScript;
 
     #endregion
 
-    private void Awake() 
+    private void Awake()
     {
         inkMachineAttackScript = GetComponentInChildren<InkMachineAttackScript>();
     }
@@ -22,8 +21,6 @@ public class SpecialAttackEventScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        specialMoveScript = GetComponentInChildren<SpecialMoveScript>();
-        GameArmsAnimatorScript.Instance.OnForceAttackAnimationEnded += onForceAttackAnimationEnded;
         GameArmsAnimatorScript.Instance.OnFuryTimeAnimationEnded += onFuryTimeAnimationEnded;
         GameArmsAnimatorScript.Instance.onInkAttackStart += onInkAttackStart;
     }
@@ -37,8 +34,4 @@ public class SpecialAttackEventScript : MonoBehaviour
         PlayerUpgradeScript.Instance.OnFuryTimeAnimationEnded();
     }
 
-    private void onForceAttackAnimationEnded(object sender, EventArgs e)
-    {
-        StartCoroutine(specialMoveScript.EnableAttackColldier());
-    }
 }

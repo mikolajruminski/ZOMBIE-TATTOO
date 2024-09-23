@@ -19,18 +19,30 @@ public class EnemyScript : MonoBehaviour, IDamageable
     [SerializeField] private GameObject torsoObject;
 
     [SerializeField] private ParticleSystem headBloodExplode;
+    [SerializeField] private ParticleSystem hitBlood;
 
     private void Start()
     {
         enemyConsumableDropScript = GetComponent<EnemyConsumableDropScript>();
     }
+    public void TakeDamage(int damage, RaycastHit hit)
+    {
+        health -= damage;
+
+        Instantiate(hitBlood, hit.transform.position, Quaternion.identity);
+
+        if (health <= 0)
+        {
+            Death(DeathType.RegularDeath);
+        }
+    }
+
     public void TakeDamage(int damage)
     {
         health -= damage;
 
         if (health <= 0)
         {
-            //add it to gamemanager, by an event maybe?
             Death(DeathType.RegularDeath);
         }
     }
@@ -74,6 +86,7 @@ public class EnemyScript : MonoBehaviour, IDamageable
                 if (torsoObject.GetComponentInChildren<LimbsMissingScript>().isLegMissing())
                 {
                     noLegDeath?.Invoke(this, EventArgs.Empty);
+                    headBloodExplode.Play();
                     break;
                 }
                 else

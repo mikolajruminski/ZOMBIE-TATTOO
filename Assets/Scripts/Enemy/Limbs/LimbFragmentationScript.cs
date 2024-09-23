@@ -21,14 +21,14 @@ public class LimbFragmentationScript : MonoBehaviour, IDamageable
     private LimbsMissingScript limbsMissingScript;
 
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, RaycastHit hit)
     {
         if (isAlive)
         {
             if (isDeattachable == false && isHead == false)
             {
                 Debug.Log("dealing " + damage + " damage to thorax");
-                enemyScript.TakeDamage(damage);
+                enemyScript.TakeDamage(damage, hit);
             }
             else
             {
@@ -36,7 +36,7 @@ public class LimbFragmentationScript : MonoBehaviour, IDamageable
 
                 if (limbHealth > 1)
                 {
-                    enemyScript.TakeDamage(damage - 1);
+                    enemyScript.TakeDamage(damage - 1, hit);
 
                     Debug.Log("limb health is more than 1, giving " + damage + " points of damage to the limb, leaving it with " + limbHealth + " and giving " + (damage - 1) + " damage to main body");
                 }
@@ -45,7 +45,7 @@ public class LimbFragmentationScript : MonoBehaviour, IDamageable
                     if (isDeattachable)
                     {
                         Debug.Log("limb health is less than 1, and is detachable. Detaching limb and giving full " + damage + " points of damage to the body");
-                        enemyScript.TakeDamage(damage);
+                        enemyScript.TakeDamage(damage, hit);
 
                         SetLimbLoose();
                         gameObject.GetComponent<LimbFragmentationScript>().enabled = false;
