@@ -121,10 +121,10 @@ public class GunSystem : MonoBehaviour
 
         ShootConsumableRaycast();
 
+
         if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range))
         {
             TrailRenderer trail = Instantiate(bulletTrail, shotPoint.position, Quaternion.identity);
-
 
             StartCoroutine(SpawnTrail(trail, rayHit));
 

@@ -65,7 +65,7 @@ public class SpawnManager : MonoBehaviour
         int currentlySpawnedMeeleEnemies = 0;
         int currentlySpawnedRangedEnemies = 0;
 
-        Debug.Log("need to spawn " + amountOfMeeleEnemiesToSpawn + " meele enemies + " + amountOfRangedToSpawn + " ranged enemies");
+        //Debug.Log("need to spawn " + amountOfMeeleEnemiesToSpawn + " meele enemies + " + amountOfRangedToSpawn + " ranged enemies");
 
         if (currentAmountOfEnemies < GameManager.Instance.ReturnMaxEnemies() && currentAmountOfEnemies < GameManager.Instance.ReturnQuantityOfKillsToWin())
         {
@@ -75,7 +75,7 @@ public class SpawnManager : MonoBehaviour
 
                 if (x < 2)
                 {
-                    Debug.Log("chance to spawn ranged enemy: " + x + "/10, spawning all possible ranged enemies");
+                    //Debug.Log("chance to spawn ranged enemy: " + x + "/10, spawning all possible ranged enemies");
                     for (int i = 0; i <= amountOfRangedToSpawn; i++)
                     {
                         int y = UnityEngine.Random.Range(0, rangedSpawners.Length);
@@ -103,7 +103,7 @@ public class SpawnManager : MonoBehaviour
 
                 else if (x < 7)
                 {
-                    Debug.Log("chance to spawn ranged enemy: " + x + "/10, spawning one ranged enemy");
+                    //Debug.Log("chance to spawn ranged enemy: " + x + "/10, spawning one ranged enemy");
 
                     int y = UnityEngine.Random.Range(0, rangedSpawners.Length);
 
@@ -121,12 +121,12 @@ public class SpawnManager : MonoBehaviour
 
                 else if (x >= 8)
                 {
-                    Debug.Log("chance to spawn ranged enemy: " + x + "/10, not spawning ranged enemies");
+                    //Debug.Log("chance to spawn ranged enemy: " + x + "/10, not spawning ranged enemies");
                 }
             }
             else
             {
-                Debug.Log("Condidions not met, not spawning ranged enemies");
+               // Debug.Log("Condidions not met, not spawning ranged enemies");
             }
 
             if (amountOfMeeleEnemiesToSpawn > 0 && meeleEnemyPrefab != null)

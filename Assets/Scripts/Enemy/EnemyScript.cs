@@ -8,13 +8,10 @@ public class EnemyScript : MonoBehaviour, IDamageable
 {
     [SerializeField] private int health;
     [SerializeField] private int speed;
-    [SerializeField] private int noLegSpeed;
 
     private EnemyConsumableDropScript enemyConsumableDropScript;
 
-    public event EventHandler OnNoHeadDeath;
     public event EventHandler OnDeath;
-    public event EventHandler noLegDeath;
 
     [SerializeField] private GameObject torsoObject;
 
@@ -33,7 +30,7 @@ public class EnemyScript : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
-            Death(DeathType.RegularDeath);
+            Death();
         }
     }
 
@@ -43,7 +40,7 @@ public class EnemyScript : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
-            Death(DeathType.RegularDeath);
+            Death();
         }
     }
 
@@ -56,7 +53,7 @@ public class EnemyScript : MonoBehaviour, IDamageable
         this.speed = speed;
     }
 
-    public void Death(DeathType deathType)
+    public void Death()
     {
         if (enemyConsumableDropScript != null)
         {
@@ -67,36 +64,9 @@ public class EnemyScript : MonoBehaviour, IDamageable
         MoneyManager.Instance.AddMoney(GetComponent<BaseEnemyAI>().GetGoldValue());
         SpecialMeter.Instance.FillSpecialMeter(GetComponent<BaseEnemyAI>().GetPointValue());
 
-        switch (deathType)
-        {
-            case DeathType.RegularDeath:
-                if (torsoObject.GetComponentInChildren<LimbsMissingScript>().isLegMissing())
-                {
-                    noLegDeath?.Invoke(this, EventArgs.Empty);
-                    break;
-                }
-                else
-                {
-                    OnDeath?.Invoke(this, EventArgs.Empty);
-                    break;
-                }
 
-            case DeathType.NoHeadDeath:
-
-                if (torsoObject.GetComponentInChildren<LimbsMissingScript>().isLegMissing())
-                {
-                    noLegDeath?.Invoke(this, EventArgs.Empty);
-                    headBloodExplode.Play();
-                    break;
-                }
-                else
-                {
-                    OnNoHeadDeath?.Invoke(this, EventArgs.Empty);
-                    headBloodExplode.Play();
-                    break;
-                }
-
-        }
+        OnDeath?.Invoke(this, EventArgs.Empty);
+        GetComponentInChildren<LimbsMissingScript>().RevokeKinematicRigidbodies();
     }
 
     public void DestroyOnDeath()
@@ -138,9 +108,9 @@ public class EnemyScript : MonoBehaviour, IDamageable
 
     }
 
-    public enum DeathType
+    public void PlayHeadExplodeParticles()
     {
-        RegularDeath, NoHeadDeath, NoLegDeath
+        headBloodExplode.Play();
     }
 
 }

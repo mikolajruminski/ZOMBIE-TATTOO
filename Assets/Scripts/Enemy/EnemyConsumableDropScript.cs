@@ -22,6 +22,7 @@ public class EnemyConsumableDropScript : MonoBehaviour
 
     public void DropConsumable()
     {
+        /*
         float randValue = Random.value;
 
         if (randValue < chanceToDropSpecialConsumable)
@@ -40,6 +41,7 @@ public class EnemyConsumableDropScript : MonoBehaviour
         {
             Debug.Log("dropped nothing with chance of: " + randValue);
         }
-
+*/
+        Debug.Log("would drop a consumable or not");
     }
 }

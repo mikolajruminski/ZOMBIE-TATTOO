@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.VersionControl;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class LimbFragmentationScript : MonoBehaviour, IDamageable
 {
@@ -12,6 +13,7 @@ public class LimbFragmentationScript : MonoBehaviour, IDamageable
     [SerializeField] private bool isDeattachable;
     [SerializeField] private bool isHead;
     [SerializeField] private GameObject armPrefab;
+    [SerializeField] private GameObject limbMesh;
 
     private bool isAlive;
     private int limbKnockbackVelocity = 5;
@@ -20,19 +22,27 @@ public class LimbFragmentationScript : MonoBehaviour, IDamageable
     private Rigidbody rb;
     private LimbsMissingScript limbsMissingScript;
 
+    //Animations
+
 
     public void TakeDamage(int damage, RaycastHit hit)
     {
+
         if (isAlive)
         {
             if (isDeattachable == false && isHead == false)
             {
                 Debug.Log("dealing " + damage + " damage to thorax");
+                limbsMissingScript.SentLimbHitInfo(limb);
+
                 enemyScript.TakeDamage(damage, hit);
             }
             else
             {
                 limbHealth -= damage;
+
+                limbsMissingScript.SentLimbHitInfo(limb);
+
 
                 if (limbHealth > 1)
                 {
@@ -47,20 +57,26 @@ public class LimbFragmentationScript : MonoBehaviour, IDamageable
                         Debug.Log("limb health is less than 1, and is detachable. Detaching limb and giving full " + damage + " points of damage to the body");
                         enemyScript.TakeDamage(damage, hit);
 
-                        SetLimbLoose();
-                        gameObject.GetComponent<LimbFragmentationScript>().enabled = false;
+
+                        CheckForLowerLimb();
+
+
                         LoseLimbStatistics();
                     }
                     else if (isHead)
                     {
-                        enemyScript.Death(EnemyScript.DeathType.NoHeadDeath);
-                        Debug.Log("head destroyed, insta death");
+                        enemyScript.Death();
+                        GetComponentInParent<LimbsMissingScript>().RevokeKinematicRigidbodies();
+                        enemyScript.PlayHeadExplodeParticles();
+                        SetLimbLoose();
                     }
                 }
             }
         }
+        /*
         else
         {
+            
             if (isDeattachable)
             {
                 SetLimbLoose();
@@ -70,7 +86,8 @@ public class LimbFragmentationScript : MonoBehaviour, IDamageable
                 Destroy(gameObject);
             }
         }
-
+       
+ */
 
     }
 
@@ -91,9 +108,11 @@ public class LimbFragmentationScript : MonoBehaviour, IDamageable
 
     private void SetLimbLoose()
     {
-        Destroy(gameObject);
-        GameObject newArm = Instantiate(armPrefab, transform.position, transform.rotation);
-        AddVelocityToTheLimb(newArm);
+        gameObject.SetActive(false);
+        Destroy(limbMesh);
+        GameObject newLimb = Instantiate(armPrefab, transform.position, transform.rotation);
+        AddVelocityToTheLimb(newLimb);
+        gameObject.GetComponent<LimbFragmentationScript>().enabled = false;
     }
 
     private void AddVelocityToTheLimb(GameObject limb)
@@ -106,8 +125,33 @@ public class LimbFragmentationScript : MonoBehaviour, IDamageable
         isAlive = false;
     }
 
+    private void CheckForLowerLimb()
+    {
+        if (transform.GetChild(0).gameObject.GetComponent<LimbFragmentationScript>() != null)
+        {
+            LimbFragmentationScript limbFragmentationScript = transform.GetChild(0).gameObject.GetComponent<LimbFragmentationScript>();
+
+            if (limbFragmentationScript.limb == limb)
+            {
+                DestroyBothLimbs();
+            }
+        }
+        else
+        {
+            SetLimbLoose();
+        }
+
+    }
+
     private void LoseLimbStatistics()
     {
         limbsMissingScript.LoseLimbStatistics(limb);
     }
+
+    public void DestroyBothLimbs()
+    {
+        transform.GetChild(0).gameObject.GetComponent<LimbFragmentationScript>().SetLimbLoose();
+        SetLimbLoose();
+    }
+
 }

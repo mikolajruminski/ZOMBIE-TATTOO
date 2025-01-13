@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.AI;
+using System.IO;
 public class MeeleEnemyScript : BaseEnemyAI
 {
     private Rigidbody rb;
     private Vector3 og_destination;
 
     public event EventHandler onLostLeg;
+
 
     // Start is called before the first frame update
     private void Awake()
@@ -30,13 +32,11 @@ public class MeeleEnemyScript : BaseEnemyAI
     // Update is called once per frame
     void Update()
     {
-        if (!isAttacking)
+        if (nav.hasPath)
         {
-            transform.LookAt(nav.destination);
-        }
-        else
-        {
-            transform.LookAt(og_destination);
+            var dir = (nav.steeringTarget - transform.position).normalized;
+            transform.rotation = Quaternion.LookRotation(dir);
+
         }
 
         /*
@@ -122,10 +122,20 @@ public class MeeleEnemyScript : BaseEnemyAI
 
     public void SetLostLegSpeed()
     {
-        Debug.Log("lowered enemy speed, confirmation: previus speed " + nav.speed);
-        nav.speed = 1;
-        Debug.Log("current speed = " + nav.speed);
         onLostLeg?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnDrawGizmos()
+    {
+        for (var i = 0; i < nav.path.corners.Length - 1; i++)
+        {
+            Debug.DrawLine(nav.path.corners[i], nav.path.corners[i + 1], Color.yellow);
+        }
+    }
+
+    public void SetPosition(Vector3 position)
+    {
+        transform.position = position;
     }
 
 
